@@ -8,8 +8,8 @@
 <channel>
 	<title>
 	Comments on: Technical Report	</title>
-	<atom:link href="/thevicbro.github.io/portfolio/technical-report/feed/" rel="self" type="application/rss+xml" />
-	<link>/thevicbro.github.io/portfolio/technical-report/</link>
+	<atom:link href="https://thevicbro.github.io/portfolio/technical-report/feed/" rel="self" type="application/rss+xml" />
+	<link>https://thevicbro.github.io/portfolio/technical-report/</link>
 	<description>Computer Engineer</description>
 	<lastBuildDate>Mon, 28 Mar 2022 18:19:00 +0000</lastBuildDate>
 	<sy:updatePeriod>
