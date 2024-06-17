@@ -85,20 +85,36 @@ export default function Home() {
                 </motion.button>
               </div>
               <div className="relative">
-                <div className="absolute z-10 bottom-40 right-20 w-64 h-56 bg-white rounded-lg"></div>
+                <div className="absolute z-10 bottom-40 right-20 w-64 h-60 bg-white rounded-lg"></div>
                 <div className="absolute z-10 bottom-0 right-48 w-64 h-56 bg-white rounded-lg"></div>
               </div>
             </div>
           </div>
           <div className="bg-lightblack w-1/4 h-160 rounded-lg">
-            <div className="w-full h-full p-6">
-              <img src="/profilepic.jpg" alt="profile" className="rounded-lg w-full h-full object-cover" />
-            </div>
+            <motion.div 
+              initial={{ height: 0 }}
+              animate={{ height: "40rem" }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            >
+              <div className="w-full h-full p-6">
+                <img src="/profilepic.jpg" alt="profile" className="rounded-lg w-full h-full object-cover" />
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
-      <div className="relative bg-lightblack z-20 h-screen rounded-3xl">
-        test
+      <div className="relative bg-lightblack z-20 h-screen rounded-3xl px-48 py-16">
+        <div className="text-10xl font-bold text-white mb-8">PORTFOLIO</div>
+        <div className="flex">
+          <div className="flex-col w-2/5 mr-8">
+            <div className="text-12xl font-medium text-skyblue leading-none">01.</div>
+            <div className="text-4xl text-gray-400 mb-4 mt-8">ROUT3</div>
+            <div className="text-5xl text-white">LLM Proxy Web App</div>
+          </div>
+          <div>
+            <img src="/llmproxy.png" alt="llmproxy" className=" object-cover rounded-lg flex-grow" />
+          </div>
+        </div>
       </div>
     </main>
   );
