@@ -13,17 +13,33 @@ export default function Home() {
       >
         <div className="text-6xl font-bold">VC</div>
         <div className="flex items-row text-4xl font-semibold space-x-28">
-          <div>Portfolio</div>
-          <div>About</div>
-          <div>Contact</div>
+          {["Portfolio", "About", "Contact"].map((item) => (
+            <motion.div
+              key={item}
+              className="relative"
+              whileHover="hover"
+              initial="initial"
+              animate="initial"
+            >
+              <button className="relative z-10">{item}</button>
+              <motion.div
+                className="absolute bottom-[-1] left-1/2 transform -translate-x-1/2 h-2 bg-skyblue"
+                variants={{
+                  initial: { width: 0 },
+                  hover: { width: "100%" },
+                }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+              />
+            </motion.div>
+          ))}
         </div>
       </motion.div>
       <div className="h-screen sticky top-0">
         <div className="flex justify-between pt-48 px-48">
           <div className="flex flex-col justify-between">
-            <div> 
+            <div>
               <div className="truncate">
-                <motion.div 
+                <motion.div
                   className="mt-4 text-12xl font-bold text-lightblack leading-none"
                   initial={{ y: "100%" }}
                   animate={{ y: "0%" }}
@@ -34,7 +50,7 @@ export default function Home() {
               </div>
               <div className="mt-2 px-12">
                 <div className="truncate pb-2">
-                  <motion.div 
+                  <motion.div
                     className="text-7xl font-bold text-skyblue"
                     initial={{ y: "-110%" }}
                     animate={{ y: "0%" }}
@@ -65,23 +81,23 @@ export default function Home() {
             </div>
             <div className="flex justify-between items-end">
               <div className="flex space-x-4 px-12">
-                <motion.button 
+                <motion.button
                   className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
                   initial={{ width: 0 }}
                   animate={{ width: "4rem" }}
                   transition={{ duration: 1, ease: "easeOut" }}
                   layout="preserve-aspect"
                 >
-                  <img src="/linkedin.png" className="w-14 h-14"/>
+                  <img src="/linkedin.png" className="w-14 h-14" />
                 </motion.button>
-                <motion.button 
+                <motion.button
                   className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
                   initial={{ width: 0 }}
                   animate={{ width: "4rem" }}
                   transition={{ duration: 1, ease: "easeOut" }}
                   layout="preserve-aspect"
                 >
-                  <img src="/github.png" className="h-16 w-16"/>
+                  <img src="/github.png" className="h-16 w-16" />
                 </motion.button>
               </div>
               <div className="relative">
@@ -91,7 +107,7 @@ export default function Home() {
             </div>
           </div>
           <div className="bg-lightblack w-1/4 h-160 rounded-lg">
-            <motion.div 
+            <motion.div
               initial={{ height: 0 }}
               animate={{ height: "40rem" }}
               transition={{ duration: 1, ease: "easeOut" }}
@@ -100,6 +116,12 @@ export default function Home() {
                 <img src="/profilepic.jpg" alt="profile" className="rounded-lg w-full h-full object-cover" />
               </div>
             </motion.div>
+          </div>
+        </div>
+        <div className="relative">
+          <div className="flex mt-64 px-48 justify-between">
+            <div>ONTARIO, CANADA</div>
+            <div>(SCROLL FOR MORE)</div>
           </div>
         </div>
       </div>
@@ -112,7 +134,7 @@ export default function Home() {
             <div className="text-5xl text-white">LLM Proxy Web App</div>
           </div>
           <div>
-            <img src="/llmproxy.png" alt="llmproxy" className=" object-cover rounded-lg flex-grow" />
+            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" />
           </div>
         </div>
       </div>
