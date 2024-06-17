@@ -17,10 +17,16 @@ const config: Config = {
         '10xl': '10rem',
         '11xl': '11rem',
         '12xl': '12rem',
+        '13xl': '13rem',
       },
       colors: {
         'skyblue': '#0D99FF',
         'lightblack': '#3D3D3D',
+      },
+      height: {
+        '128': '32rem',
+        '144': '36rem',
+        '160': '40rem',
       },
     },
   },
