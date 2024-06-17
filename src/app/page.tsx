@@ -1,20 +1,47 @@
+"use client";
+
+import { motion } from 'framer-motion';
+
 export default function Home() {
   return (
     <main>
-      <div className="flex items-center justify-between p-16 px-48 text-lightblack">
+      <motion.div
+        className="flex items-center justify-between p-16 px-48 text-lightblack"
+        initial={{ opacity: 0, y: -140 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: 'easeOut' }}
+      >
         <div className="text-6xl font-bold">VC</div>
         <div className="flex items-row text-4xl font-semibold space-x-28">
           <div>Portfolio</div>
           <div>About</div>
           <div>Contact</div>
         </div>
-      </div>
+      </motion.div>
       <div className="flex justify-between pt-48 px-48">
         <div className="flex flex-col justify-between">
           <div> 
-            <div className="mt-4 text-12xl font-bold text-lightblack leading-none">VICTOR CHUNG</div>
+            <div className="truncate">
+              <motion.div 
+                className="mt-4 text-12xl font-bold text-lightblack leading-none"
+                initial={{ y: "100%" }}
+                animate={{ y: "0%" }}
+                transition={{ duration: 1, ease: "easeOut" }}
+              >
+                VICTOR CHUNG
+              </motion.div>
+            </div>
             <div className="mt-2 px-12">
-              <div className="text-7xl font-bold text-skyblue">Full Stack Developer</div>
+              <div className="truncate pb-2">
+                <motion.div 
+                  className="text-7xl font-bold text-skyblue"
+                  initial={{ y: "-110%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                >
+                  Full Stack Developer
+                </motion.div>
+              </div>
               <div className="mt-6 space-x-8">
                 <button className="rounded-lg bg-white text-3xl font-medium p-6 px-8">View Portfolio</button>
                 <button className="rounded-lg bg-white text-3xl font-medium p-6 px-8">View Resume</button>

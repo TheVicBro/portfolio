@@ -22,6 +22,7 @@ const config: Config = {
       colors: {
         'skyblue': '#0D99FF',
         'lightblack': '#3D3D3D',
+        'background': '#E6E6E6',
       },
       height: {
         '128': '32rem',
