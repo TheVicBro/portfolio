@@ -4,13 +4,40 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from "react-intersection-observer";
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
+const slideInLeft = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
 export default function Home() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 1500], [1, 0]);
   const y = useTransform(scrollY, [0, 1500], [0, 200]);
 
-  const portfolioRef = useRef(null);
-  const { ref, inView } = useInView({
+  const portfolioRef = useRef<HTMLDivElement|null>(null);
+  const { ref: portfolioRefView, inView: portfolioInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+  const { ref: portfolioItemRef1, inView: portfolioItemInView1 } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+  const { ref: portfolioItemRef2, inView: portfolioItemInView2 } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+  const { ref: portfolioItemRef3, inView: portfolioItemInView3 } = useInView({
     triggerOnce: true,
     threshold: 0.2,
   });
@@ -153,20 +180,21 @@ export default function Home() {
         </div>
       </motion.div>
       <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl px-48 py-16">
-        <motion.div 
-          ref={ref}
+        <motion.div
+          ref={portfolioRefView}
           className="text-10xl font-bold text-white mb-8"
           initial={{ opacity: 0, y: -50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
+          animate={portfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           PORTFOLIO
         </motion.div>
-        <div className="flex">
-          <motion.div 
+        <div className="flex mb-36">
+          <motion.div
+            ref={portfolioItemRef1}
             className="flex-col w-2/5 mr-8"
             initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            animate={portfolioItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div className="text-12xl font-medium text-skyblue leading-none">01.</div>
@@ -174,11 +202,53 @@ export default function Home() {
             <div className="text-5xl text-white">LLM Proxy Web App</div>
           </motion.div>
           <motion.div
+            className="w-11/12"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            animate={portfolioItemInView1 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow mb-4" />
+            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" />
+          </motion.div>
+        </div>
+        <div className="flex mb-36">
+          <motion.div
+            ref={portfolioItemRef2}
+            className="flex-col w-2/5 mr-8"
+            initial={{ opacity: 0, x: -50 }}
+            animate={portfolioItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="text-12xl font-medium text-skyblue leading-none">02.</div>
+            <div className="text-4xl text-gray-400 mb-4 mt-8">GOEASY</div>
+            <div className="text-5xl text-white">Web App UI</div>
+          </motion.div>
+          <motion.div
+            className="w-11/12"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={portfolioItemInView2 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" />
+          </motion.div>
+        </div>
+        <div className="flex mb-36">
+          <motion.div
+            ref={portfolioItemRef3}
+            className="flex-col w-2/5 mr-8"
+            initial={{ opacity: 0, x: -50 }}
+            animate={portfolioItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="text-12xl font-medium text-skyblue leading-none">03.</div>
+            <div className="text-4xl text-gray-400 mb-4 mt-8">PLACEHOLDER</div>
+            <div className="text-5xl text-white">Placeholder</div>
+          </motion.div>
+          <motion.div
+            className="w-11/12"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={portfolioItemInView3 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
             <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" />
           </motion.div>
         </div>
