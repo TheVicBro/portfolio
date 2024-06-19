@@ -1,8 +1,12 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function Home() {
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 1500], [1, 0]);
+  const y = useTransform(scrollY, [0, 1500], [0, 200]);
+
   return (
     <main>
       <motion.div
@@ -34,7 +38,12 @@ export default function Home() {
           ))}
         </div>
       </motion.div>
-      <div className="h-screen sticky top-0">
+      <motion.div 
+        className="h-screen sticky top-0"
+        style={{ opacity, y }}
+        initial={{ opacity: 1, y: 0 }}
+        transition={{ ease: 'easeOut' }}
+      >
         <div className="flex justify-between pt-48 px-48">
           <div className="flex flex-col justify-between">
             <div>
@@ -119,12 +128,12 @@ export default function Home() {
           </div>
         </div>
         <div className="relative">
-          <div className="flex mt-64 px-48 justify-between">
+          <div className="flex mt-64 px-48 justify-between text-lightblack">
             <div>ONTARIO, CANADA</div>
             <div>(SCROLL FOR MORE)</div>
           </div>
         </div>
-      </div>
+      </motion.div>
       <div className="relative bg-lightblack z-20 h-screen rounded-3xl px-48 py-16">
         <div className="text-10xl font-bold text-white mb-8">PORTFOLIO</div>
         <div className="flex">
