@@ -2,12 +2,18 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useInView } from "react-intersection-observer";
 
 export default function Home() {
-  const portfolioRef = useRef<HTMLDivElement|null>(null);
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 1500], [1, 0]);
   const y = useTransform(scrollY, [0, 1500], [0, 200]);
+
+  const portfolioRef = useRef(null);
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
 
   return (
     <main>
@@ -146,17 +152,35 @@ export default function Home() {
           </div>
         </div>
       </motion.div>
-      <div ref={portfolioRef} className="relative bg-lightblack z-20 h-screen rounded-3xl px-48 py-16">
-        <div className="text-10xl font-bold text-white mb-8">PORTFOLIO</div>
+      <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl px-48 py-16">
+        <motion.div 
+          ref={ref}
+          className="text-10xl font-bold text-white mb-8"
+          initial={{ opacity: 0, y: -50 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          PORTFOLIO
+        </motion.div>
         <div className="flex">
-          <div className="flex-col w-2/5 mr-8">
+          <motion.div 
+            className="flex-col w-2/5 mr-8"
+            initial={{ opacity: 0, x: -50 }}
+            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             <div className="text-12xl font-medium text-skyblue leading-none">01.</div>
             <div className="text-4xl text-gray-400 mb-4 mt-8">ROUT3</div>
             <div className="text-5xl text-white">LLM Proxy Web App</div>
-          </div>
-          <div>
-            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" />
-          </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow mb-4" />
+            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" />
+          </motion.div>
         </div>
       </div>
     </main>
