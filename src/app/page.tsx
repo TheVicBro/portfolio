@@ -1,5 +1,6 @@
 "use client";
 
+import Link from 'next/link';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from "react-intersection-observer";
@@ -135,24 +136,28 @@ export default function Home() {
             </div>
             <div className="flex justify-between items-end">
               <div className="flex space-x-4 px-12">
-                <motion.button
-                  className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
-                  initial={{ width: 0 }}
-                  animate={{ width: "4rem" }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  layout="preserve-aspect"
-                >
-                  <img src="/linkedin.png" className="w-14 h-14" />
-                </motion.button>
-                <motion.button
-                  className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
-                  initial={{ width: 0 }}
-                  animate={{ width: "4rem" }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  layout="preserve-aspect"
-                >
-                  <img src="/github.png" className="h-16 w-16" />
-                </motion.button>
+                <Link href="https://www.linkedin.com/in/victor-chung-ca/" target="_blank" rel="noopener noreferrer">
+                  <motion.button
+                    className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
+                    initial={{ width: 0 }}
+                    animate={{ width: "4rem" }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    layout="preserve-aspect"
+                  >
+                    <img src="/linkedin.png" className="w-14 h-14" />
+                  </motion.button>
+                </Link>
+                <Link href="https://github.com/TheVicBro" target="_blank" rel="noopener noreferrer">
+                  <motion.button
+                    className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
+                    initial={{ width: 0 }}
+                    animate={{ width: "4rem" }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    layout="preserve-aspect"
+                  >
+                    <img src="/github.png" className="h-16 w-16" />
+                  </motion.button>
+                </Link>
               </div>
               <div className="relative">
                 <div className="absolute z-10 bottom-40 right-20 w-64 h-60 bg-white rounded-lg"></div>
