@@ -14,6 +14,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontSize: {
+        '9xl': '9rem',
         '10xl': '10rem',
         '11xl': '11rem',
         '12xl': '12rem',
@@ -25,9 +26,15 @@ const config: Config = {
         'background': '#E6E6E6',
       },
       height: {
+        '112': '28rem',
         '128': '32rem',
         '144': '36rem',
         '160': '40rem',
+      },
+      screens: {
+        '3xl': '1600px',
+        '4xl': '1920px',
+        '5xl': '2560px',
       },
     },
   },

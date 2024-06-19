@@ -5,21 +5,6 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from "react-intersection-observer";
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-};
-
-const slideInLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut" } },
-};
-
 export default function Home() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 1500], [1, 0]);
@@ -46,7 +31,7 @@ export default function Home() {
   return (
     <main>
       <motion.div
-        className="flex items-center justify-between p-16 px-48 text-lightblack"
+        className="flex items-center justify-between p-16 5xl:px-48 px-40 text-lightblack"
         initial={{ opacity: 0, y: -140 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
@@ -89,12 +74,12 @@ export default function Home() {
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
-        <div className="flex justify-between pt-48 px-48">
+        <div className="flex justify-between 5xl:pt-48 5xl:px-48 pt-40 px-40">
           <div className="flex flex-col justify-between">
             <div>
               <div className="truncate">
                 <motion.div
-                  className="mt-4 text-12xl font-bold text-lightblack leading-none"
+                  className="mt-4 5xl:text-12xl text-9xl font-bold text-lightblack leading-none"
                   initial={{ y: "100%" }}
                   animate={{ y: "0%" }}
                   transition={{ duration: 1, ease: "easeOut" }}
@@ -105,7 +90,7 @@ export default function Home() {
               <div className="mt-2 px-12">
                 <div className="truncate pb-2">
                   <motion.div
-                    className="text-7xl font-bold text-skyblue"
+                    className="5xl:text-7xl text-6xl font-bold text-skyblue"
                     initial={{ y: "-110%" }}
                     animate={{ y: "0%" }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -113,9 +98,9 @@ export default function Home() {
                     Full Stack Developer
                   </motion.div>
                 </div>
-                <div className="mt-6 space-x-8">
+                <div className="5xl:mt-6 mt-4 space-x-8">
                   <motion.button
-                    className="rounded-lg bg-white text-3xl font-medium py-6 overflow-hidden whitespace-nowrap"
+                    className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 overflow-hidden whitespace-nowrap"
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
                     animate={{ width: "18rem", paddingLeft: "2rem", paddingRight: "2rem" }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -124,7 +109,7 @@ export default function Home() {
                     <p className="line-clamp-1">View Portfolio</p>
                   </motion.button>
                   <motion.button
-                    className="rounded-lg bg-white text-3xl font-medium py-6 overflow-hidden whitespace-nowrap"
+                    className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 overflow-hidden whitespace-nowrap"
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
                     animate={{ width: "18rem", paddingLeft: "2rem", paddingRight: "2rem" }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -160,15 +145,15 @@ export default function Home() {
                 </Link>
               </div>
               <div className="relative">
-                <div className="absolute z-10 bottom-40 right-20 w-64 h-60 bg-white rounded-lg"></div>
-                <div className="absolute z-10 bottom-0 right-48 w-64 h-56 bg-white rounded-lg"></div>
+                <div className="absolute z-10 5xl:bottom-40 bottom-28 5xl:right-20 right-16 5xl:w-64 5xl:h-60 w-48 h-40 bg-white rounded-lg"></div>
+                <div className="absolute z-10 bottom-0 5xl:right-48 right-36 5xl:w-64 5xl:h-56 w-48 h-40 bg-white rounded-lg"></div>
               </div>
             </div>
           </div>
-          <div className="bg-lightblack w-1/4 h-160 rounded-lg">
+          <div className="bg-lightblack w-1/4 h-112 5xl:h-160 rounded-lg">
             <motion.div
               initial={{ height: 0 }}
-              animate={{ height: "40rem" }}
+              animate={{ height: "100%" }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
               <div className="w-full h-full p-6">
