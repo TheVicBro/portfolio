@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from "react-intersection-observer";
 
@@ -28,8 +28,42 @@ export default function Home() {
     threshold: 0.2,
   });
 
+  const [cursorX, setCursorX] = useState<number | undefined>(0);
+  const [cursorY, setCursorY] = useState<number | undefined>(0);
+  const [cursorScale, setCursorScale] = useState<number>(0);
+
+  const handleMouseEnter = () => {
+    setCursorScale(2.5);
+  };
+
+  const handleMouseLeave = () => {
+    setCursorScale(0);
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    setCursorX(e.clientX);
+    setCursorY(e.clientY);
+  };
+  
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+  
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   return (
     <main>
+      <motion.div
+        className="cursor"
+        style={{
+          left: cursorX! - 25,
+          top: cursorY! - 25,
+          transform: `scale(${cursorScale})`
+        }}
+      >Learn More</motion.div>
       <motion.div
         className="flex items-center justify-between p-16 5xl:px-48 px-40 text-lightblack"
         initial={{ opacity: 0, y: -140 }}
@@ -192,12 +226,14 @@ export default function Home() {
             <div className="text-5xl text-white">LLM Proxy Web App</div>
           </motion.div>
           <motion.div
-            className="w-11/12"
+            className="w-11/12 cursor-none"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={portfolioItemInView1 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.8, delay: 0.6 }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" />
+            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
           </motion.div>
         </div>
         <div className="flex mb-36">
@@ -213,12 +249,14 @@ export default function Home() {
             <div className="text-5xl text-white">Web App UI</div>
           </motion.div>
           <motion.div
-            className="w-11/12"
+            className="w-11/12 cursor-none"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={portfolioItemInView2 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.8, delay: 0.6 }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" />
+            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
           </motion.div>
         </div>
         <div className="flex mb-36">
@@ -234,12 +272,14 @@ export default function Home() {
             <div className="text-5xl text-white">Placeholder</div>
           </motion.div>
           <motion.div
-            className="w-11/12"
+            className="w-11/12 cursor-none"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={portfolioItemInView3 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.8, delay: 0.6 }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" />
+            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
           </motion.div>
         </div>
       </div>

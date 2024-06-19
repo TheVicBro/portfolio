@@ -10,6 +10,25 @@ html {
   background: #E6E6E6;
 }
 
+.cursor {
+  width: 50px;
+  height: 50px;
+  background-color: #0D99FF;
+  color: white;
+  font-size: 8px;
+  font-weight: 700;
+  position: fixed;
+  border-radius: 50%;
+  z-index: 100;
+  pointer-events: none;
+  transform: scale(0);
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 /* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
