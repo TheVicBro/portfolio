@@ -1,8 +1,10 @@
 "use client";
 
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function Home() {
+  const portfolioRef = useRef<HTMLDivElement|null>(null);
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 1500], [1, 0]);
   const y = useTransform(scrollY, [0, 1500], [0, 200]);
@@ -25,7 +27,16 @@ export default function Home() {
               initial="initial"
               animate="initial"
             >
-              <button className="relative z-10">{item}</button>
+              <button 
+                className="relative z-10"
+                onClick={() => {
+                  if (item === "Portfolio") {
+                    portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                {item}
+              </button>
               <motion.div
                 className="absolute bottom-[-1] left-1/2 transform -translate-x-1/2 h-2 bg-skyblue"
                 variants={{
@@ -74,6 +85,7 @@ export default function Home() {
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
                     animate={{ width: "18rem", paddingLeft: "2rem", paddingRight: "2rem" }}
                     transition={{ duration: 1, ease: "easeOut" }}
+                    onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     <p className="line-clamp-1">View Portfolio</p>
                   </motion.button>
@@ -134,7 +146,7 @@ export default function Home() {
           </div>
         </div>
       </motion.div>
-      <div className="relative bg-lightblack z-20 h-screen rounded-3xl px-48 py-16">
+      <div ref={portfolioRef} className="relative bg-lightblack z-20 h-screen rounded-3xl px-48 py-16">
         <div className="text-10xl font-bold text-white mb-8">PORTFOLIO</div>
         <div className="flex">
           <div className="flex-col w-2/5 mr-8">
