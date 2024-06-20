@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from "react-intersection-observer";
@@ -173,7 +174,9 @@ export default function Home() {
                     transition={{ duration: 1, ease: "easeOut" }}
                     layout="preserve-aspect"
                   >
-                    <img src="/linkedin.png" className="w-14 h-14" />
+                    <div className="w-14 h-14 relative">
+                      <Image src="/linkedin.png" alt="LinkedIn" layout="fill" />
+                    </div>
                   </motion.button>
                 </Link>
                 <Link href="https://github.com/TheVicBro" target="_blank" rel="noopener noreferrer">
@@ -184,7 +187,9 @@ export default function Home() {
                     transition={{ duration: 1, ease: "easeOut" }}
                     layout="preserve-aspect"
                   >
-                    <img src="/github.png" className="h-16 w-16" />
+                    <div className="w-14 h-14 relative">
+                      <Image src="/github.png" alt="GitHub" layout="fill" />
+                    </div>
                   </motion.button>
                 </Link>
               </div>
@@ -294,15 +299,23 @@ export default function Home() {
         </div>
       </div>
       <div ref={aboutRef} className="flex relative px-48 py-32 h-screen">
-        <div className="w-1/3 my-12">
-          <img src="/about.png" alt="about" className="object-cover rounded-lg flex-grow" draggable="false" />
+        <div className="w-1/3 my-12 relative">
+          <div className="relative w-full h-full">
+            <Image
+              src="/about.png"
+              alt="about"
+              layout="fill"
+              className="rounded-lg"
+              draggable="false"
+            />
+          </div>
         </div>
         <div className="flex flex-col items-center w-2/3 pl-24 pt-36">
           <div className="text-10xl font-bold text-center text-lightblack">
             ABOUT ME
           </div>
           <div className="text-4xl text-center font-medium leading-relaxed">
-            I'm a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software.
+            I&apos;m a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software.
           </div>
           <div>
             <button className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 px-8 mt-16" onClick={openResume}>
