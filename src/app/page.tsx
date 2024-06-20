@@ -10,7 +10,13 @@ export default function Home() {
   const opacity = useTransform(scrollY, [0, 1500], [1, 0]);
   const y = useTransform(scrollY, [0, 1500], [0, 200]);
 
+  const aboutRef = useRef<HTMLDivElement|null>(null);
   const portfolioRef = useRef<HTMLDivElement|null>(null);
+
+  const openResume = () => {
+    window.open('/VictorChung_Resume.pdf', '_blank', 'noopener,noreferrer');
+  };
+
   const { ref: portfolioRefView, inView: portfolioInView } = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -86,6 +92,9 @@ export default function Home() {
                   if (item === "Portfolio") {
                     portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
                   }
+                  if (item === "About") {
+                    aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }}
               >
                 {item}
@@ -147,6 +156,7 @@ export default function Home() {
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
                     animate={{ width: "18rem", paddingLeft: "2rem", paddingRight: "2rem" }}
                     transition={{ duration: 1, ease: "easeOut" }}
+                    onClick={openResume}
                   >
                     <p className="line-clamp-1">View Resume</p>
                   </motion.button>
@@ -233,7 +243,7 @@ export default function Home() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <img src="/rout3.png" alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
           </motion.div>
         </div>
         <div className="flex mb-36">
@@ -268,8 +278,8 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div className="text-12xl font-medium text-skyblue leading-none">03.</div>
-            <div className="text-4xl text-gray-400 mb-4 mt-8">PLACEHOLDER</div>
-            <div className="text-5xl text-white">Placeholder</div>
+            <div className="text-4xl text-gray-400 mb-4 mt-8">ROUT3</div>
+            <div className="text-5xl text-white">LLM Proxy Landing Page</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -279,8 +289,26 @@ export default function Home() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
           </motion.div>
+        </div>
+      </div>
+      <div ref={aboutRef} className="flex relative px-48 py-32 h-screen">
+        <div className="w-1/3 my-12">
+          <img src="/about.png" alt="about" className="object-cover rounded-lg flex-grow" draggable="false" />
+        </div>
+        <div className="flex flex-col items-center w-2/3 pl-24 pt-36">
+          <div className="text-10xl font-bold text-center text-lightblack">
+            ABOUT ME
+          </div>
+          <div className="text-4xl text-center font-medium leading-relaxed">
+            I'm a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software.
+          </div>
+          <div>
+            <button className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 px-8 mt-16" onClick={openResume}>
+              View Resume
+            </button>
+          </div>
         </div>
       </div>
     </main>
