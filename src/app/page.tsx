@@ -119,7 +119,7 @@ export default function Home() {
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
-        <div className="flex justify-between 5xl:pt-48 5xl:px-48 pt-40 px-40">
+        <div className="flex justify-between 5xl:pt-48 5xl:px-48 pt-36 px-40">
           <div className="flex flex-col justify-between">
             <div>
               <div className="truncate">
@@ -132,7 +132,7 @@ export default function Home() {
                   VICTOR CHUNG
                 </motion.div>
               </div>
-              <div className="mt-2 px-12">
+              <div className="mt-2 5xl:px-12 px-10">
                 <div className="truncate pb-2">
                   <motion.div
                     className="5xl:text-7xl text-6xl font-bold text-skyblue"
@@ -168,7 +168,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-between items-end">
-              <div className="flex space-x-4 px-12">
+              <div className="flex space-x-4 5xl:px-12 px-10">
                 <Link href="https://www.linkedin.com/in/victor-chung-ca/" target="_blank" rel="noopener noreferrer">
                   <motion.button
                     className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
