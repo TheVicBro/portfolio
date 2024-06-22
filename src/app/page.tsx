@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from "react-intersection-observer";
@@ -10,7 +11,13 @@ export default function Home() {
   const opacity = useTransform(scrollY, [0, 1500], [1, 0]);
   const y = useTransform(scrollY, [0, 1500], [0, 200]);
 
+  const aboutRef = useRef<HTMLDivElement|null>(null);
   const portfolioRef = useRef<HTMLDivElement|null>(null);
+
+  const openResume = () => {
+    window.open('/VictorChung_Resume.pdf', '_blank', 'noopener,noreferrer');
+  };
+
   const { ref: portfolioRefView, inView: portfolioInView } = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -65,13 +72,13 @@ export default function Home() {
         }}
       >Learn More</motion.div>
       <motion.div
-        className="flex items-center justify-between p-16 5xl:px-48 px-40 text-lightblack"
+        className="flex items-center justify-between 5xl:p-16 p-12 5xl:px-48 px-40 text-lightblack"
         initial={{ opacity: 0, y: -140 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
       >
-        <div className="text-6xl font-bold">VC</div>
-        <div className="flex items-row text-4xl font-semibold space-x-28">
+        <div className="5xl:text-6xl text-5xl font-bold">VC</div>
+        <div className="flex items-row 5xl:text-4xl text-3xl font-semibold 5xl:space-x-28 space-x-24">
           {["Portfolio", "About", "Contact"].map((item) => (
             <motion.div
               key={item}
@@ -79,12 +86,16 @@ export default function Home() {
               whileHover="hover"
               initial="initial"
               animate="initial"
+              whileTap={{ scale: 0.85 }}
             >
               <button 
                 className="relative z-10"
                 onClick={() => {
                   if (item === "Portfolio") {
                     portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                  if (item === "About") {
+                    aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
               >
@@ -108,7 +119,7 @@ export default function Home() {
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
-        <div className="flex justify-between 5xl:pt-48 5xl:px-48 pt-40 px-40">
+        <div className="flex justify-between 5xl:pt-48 5xl:px-48 pt-36 px-40">
           <div className="flex flex-col justify-between">
             <div>
               <div className="truncate">
@@ -121,7 +132,7 @@ export default function Home() {
                   VICTOR CHUNG
                 </motion.div>
               </div>
-              <div className="mt-2 px-12">
+              <div className="mt-2 5xl:px-12 px-10">
                 <div className="truncate pb-2">
                   <motion.div
                     className="5xl:text-7xl text-6xl font-bold text-skyblue"
@@ -138,6 +149,7 @@ export default function Home() {
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
                     animate={{ width: "18rem", paddingLeft: "2rem", paddingRight: "2rem" }}
                     transition={{ duration: 1, ease: "easeOut" }}
+                    whileTap={{ scale: 0.85 }}
                     onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     <p className="line-clamp-1">View Portfolio</p>
@@ -146,7 +158,9 @@ export default function Home() {
                     className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 overflow-hidden whitespace-nowrap"
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
                     animate={{ width: "18rem", paddingLeft: "2rem", paddingRight: "2rem" }}
+                    whileTap={{ scale: 0.85 }}
                     transition={{ duration: 1, ease: "easeOut" }}
+                    onClick={openResume}
                   >
                     <p className="line-clamp-1">View Resume</p>
                   </motion.button>
@@ -154,7 +168,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-between items-end">
-              <div className="flex space-x-4 px-12">
+              <div className="flex space-x-4 5xl:px-12 px-10">
                 <Link href="https://www.linkedin.com/in/victor-chung-ca/" target="_blank" rel="noopener noreferrer">
                   <motion.button
                     className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
@@ -162,8 +176,11 @@ export default function Home() {
                     animate={{ width: "4rem" }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     layout="preserve-aspect"
+                    whileTap={{ scale: 0.85 }}
                   >
-                    <img src="/linkedin.png" className="w-14 h-14" />
+                    <div className="w-14 h-14 relative">
+                      <Image src="/linkedin.png" alt="LinkedIn" layout="fill" />
+                    </div>
                   </motion.button>
                 </Link>
                 <Link href="https://github.com/TheVicBro" target="_blank" rel="noopener noreferrer">
@@ -173,8 +190,11 @@ export default function Home() {
                     animate={{ width: "4rem" }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     layout="preserve-aspect"
+                    whileTap={{ scale: 0.85 }}
                   >
-                    <img src="/github.png" className="h-16 w-16" />
+                    <div className="w-14 h-14 relative">
+                      <Image src="/github.png" alt="GitHub" layout="fill" />
+                    </div>
                   </motion.button>
                 </Link>
               </div>
@@ -197,7 +217,7 @@ export default function Home() {
           </div>
         </div>
         <div className="relative">
-          <div className="flex mt-64 px-48 justify-between text-lightblack">
+          <div className="flex 5xl:mt-64 mt-48 px-48 justify-between text-lightblack">
             <div>ONTARIO, CANADA</div>
             <div>(SCROLL FOR MORE)</div>
           </div>
@@ -206,7 +226,7 @@ export default function Home() {
       <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl px-48 py-16">
         <motion.div
           ref={portfolioRefView}
-          className="text-10xl font-bold text-white mb-8"
+          className="5xl:text-10xl text-9xl font-bold text-white mb-8"
           initial={{ opacity: 0, y: -50 }}
           animate={portfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -221,9 +241,9 @@ export default function Home() {
             animate={portfolioItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="text-12xl font-medium text-skyblue leading-none">01.</div>
-            <div className="text-4xl text-gray-400 mb-4 mt-8">ROUT3</div>
-            <div className="text-5xl text-white">LLM Proxy Web App</div>
+            <div className="5xl:text-12xl text-10xl font-medium text-skyblue leading-none">01.</div>
+            <div className="5xl:text-4xl text-3xl text-gray-400 mb-4 mt-8">ROUT3</div>
+            <div className="5xl:text-5xl text-4xl text-white">LLM Proxy Web App</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -233,7 +253,7 @@ export default function Home() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <img src="/rout3.png" alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
           </motion.div>
         </div>
         <div className="flex mb-36">
@@ -244,9 +264,9 @@ export default function Home() {
             animate={portfolioItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="text-12xl font-medium text-skyblue leading-none">02.</div>
-            <div className="text-4xl text-gray-400 mb-4 mt-8">GOEASY</div>
-            <div className="text-5xl text-white">Web App UI</div>
+            <div className="5xl:text-12xl text-10xl font-medium text-skyblue leading-none">02.</div>
+            <div className="5xl:text-4xl text-3xl  text-gray-400 mb-4 mt-8">GOEASY</div>
+            <div className="5xl:text-5xl text-4xl text-white">Web App UI</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -267,9 +287,9 @@ export default function Home() {
             animate={portfolioItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="text-12xl font-medium text-skyblue leading-none">03.</div>
-            <div className="text-4xl text-gray-400 mb-4 mt-8">PLACEHOLDER</div>
-            <div className="text-5xl text-white">Placeholder</div>
+            <div className="5xl:text-12xl text-10xl font-medium text-skyblue leading-none">03.</div>
+            <div className="5xl:text-4xl text-3xl text-gray-400 mb-4 mt-8">ROUT3</div>
+            <div className="5xl:text-5xl text-4xl text-white">LLM Proxy Landing Page</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -279,8 +299,38 @@ export default function Home() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
           </motion.div>
+        </div>
+      </div>
+      <div ref={aboutRef} className="flex relative px-48 5xl:py-32 py-24 h-screen">
+        <div className="w-1/3 my-12 relative">
+          <div className="relative w-full h-full">
+            <Image
+              src="/about.png"
+              alt="about"
+              layout="fill"
+              className="rounded-lg"
+              draggable="false"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col items-center w-2/3 pl-24 5xl:pt-36 pt-32">
+          <div className="5xl:text-10xl text-8xl font-bold text-center text-lightblack">
+            ABOUT ME
+          </div>
+          <div className="5xl:text-4xl text-2xl text-center font-medium leading-relaxed mt-8">
+            I&apos;m a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software.
+          </div>
+          <div>
+            <motion.button 
+              className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 px-8 mt-16"
+              whileTap={{ scale: 0.85 }} 
+              onClick={openResume}
+            >
+              View Resume
+            </motion.button>
+          </div>
         </div>
       </div>
     </main>
