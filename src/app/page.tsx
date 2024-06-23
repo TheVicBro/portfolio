@@ -412,7 +412,7 @@ export default function Home() {
         </div>
         <form onSubmit={handleSubmit}>
           <div>
-            <div className="mt-32 flex text-white text-5xl space-x-8 h-full">
+            <div className="5xl:mt-32 mt-16 flex text-white 5xl:text-5xl text-4xl space-x-8 h-full">
               <div className="flex flex-col">
                 <div>
                   <div>
@@ -482,13 +482,13 @@ export default function Home() {
             </div>
           </div>
           <motion.button 
-            className="bg-skyblue text-4xl text-white rounded-lg my-12 p-4" type="submit"
+            className="bg-skyblue text-4xl text-white rounded-lg 5xl:my-12 my-10 p-4" type="submit"
             whileTap={{ scale: 0.85 }}
           >
             Submit
           </motion.button>
         </form>
-        <div className="flex items-center justify-between w-full mt-12">
+        <div className="flex items-center justify-between w-full 5xl:mt-12 mt-0">
           <div className="flex 5xl:text-6xl text-6xl font-bold text-left text-white">
             © 2024 VICTOR CHUNG
           </div>
