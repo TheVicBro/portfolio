@@ -26,6 +26,7 @@ export default function Home() {
     return () => unsubscribe();
   }, [scrollY]);
 
+  const topRefView = useRef<HTMLDivElement|null>(null);
   const aboutRef = useRef<HTMLDivElement|null>(null);
   const portfolioRef = useRef<HTMLDivElement|null>(null);
   const contactRef = useRef<HTMLDivElement|null>(null);
@@ -140,6 +141,7 @@ export default function Home() {
         }}
       >Learn More</motion.div>
       <motion.div
+        ref={topRefView}
         className="flex items-center justify-between 5xl:p-16 p-12 5xl:px-48 px-40 text-lightblack"
         initial={{ opacity: 0, y: -140 }}
         animate={{ opacity: 1, y: 0 }}
@@ -410,7 +412,7 @@ export default function Home() {
         </div>
         <form onSubmit={handleSubmit}>
           <div>
-            <div className="mt-32 flex text-white text-5xl space-x-8 h-full">
+            <div className="5xl:mt-32 mt-16 flex text-white 5xl:text-5xl text-4xl space-x-8 h-full">
               <div className="flex flex-col">
                 <div>
                   <div>
@@ -479,16 +481,25 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <button className="bg-skyblue text-4xl text-white rounded-lg my-12 p-4" type="submit">Submit</button>
+          <motion.button 
+            className="bg-skyblue text-4xl text-white rounded-lg 5xl:my-12 my-10 p-4" type="submit"
+            whileTap={{ scale: 0.85 }}
+          >
+            Submit
+          </motion.button>
         </form>
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-center justify-between w-full 5xl:mt-12 mt-0">
           <div className="flex 5xl:text-6xl text-6xl font-bold text-left text-white">
             © 2024 VICTOR CHUNG
           </div>
           <div>
-            <button className="bg-skyblue text-white rounded-full w-32 h-32">
-              ^
-            </button>
+            <motion.button 
+              className="bg-skyblue text-white text-6xl rounded-full w-32 h-32"
+              whileTap={{ scale: 0.85 }}
+              onClick={() => topRefView.current?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              ↑
+            </motion.button>
           </div>
         </div>
       </div>
