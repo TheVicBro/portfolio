@@ -2,17 +2,33 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from "react-intersection-observer";
+
+type FormData = {
+  name: string;
+  email: string;
+  company: string;
+  inquiry: string;
+};
 
 export default function Home() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 1500], [1, 0]);
   const y = useTransform(scrollY, [0, 1500], [0, 200]);
+  const [isMainClickable, setIsMainClickable] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = scrollY.onChange((current) => {
+      setIsMainClickable(current < 1500);
+    });
+    return () => unsubscribe();
+  }, [scrollY]);
 
   const aboutRef = useRef<HTMLDivElement|null>(null);
   const portfolioRef = useRef<HTMLDivElement|null>(null);
+  const contactRef = useRef<HTMLDivElement|null>(null);
 
   const openResume = () => {
     window.open('/VictorChung_Resume.pdf', '_blank', 'noopener,noreferrer');
@@ -61,6 +77,58 @@ export default function Home() {
     };
   }, []);
 
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    company: '',
+    inquiry: '',
+  });
+
+  const [status, setStatus] = useState<string | null>(null);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        setStatus('Form submitted successfully!');
+        alert('Thank you! Your message has been received. I will contact you soon.');
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          inquiry: '',
+        });
+      } else {
+        setStatus(`Error: ${result.message}`);
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setStatus(`Error: ${error.message}`);
+        alert(`Error: ${error.message}`);
+      } else {
+        setStatus('An unexpected error occurred');
+        alert('An unexpected error occurred');
+      }
+    }
+  };
+
   return (
     <main>
       <motion.div
@@ -97,6 +165,9 @@ export default function Home() {
                   if (item === "About") {
                     aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
                   }
+                  if (item === "Contact") {
+                    contactRef.current?.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }}
               >
                 {item}
@@ -115,7 +186,7 @@ export default function Home() {
       </motion.div>
       <motion.div 
         className="h-screen sticky top-0"
-        style={{ opacity, y }}
+        style={{ opacity, y, pointerEvents: isMainClickable ? 'auto' : 'none' }}
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
@@ -319,7 +390,7 @@ export default function Home() {
           <div className="5xl:text-10xl text-8xl font-bold text-center text-lightblack">
             ABOUT ME
           </div>
-          <div className="5xl:text-4xl text-2xl text-center font-medium leading-relaxed mt-8">
+          <div className="5xl:text-4xl text-3xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8">
             I&apos;m a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software.
           </div>
           <div>
@@ -330,6 +401,94 @@ export default function Home() {
             >
               View Resume
             </motion.button>
+          </div>
+        </div>
+      </div>
+      <div ref={contactRef} className="z-40 bg-lightblack flex flex-col items-center px-48 5xl:py-32 py-24 h-screen">
+        <div className="flex 5xl:text-10xl text-8xl font-bold text-center text-white">
+          CONTACT
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <div className="mt-32 flex text-white text-5xl space-x-8 h-full">
+              <div className="flex flex-col">
+                <div>
+                  <div>
+                    Name
+                    <a className="text-skyblue">*</a>
+                  </div>
+                  <div>
+                    <input 
+                      type="text" 
+                      name="name"
+                      className="mt-4 border-4 border-white px-4 py-2 bg-lightblack rounded" 
+                      value={formData.name} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                  </div>
+                </div>
+                <div className="mt-8">
+                  <div>
+                    Email
+                    <a className="text-skyblue">*</a>
+                  </div>
+                  <div>
+                    <input 
+                      type="email"
+                      name="email"
+                      className="mt-4 border-4 border-white px-4 py-2 bg-lightblack rounded" 
+                      value={formData.email} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                  </div>
+                </div>
+                <div className="mt-8">
+                  <div>
+                    Company
+                    <a className="text-skyblue">*</a>
+                  </div>
+                  <div>
+                    <input 
+                      type="text" 
+                      name="company" 
+                      className="mt-4 border-4 border-white px-4 py-2 bg-lightblack rounded"
+                      value={formData.company} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <div>
+                  Inquiry
+                  <a className="text-skyblue">*</a>
+                </div>
+                <div>
+                  <textarea 
+                    name="inquiry"
+                    className="mt-4 h-full border-4 border-white p-4 bg-lightblack rounded resize-none" 
+                    rows={8} 
+                    value={formData.inquiry} 
+                    onChange={handleChange} 
+                    required 
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="bg-skyblue text-4xl text-white rounded-lg my-12 p-4" type="submit">Submit</button>
+        </form>
+        <div className="flex items-center justify-between w-full">
+          <div className="flex 5xl:text-6xl text-6xl font-bold text-left text-white">
+            © 2024 VICTOR CHUNG
+          </div>
+          <div>
+            <button className="bg-skyblue text-white rounded-full w-32 h-32">
+              ^
+            </button>
           </div>
         </div>
       </div>
