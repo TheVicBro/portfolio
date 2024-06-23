@@ -94,30 +94,40 @@ export default function Home() {
   };
 
   const handleSubmit = async (e: FormEvent) => {
-  e.preventDefault();
-  try {
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const result = await response.json();
-    if (response.ok) {
-      setStatus('Form submitted successfully!');
-    } else {
-      setStatus(`Error: ${result.message}`);
+      const result = await response.json();
+      if (response.ok) {
+        setStatus('Form submitted successfully!');
+        alert('Thank you! Your message has been received. I will contact you soon.');
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          inquiry: '',
+        });
+      } else {
+        setStatus(`Error: ${result.message}`);
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setStatus(`Error: ${error.message}`);
+        alert(`Error: ${error.message}`);
+      } else {
+        setStatus('An unexpected error occurred');
+        alert('An unexpected error occurred');
+      }
     }
-  } catch (error) {
-    if (error instanceof Error) {
-      setStatus(`Error: ${error.message}`);
-    } else {
-      setStatus('An unexpected error occurred');
-    }
-  }
-};
+  };
 
   return (
     <main>
