@@ -20,7 +20,13 @@ export default function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsLg(window.innerWidth >= 1024);
+      let check = window.innerWidth >= 1024;
+      setIsLg(check);
+      if (check) {
+        setScrollRange({ start: 0, end: 1500 });
+      } else {
+        setScrollRange({ start: 0, end: 800 });
+      }
     };
 
     // Set initial state
