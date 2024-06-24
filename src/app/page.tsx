@@ -15,8 +15,28 @@ type FormData = {
 
 export default function Home() {
   const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 1500], [1, 0]);
-  const y = useTransform(scrollY, [0, 1500], [0, 200]);
+  const [scrollRange, setScrollRange] = useState({ start: 0, end: 1500 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setScrollRange({ start: 0, end: 800 });
+      } else {
+        setScrollRange({ start: 0, end: 1500 });
+      }
+    };
+
+    handleResize(); // Set the initial state based on the current width
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const opacity = useTransform(scrollY, [scrollRange.start, scrollRange.end], [1, 0]);
+  const y = useTransform(scrollY, [scrollRange.start, scrollRange.end], [0, 200]);
+
   const [isMainClickable, setIsMainClickable] = useState(true);
 
   useEffect(() => {
@@ -142,13 +162,13 @@ export default function Home() {
       >Learn More</motion.div>
       <motion.div
         ref={topRefView}
-        className="flex items-center justify-between 5xl:p-16 p-12 5xl:px-48 px-40 text-lightblack"
+        className="flex items-center justify-between 5xl:p-16 lg:p-12 p-6 5xl:px-48 lg:px-40 px-8 text-lightblack"
         initial={{ opacity: 0, y: -140 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
       >
         <div className="5xl:text-6xl text-5xl font-bold">VC</div>
-        <div className="flex items-row 5xl:text-4xl text-3xl font-semibold 5xl:space-x-28 space-x-24">
+        <div className="flex lg:flex-row flex-col lg:items-row 5xl:text-4xl text-2xl font-semibold 5xl:space-x-28 lg:space-x-24 space-x-0 space-y-0">
           {["Portfolio", "About", "Contact"].map((item) => (
             <motion.div
               key={item}
@@ -192,12 +212,12 @@ export default function Home() {
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
-        <div className="flex justify-between 5xl:pt-48 5xl:px-48 pt-36 px-40">
-          <div className="flex flex-col justify-between">
+        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:pt-48 5xl:px-48 lg:pt-36 lg:px-40 px-8">
+          <div className="flex flex-col justify-between lg:text-left text-center">
             <div>
               <div className="truncate">
                 <motion.div
-                  className="mt-4 5xl:text-12xl text-9xl font-bold text-lightblack leading-none"
+                  className="mt-4 5xl:text-12xl 4xl:text-9xl 3xl:text-8.5xl lg:text-7xl text-4.5xl font-bold text-lightblack leading-none"
                   initial={{ y: "100%" }}
                   animate={{ y: "0%" }}
                   transition={{ duration: 1, ease: "easeOut" }}
@@ -205,10 +225,10 @@ export default function Home() {
                   VICTOR CHUNG
                 </motion.div>
               </div>
-              <div className="mt-2 5xl:px-12 px-10">
+              <div className="mt-2 5xl:px-12 lg:px-10 px-4">
                 <div className="truncate pb-2">
                   <motion.div
-                    className="5xl:text-7xl text-6xl font-bold text-skyblue"
+                    className="5xl:text-7xl lg:text-6xl text-3xl font-bold text-skyblue"
                     initial={{ y: "-110%" }}
                     animate={{ y: "0%" }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -216,11 +236,11 @@ export default function Home() {
                     Full Stack Developer
                   </motion.div>
                 </div>
-                <div className="5xl:mt-6 mt-4 space-x-8">
+                <div className="flex 5xl:mt-6 mt-2 lg:space-x-8 space-x-2 lg:justify-start justify-center">
                   <motion.button
-                    className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 overflow-hidden whitespace-nowrap"
+                    className="rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap"
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
-                    animate={{ width: "18rem", paddingLeft: "2rem", paddingRight: "2rem" }}
+                    animate={{ width: "var(--width)", paddingLeft: "var(--padding-left)", paddingRight: "var(--padding-right)" }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     whileTap={{ scale: 0.85 }}
                     onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
@@ -228,9 +248,9 @@ export default function Home() {
                     <p className="line-clamp-1">View Portfolio</p>
                   </motion.button>
                   <motion.button
-                    className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 overflow-hidden whitespace-nowrap"
+                    className="rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap"
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
-                    animate={{ width: "18rem", paddingLeft: "2rem", paddingRight: "2rem" }}
+                    animate={{ width: "var(--width)", paddingLeft: "var(--padding-left)", paddingRight: "var(--padding-right)" }}
                     whileTap={{ scale: 0.85 }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     onClick={openResume}
@@ -240,44 +260,44 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="flex justify-between items-end">
-              <div className="flex space-x-4 5xl:px-12 px-10">
+            <div className="flex lg:justify-between justify-center items-end">
+              <div className="flex space-x-4 5xl:px-12 lg:px-10 px-4 lg:mt-0 mt-4">
                 <Link href="https://www.linkedin.com/in/victor-chung-ca/" target="_blank" rel="noopener noreferrer">
                   <motion.button
-                    className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
+                    className="flex justify-center items-center rounded-lg bg-skyblue lg:h-16 h-12"
                     initial={{ width: 0 }}
-                    animate={{ width: "4rem" }}
+                    animate={{ width: "var(--width-social)" }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     layout="preserve-aspect"
                     whileTap={{ scale: 0.85 }}
                   >
-                    <div className="w-14 h-14 relative">
+                    <div className="lg:w-14 lg:h-14 w-10 h-10 relative">
                       <Image src="/linkedin.png" alt="LinkedIn" layout="fill" />
                     </div>
                   </motion.button>
                 </Link>
                 <Link href="https://github.com/TheVicBro" target="_blank" rel="noopener noreferrer">
                   <motion.button
-                    className="flex justify-center items-center rounded-lg bg-skyblue w-16 h-16"
+                    className="flex justify-center items-center rounded-lg bg-skyblue lg:h-16 h-12"
                     initial={{ width: 0 }}
-                    animate={{ width: "4rem" }}
+                    animate={{ width: "var(--width-social)" }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     layout="preserve-aspect"
                     whileTap={{ scale: 0.85 }}
                   >
-                    <div className="w-14 h-14 relative">
+                    <div className="lg:w-14 lg:h-14 w-12 h-12 relative">
                       <Image src="/github.png" alt="GitHub" layout="fill" />
                     </div>
                   </motion.button>
                 </Link>
               </div>
               <div className="relative">
-                <div className="absolute z-10 5xl:bottom-40 bottom-28 5xl:right-20 right-16 5xl:w-64 5xl:h-60 w-48 h-40 bg-white rounded-lg"></div>
-                <div className="absolute z-10 bottom-0 5xl:right-48 right-36 5xl:w-64 5xl:h-56 w-48 h-40 bg-white rounded-lg"></div>
+                <div className="absolute z-10 5xl:bottom-40 bottom-28 5xl:right-20 right-16 5xl:w-64 5xl:h-60 4xl:w-48 4xl:h-40 bg-white rounded-lg"></div>
+                <div className="absolute z-10 bottom-0 5xl:right-48 right-36 5xl:w-64 5xl:h-56 4xl:w-48 4xl:h-40 bg-white rounded-lg"></div>
               </div>
             </div>
           </div>
-          <div className="bg-lightblack w-1/4 h-112 5xl:h-160 rounded-lg">
+          <div className="bg-lightblack lg:w-1/4 h-112 5xl:h-160 rounded-lg">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
@@ -290,33 +310,33 @@ export default function Home() {
           </div>
         </div>
         <div className="relative">
-          <div className="flex 5xl:mt-64 mt-48 px-48 justify-between text-lightblack">
+          <div className="flex 5xl:mt-64 lg:mt-48 mt-8 lg:px-48 px-8 justify-between text-lightblack">
             <div>ONTARIO, CANADA</div>
             <div>(SCROLL FOR MORE)</div>
           </div>
         </div>
       </motion.div>
-      <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl px-48 py-16">
+      <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl lg:px-48 px-8 lg:py-32 py-16">
         <motion.div
           ref={portfolioRefView}
-          className="5xl:text-10xl text-9xl font-bold text-white mb-8"
+          className="5xl:text-10xl lg:text-9xl text-5xl font-bold text-white lg:mb-24 mb-8"
           initial={{ opacity: 0, y: -50 }}
           animate={portfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           PORTFOLIO
         </motion.div>
-        <div className="flex mb-36">
+        <div className="flex lg:mb-36 mb-24">
           <motion.div
             ref={portfolioItemRef1}
-            className="flex-col w-2/5 mr-8"
+            className="flex-col w-2/5 lg:mr-8 mr-2"
             initial={{ opacity: 0, x: -50 }}
             animate={portfolioItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="5xl:text-12xl text-10xl font-medium text-skyblue leading-none">01.</div>
-            <div className="5xl:text-4xl text-3xl text-gray-400 mb-4 mt-8">ROUT3</div>
-            <div className="5xl:text-5xl text-4xl text-white">LLM Proxy Web App</div>
+            <div className="5xl:text-12xl lg:text-10xl text-6xl font-medium text-skyblue leading-none">01.</div>
+            <div className="5xl:text-4xl lg:text-3xl text-sm text-gray-400 lg:mb-4 lg:mt-8 mt-2">ROUT3</div>
+            <div className="5xl:text-5xl lg:text-4xl text-lg text-white">LLM Proxy Web App</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -329,17 +349,17 @@ export default function Home() {
             <img src="/rout3.png" alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
           </motion.div>
         </div>
-        <div className="flex mb-36">
+        <div className="flex lg:mb-36 mb-24">
           <motion.div
             ref={portfolioItemRef2}
-            className="flex-col w-2/5 mr-8"
+            className="flex-col w-2/5 lg:mr-8 mr-2"
             initial={{ opacity: 0, x: -50 }}
             animate={portfolioItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="5xl:text-12xl text-10xl font-medium text-skyblue leading-none">02.</div>
-            <div className="5xl:text-4xl text-3xl  text-gray-400 mb-4 mt-8">GOEASY</div>
-            <div className="5xl:text-5xl text-4xl text-white">Web App UI</div>
+            <div className="5xl:text-12xl lg:text-10xl text-6xl font-medium text-skyblue leading-none">02.</div>
+            <div className="5xl:text-4xl lg:text-3xl text-sm text-gray-400 lg:mb-4 lg:mt-8 mt-2">GOEASY</div>
+            <div className="5xl:text-5xl lg:text-4xl text-lg text-white">Web App UI</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -352,17 +372,17 @@ export default function Home() {
             <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
           </motion.div>
         </div>
-        <div className="flex mb-36">
+        <div className="flex lg:mb-36 mb-8">
           <motion.div
             ref={portfolioItemRef3}
-            className="flex-col w-2/5 mr-8"
+            className="flex-col w-2/5 lg:mr-8 mr-2"
             initial={{ opacity: 0, x: -50 }}
             animate={portfolioItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="5xl:text-12xl text-10xl font-medium text-skyblue leading-none">03.</div>
-            <div className="5xl:text-4xl text-3xl text-gray-400 mb-4 mt-8">ROUT3</div>
-            <div className="5xl:text-5xl text-4xl text-white">LLM Proxy Landing Page</div>
+            <div className="5xl:text-12xl lg:text-10xl text-6xl font-medium text-skyblue leading-none">03.</div>
+            <div className="5xl:text-4xl lg:text-3xl text-sm text-gray-400 lg:mb-4 lg:mt-8 mt-2">ROUT3</div>
+            <div className="5xl:text-5xl lg:text-4xl text-lg text-white">LLM Proxy Landing Page</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -376,9 +396,9 @@ export default function Home() {
           </motion.div>
         </div>
       </div>
-      <div ref={aboutRef} className="flex relative px-48 5xl:py-32 py-24 h-screen">
-        <div className="w-1/3 my-12 relative">
-          <div className="relative w-full h-full">
+      <div ref={aboutRef} className="flex lg:flex-row flex-col relative lg:px-48 px-8 5xl:py-32 py-8 lg:h-screen h-auto">
+        <div className="lg:w-1/3 w-full my-12 relative lg:mb-0 mb-8">
+          <div className="relative w-full lg:h-full h-128">
             <Image
               src="/about.png"
               alt="about"
@@ -388,16 +408,16 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="flex flex-col items-center w-2/3 pl-24 5xl:pt-36 pt-32">
-          <div className="5xl:text-10xl text-8xl font-bold text-center text-lightblack">
+        <div className="flex flex-col items-center lg:w-2/3 lg:pl-24 pl-2 5xl:pt-36 lg:pt-32 pt-4">
+          <div className="5xl:text-10xl lg:text-8xl text-5xl font-bold text-center text-lightblack">
             ABOUT ME
           </div>
-          <div className="5xl:text-4xl text-3xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8">
+          <div className="5xl:text-4xl lg:text-3xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8">
             I&apos;m a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software.
           </div>
           <div>
             <motion.button 
-              className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 px-8 mt-16"
+              className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 px-8 lg:mt-16 m-8"
               whileTap={{ scale: 0.85 }} 
               onClick={openResume}
             >
@@ -406,14 +426,14 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div ref={contactRef} className="z-40 bg-lightblack flex flex-col items-center px-48 5xl:py-32 py-24 h-screen">
-        <div className="flex 5xl:text-10xl text-8xl font-bold text-center text-white">
+      <div ref={contactRef} className="z-40 bg-lightblack flex flex-col items-center lg:px-48 px-8 5xl:py-32 lg:py-24 py-16 lg:h-screen h-auto">
+        <div className="flex 5xl:text-10xl lg:text-8xl text-5xl font-bold text-center text-white">
           CONTACT
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="w-full max-w-screen-lg mx-auto">
           <div>
-            <div className="5xl:mt-32 mt-16 flex text-white 5xl:text-5xl text-4xl space-x-8 h-full">
-              <div className="flex flex-col">
+            <div className="flex lg:flex-row flex-col 5xl:mt-32 lg:mt-16 mt-12 text-white 5xl:text-5xl lg:text-4xl text-3xl lg:space-x-8 space-y-4 lg:space-y-0 lg:h-full h-auto">
+              <div className="flex flex-col w-full lg:w-1/2">
                 <div>
                   <div>
                     Name
@@ -423,14 +443,14 @@ export default function Home() {
                     <input 
                       type="text" 
                       name="name"
-                      className="mt-4 border-4 border-white px-4 py-2 bg-lightblack rounded" 
+                      className="mt-4 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto" 
                       value={formData.name} 
                       onChange={handleChange} 
                       required 
                     />
                   </div>
                 </div>
-                <div className="mt-8">
+                <div className="lg:mt-6 mt-4">
                   <div>
                     Email
                     <a className="text-skyblue">*</a>
@@ -439,14 +459,14 @@ export default function Home() {
                     <input 
                       type="email"
                       name="email"
-                      className="mt-4 border-4 border-white px-4 py-2 bg-lightblack rounded" 
+                      className="mt-4 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto" 
                       value={formData.email} 
                       onChange={handleChange} 
                       required 
                     />
                   </div>
                 </div>
-                <div className="mt-8">
+                <div className="lg:mt-6 mt-4">
                   <div>
                     Company
                     <a className="text-skyblue">*</a>
@@ -455,7 +475,7 @@ export default function Home() {
                     <input 
                       type="text" 
                       name="company" 
-                      className="mt-4 border-4 border-white px-4 py-2 bg-lightblack rounded"
+                      className="mt-4 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto"
                       value={formData.company} 
                       onChange={handleChange} 
                       required 
@@ -463,7 +483,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-full lg:w-1/2 lg:mt-0 mt-4">
                 <div>
                   Inquiry
                   <a className="text-skyblue">*</a>
@@ -471,7 +491,7 @@ export default function Home() {
                 <div>
                   <textarea 
                     name="inquiry"
-                    className="mt-4 h-full border-4 border-white p-4 bg-lightblack rounded resize-none" 
+                    className="mt-4 border-4 border-white p-4 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto resize-none" 
                     rows={8} 
                     value={formData.inquiry} 
                     onChange={handleChange} 
@@ -481,20 +501,23 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <motion.button 
-            className="bg-skyblue text-4xl text-white rounded-lg 5xl:my-12 my-10 p-4" type="submit"
-            whileTap={{ scale: 0.85 }}
-          >
-            Submit
-          </motion.button>
+          <div className="flex justify-center lg:mb-0 mb-8">
+            <motion.button 
+              className="bg-skyblue text-4xl text-white rounded-lg 5xl:my-12 my-8 p-4" 
+              type="submit"
+              whileTap={{ scale: 0.85 }}
+            >
+              Submit
+            </motion.button>
+          </div>
         </form>
         <div className="flex items-center justify-between w-full 5xl:mt-12 mt-0">
-          <div className="flex 5xl:text-6xl text-6xl font-bold text-left text-white">
+          <div className="flex 5xl:text-6xl lg:text-6xl text-4xl font-bold text-left text-white">
             © 2024 VICTOR CHUNG
           </div>
           <div>
             <motion.button 
-              className="bg-skyblue text-white text-6xl rounded-full w-32 h-32"
+              className="bg-skyblue text-white text-5xl rounded-full lg:w-32 lg:h-32 w-24 h-24"
               whileTap={{ scale: 0.85 }}
               onClick={() => topRefView.current?.scrollIntoView({ behavior: 'smooth' })}
             >
