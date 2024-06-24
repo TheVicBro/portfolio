@@ -225,10 +225,10 @@ export default function Home() {
                   VICTOR CHUNG
                 </motion.div>
               </div>
-              <div className="mt-2 5xl:px-12 lg:px-10 px-4">
+              <div className="mt-1 5xl:px-12 lg:px-10 px-4">
                 <div className="truncate pb-2">
                   <motion.div
-                    className="5xl:text-7xl lg:text-6xl text-3xl font-bold text-skyblue"
+                    className="5xl:text-7xl lg:text-6xl text-2.5xl font-bold text-skyblue"
                     initial={{ y: "-110%" }}
                     animate={{ y: "0%" }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -236,7 +236,7 @@ export default function Home() {
                     Full Stack Developer
                   </motion.div>
                 </div>
-                <div className="flex 5xl:mt-6 mt-2 lg:space-x-8 space-x-2 lg:justify-start justify-center">
+                <div className="flex 5xl:mt-6 mt-1 lg:space-x-8 space-x-2 lg:justify-start justify-center">
                   <motion.button
                     className="rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap"
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
@@ -297,7 +297,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack lg:w-1/4 h-112 5xl:h-160 rounded-lg">
+          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 h-96 rounded-lg">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
@@ -398,11 +398,13 @@ export default function Home() {
       </div>
       <div ref={aboutRef} className="flex lg:flex-row flex-col relative lg:px-48 px-8 5xl:py-32 py-8 lg:h-screen h-auto">
         <div className="lg:w-1/3 w-full my-12 relative lg:mb-0 mb-8">
-          <div className="relative w-full lg:h-full h-128">
+          <div className="relative w-full lg:h-full h-auto">
             <Image
               src="/about.png"
               alt="about"
-              layout="fill"
+              layout="responsive"
+              width={835} 
+              height={1190}
               className="rounded-lg"
               draggable="false"
             />
