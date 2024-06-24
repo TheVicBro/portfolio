@@ -35,6 +35,20 @@ html {
 
 @media (min-width: 1024px) {
   :root {
+    --padding-left: 1.5rem;
+    --padding-right: 1.5rem;
+    --width: 14rem;
+    --width-social: 4rem;
+  }
+  .cursor {
+    width: 30px;
+    height: 30px;
+    font-size: 6px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
     --padding-left: 2rem;
     --padding-right: 2rem;
     --width: 18rem;
