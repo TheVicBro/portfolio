@@ -16,20 +16,20 @@ type FormData = {
 export default function Home() {
   const { scrollY } = useScroll();
   const [scrollRange, setScrollRange] = useState({ start: 0, end: 1500 });
-  const [isLg, setIsLg] = useState(window.innerWidth >= 1024);
+  const [isLg, setIsLg] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1024) {
-        setScrollRange({ start: 0, end: 800 });
-      } else {
-        setScrollRange({ start: 0, end: 1500 });
-      }
+      setIsLg(window.innerWidth >= 1024);
     };
 
-    handleResize(); // Set the initial state based on the current width
+    // Set initial state
+    handleResize();
+
+    // Add event listener
     window.addEventListener('resize', handleResize);
 
+    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
