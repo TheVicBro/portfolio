@@ -16,19 +16,20 @@ type FormData = {
 export default function Home() {
   const { scrollY } = useScroll();
   const [scrollRange, setScrollRange] = useState({ start: 0, end: 1500 });
+  const [isLg, setIsLg] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1024) {
-        setScrollRange({ start: 0, end: 800 });
-      } else {
-        setScrollRange({ start: 0, end: 1500 });
-      }
+      setIsLg(window.innerWidth >= 1024);
     };
 
-    handleResize(); // Set the initial state based on the current width
+    // Set initial state
+    handleResize();
+
+    // Add event listener
     window.addEventListener('resize', handleResize);
 
+    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -245,7 +246,7 @@ export default function Home() {
                     whileTap={{ scale: 0.85 }}
                     onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
                   >
-                    <p className="line-clamp-1">View Portfolio</p>
+                    <p className="line-clamp-1">{isLg ? 'View Portfolio' : 'Portfolio'}</p>
                   </motion.button>
                   <motion.button
                     className="rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap"
@@ -255,7 +256,7 @@ export default function Home() {
                     transition={{ duration: 1, ease: "easeOut" }}
                     onClick={openResume}
                   >
-                    <p className="line-clamp-1">View Resume</p>
+                    <p className="line-clamp-1">{isLg ? 'View Resume' : 'Resume'}</p>
                   </motion.button>
                 </div>
               </div>
@@ -310,7 +311,7 @@ export default function Home() {
           </div>
         </div>
         <div className="relative">
-          <div className="flex 5xl:mt-64 lg:mt-48 mt-8 lg:px-48 px-8 justify-between text-lightblack">
+          <div className="flex lg:text-md text-sm 5xl:mt-64 lg:mt-48 mt-8 lg:px-48 px-8 justify-between text-lightblack">
             <div>ONTARIO, CANADA</div>
             <div>(SCROLL FOR MORE)</div>
           </div>
