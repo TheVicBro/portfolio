@@ -298,13 +298,13 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 h-96 rounded-lg">
+          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 lg:h-96 h-88 rounded-lg">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
-              <div className="w-full h-full p-6">
+              <div className="w-full h-full lg:p-6 p-4">
                 <img src="/profilepic.jpg" alt="profile" className="rounded-lg w-full h-full object-cover" />
               </div>
             </motion.div>
@@ -423,12 +423,14 @@ export default function Home() {
             className="5xl:text-10xl 4xl:text-8xl lg:text-7xl text-5xl font-bold text-center text-lightblack"
             text={["ABOUT ME"]}
             staggerChildren={0.1}
+            animateMode="char"
             once={true}
           />
           <AnimatedText
             className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8"
             text={["I'm a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software."]}
-            staggerChildren={0.003}
+            staggerChildren={0.01}
+            animateMode="word"
             once={true}
           />
           <div>

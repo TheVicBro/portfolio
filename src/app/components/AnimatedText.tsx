@@ -12,6 +12,7 @@ type AnimatedTextProps = {
       hidden: Variant;
       visible: Variant;
     };
+    animateMode?: "char" | "word";
   };
   
   const defaultAnimations = {
@@ -37,6 +38,7 @@ export const AnimatedText = ({
     repeatDelay,
     staggerChildren = 0.1,
     animation = defaultAnimations,
+    animateMode = "char",
   }: AnimatedTextProps) => {
     const controls = useAnimation();
     const textArray = Array.isArray(text) ? text : [text];
@@ -76,20 +78,33 @@ export const AnimatedText = ({
             hidden: {},
           }}
           aria-hidden
+          style={{ willChange: 'opacity, transform' }}
         >
           {textArray.map((line, lineIndex) => (
             <span className="block" key={`${line}-${lineIndex}`}>
               {line.split(" ").map((word, wordIndex) => (
                 <span className="inline-block" key={`${word}-${wordIndex}`}>
-                  {word.split("").map((char, charIndex) => (
+                  {animateMode === "char" ? (
+                    word.split("").map((char, charIndex) => (
+                      <motion.span
+                        key={`${char}-${charIndex}`}
+                        className="inline-block"
+                        variants={animation}
+                        style={{ willChange: 'opacity, transform' }}
+                      >
+                        {char}
+                      </motion.span>
+                    ))
+                  ) : (
                     <motion.span
-                      key={`${char}-${charIndex}`}
+                      key={`${word}-${wordIndex}`}
                       className="inline-block"
                       variants={animation}
+                      style={{ willChange: 'opacity, transform' }}
                     >
-                      {char}
+                      {word}
                     </motion.span>
-                  ))}
+                  )}
                   <span className="inline-block">&nbsp;</span>
                 </span>
               ))}
