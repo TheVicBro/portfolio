@@ -29,6 +29,7 @@ const config: Config = {
         'background': '#E6E6E6',
       },
       height: {
+        '88' : '22rem',
         '112': '28rem',
         '128': '32rem',
         '144': '36rem',
