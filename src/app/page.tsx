@@ -422,13 +422,15 @@ export default function Home() {
           <AnimatedText
             className="5xl:text-10xl 4xl:text-8xl lg:text-7xl text-5xl font-bold text-center text-lightblack"
             text={["ABOUT ME"]}
-            staggerChildren={0.1}
+            staggerChildren={0.15}
+            animateMode="char"
             once={true}
           />
           <AnimatedText
             className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8"
             text={["I'm a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software."]}
-            staggerChildren={0.003}
+            staggerChildren={0.015}
+            animateMode="word"
             once={true}
           />
           <div>
