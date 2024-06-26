@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useInView } from "react-intersection-observer";
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { AnimatedText } from './components/AnimatedText';
 
 type FormData = {
   name: string;
@@ -57,27 +57,21 @@ export default function Home() {
   const aboutRef = useRef<HTMLDivElement|null>(null);
   const portfolioRef = useRef<HTMLDivElement|null>(null);
   const contactRef = useRef<HTMLDivElement|null>(null);
+  const aboutPictureRef = useRef(null);
+  const isInView = useInView(aboutPictureRef, { amount: 0.5 });
 
   const openResume = () => {
     window.open('/VictorChung_Resume.pdf', '_blank', 'noopener,noreferrer');
   };
 
-  const { ref: portfolioRefView, inView: portfolioInView } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-  const { ref: portfolioItemRef1, inView: portfolioItemInView1 } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-  const { ref: portfolioItemRef2, inView: portfolioItemInView2 } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-  const { ref: portfolioItemRef3, inView: portfolioItemInView3 } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
+  const portfolioRefView = useRef(null);
+  const portfolioInView = useInView(portfolioRefView, { once: true, amount: 0.2 });
+  const portfolioItemRef1 = useRef(null);
+  const portfolioItemInView1 = useInView(portfolioItemRef1, { once: true, amount: 0.2 });
+  const portfolioItemRef2 = useRef(null);
+  const portfolioItemInView2 = useInView(portfolioItemRef2, { once: true, amount: 0.2 });
+  const portfolioItemRef3 = useRef(null);
+  const portfolioItemInView3 = useInView(portfolioItemRef3, { once: true, amount: 0.2 });
 
   const [cursorX, setCursorX] = useState<number | undefined>(0);
   const [cursorY, setCursorY] = useState<number | undefined>(0);
@@ -405,25 +399,38 @@ export default function Home() {
       </div>
       <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-36 px-8 5xl:py-32 py-8 lg:h-screen h-auto">
         <div className="lg:w-1/3 w-full my-12 relative lg:mb-0 mb-8">
-          <div className="relative w-full lg:h-full h-auto">
-            <Image
-              src="/about.png"
-              alt="about"
-              layout="responsive"
-              width={835} 
-              height={1190}
-              className="rounded-lg"
-              draggable="false"
-            />
-          </div>
+          <motion.div
+            ref={aboutPictureRef}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            <div className="relative w-full lg:h-full h-auto">
+              <Image
+                src="/about.png"
+                alt="about"
+                layout="responsive"
+                width={835} 
+                height={1190}
+                className="rounded-lg"
+                draggable="false"
+              />
+            </div>
+          </motion.div>
         </div>
         <div className="flex flex-col items-center lg:w-2/3 lg:pl-24 pl-2 5xl:pt-36 4xl:pt-32 lg:pt-16 pt-4">
-          <div className="5xl:text-10xl 4xl:text-8xl lg:text-7xl text-5xl font-bold text-center text-lightblack">
-            ABOUT ME
-          </div>
-          <div className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8">
-            I&apos;m a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software.
-          </div>
+          <AnimatedText
+            className="5xl:text-10xl 4xl:text-8xl lg:text-7xl text-5xl font-bold text-center text-lightblack"
+            text={["ABOUT ME"]}
+            staggerChildren={0.1}
+            once={true}
+          />
+          <AnimatedText
+            className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8"
+            text={["I'm a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software."]}
+            staggerChildren={0.003}
+            once={true}
+          />
           <div>
             <motion.button 
               className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 px-8 4xl:mt-16 lg:mt-10 m-8"
