@@ -398,12 +398,13 @@ export default function Home() {
         </div>
       </div>
       <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-36 px-8 5xl:py-32 py-8 lg:h-screen h-auto">
-        <div className="lg:w-1/3 w-full my-12 relative lg:mb-0 mb-8">
+        <div className="lg:w-1/3 w-full 4xl:my-12 relative lg:mb-0 mb-8 flex items-center">
           <motion.div
             ref={aboutPictureRef}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 1, ease: "easeOut" }}
+            className="w-full"
           >
             <div className="relative w-full lg:h-full h-auto">
               <Image
@@ -418,7 +419,7 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-        <div className="flex flex-col items-center lg:w-2/3 lg:pl-24 pl-2 5xl:pt-36 4xl:pt-32 lg:pt-16 pt-4">
+        <div className="flex flex-col justify-center items-center lg:w-2/3 lg:pl-24 pl-2">
           <AnimatedText
             className="5xl:text-10xl 4xl:text-8xl lg:text-7xl text-5xl font-bold text-center text-lightblack"
             text={["ABOUT ME"]}
