@@ -163,7 +163,7 @@ export default function Home() {
       >Learn More</motion.div>
       <motion.div
         ref={topRefView}
-        className="flex items-center justify-between 5xl:p-16 lg:p-12 p-6 5xl:px-48 4xl:px-40 lg:px-36 px-8 text-lightblack"
+        className="flex items-center justify-between 5xl:p-16 2xl:p-12 lg:p-8 p-6 5xl:px-48 4xl:px-40 lg:px-36 px-8 text-lightblack"
         initial={{ opacity: 0, y: -140 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
@@ -213,7 +213,7 @@ export default function Home() {
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
-        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:pt-48 5xl:px-48 lg:pt-36 4xl:px-40 lg:px-36 px-8">
+        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:pt-48 5xl:px-48 4xl:pt-36 4xl:px-40 2xl:pt-24 lg:pt-16 lg:px-36 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center">
             <div>
               <div className="truncate">
@@ -298,20 +298,20 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 lg:h-96 h-88 rounded-lg">
+          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 2xl:h-96 lg:h-76 h-88 rounded-lg">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
-              <div className="w-full h-full lg:p-6 p-4">
+              <div className="w-full h-full 2xl:p-6 p-4">
                 <img src="/profilepic.jpg" alt="profile" className="rounded-lg w-full h-full object-cover" />
               </div>
             </motion.div>
           </div>
         </div>
         <div className="relative">
-          <div className="flex lg:text-md text-sm 5xl:mt-64 lg:mt-48 mt-8 lg:px-48 px-8 justify-between text-lightblack">
+          <div className="flex lg:text-md text-sm 5xl:mt-64 4xl:mt-48 2xl:mt-40 lg:mt-32 mt-8 lg:px-48 px-8 justify-between text-lightblack">
             <div>ONTARIO, CANADA</div>
             <div>(SCROLL FOR MORE)</div>
           </div>
@@ -397,7 +397,7 @@ export default function Home() {
           </motion.div>
         </div>
       </div>
-      <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-36 px-8 5xl:py-32 py-8 lg:h-screen h-auto">
+      <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-36 px-8 5xl:py-32 4xl:py-24 py-8 lg:h-screen h-auto">
         <div className="lg:w-1/3 w-full 4xl:my-12 relative lg:mb-0 mb-8 flex items-center">
           <motion.div
             ref={aboutPictureRef}
@@ -445,98 +445,100 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div ref={contactRef} className="z-40 bg-lightblack flex flex-col items-center lg:px-48 px-8 5xl:py-32 4xl:py-24 py-16 lg:h-screen h-auto">
-        <div className="flex 5xl:text-10xl 4xl:text-8xl lg:text-7xl text-5xl font-bold text-center text-white">
-          CONTACT
-        </div>
-        <form onSubmit={handleSubmit} className="w-full max-w-screen-lg mx-auto">
-          <div>
-            <div className="flex lg:flex-row flex-col 5xl:mt-32 4xl:mt-16 mt-12 text-white 5xl:text-5xl 4xl:text-4xl text-3xl lg:space-x-8 space-y-4 lg:space-y-0 lg:h-full h-auto">
-              <div className="flex flex-col w-full lg:w-1/2">
-                <div>
+      <div ref={contactRef} className="z-40 bg-lightblack flex flex-col justify-between items-center lg:px-48 px-8 5xl:pt-32 5xl:pb-16 4xl:pt-24 4xl:pb-8 pt-16 pb-4 lg:h-screen h-auto">
+
+          <div className="flex justify-center 5xl:text-10xl 4xl:text-8xl lg:text-7xl text-5xl font-bold text-center text-white">
+            CONTACT
+          </div>
+          <form onSubmit={handleSubmit} className="w-full max-w-screen-lg mx-auto">
+            <div>
+              <div className="flex lg:flex-row flex-col text-white 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl lg:mt-0 mt-12 lg:space-x-8 space-y-4 lg:space-y-0 lg:h-full h-auto">
+                <div className="flex flex-col w-full lg:w-1/2">
                   <div>
-                    Name
+                    <div>
+                      Name
+                      <a className="text-skyblue">*</a>
+                    </div>
+                    <div>
+                      <input 
+                        type="text" 
+                        name="name"
+                        className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto" 
+                        value={formData.name} 
+                        onChange={handleChange} 
+                        required 
+                      />
+                    </div>
+                  </div>
+                  <div className="lg:mt-6 mt-4">
+                    <div>
+                      Email
+                      <a className="text-skyblue">*</a>
+                    </div>
+                    <div>
+                      <input 
+                        type="email"
+                        name="email"
+                        className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto" 
+                        value={formData.email} 
+                        onChange={handleChange} 
+                        required 
+                      />
+                    </div>
+                  </div>
+                  <div className="lg:mt-6 mt-4">
+                    <div>
+                      Company
+                      <a className="text-skyblue">*</a>
+                    </div>
+                    <div>
+                      <input 
+                        type="text" 
+                        name="company" 
+                        className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto"
+                        value={formData.company} 
+                        onChange={handleChange} 
+                        required 
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col w-full lg:w-1/2 lg:mt-0 mt-4">
+                  <div>
+                    Inquiry
                     <a className="text-skyblue">*</a>
                   </div>
                   <div>
-                    <input 
-                      type="text" 
-                      name="name"
-                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto" 
-                      value={formData.name} 
+                    <textarea 
+                      name="inquiry"
+                      className="4xl:mt-4 mt-2 border-4 border-white p-4 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto resize-none" 
+                      rows={8} 
+                      value={formData.inquiry} 
                       onChange={handleChange} 
                       required 
                     />
                   </div>
-                </div>
-                <div className="lg:mt-6 mt-4">
-                  <div>
-                    Email
-                    <a className="text-skyblue">*</a>
-                  </div>
-                  <div>
-                    <input 
-                      type="email"
-                      name="email"
-                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto" 
-                      value={formData.email} 
-                      onChange={handleChange} 
-                      required 
-                    />
-                  </div>
-                </div>
-                <div className="lg:mt-6 mt-4">
-                  <div>
-                    Company
-                    <a className="text-skyblue">*</a>
-                  </div>
-                  <div>
-                    <input 
-                      type="text" 
-                      name="company" 
-                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto"
-                      value={formData.company} 
-                      onChange={handleChange} 
-                      required 
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col w-full lg:w-1/2 lg:mt-0 mt-4">
-                <div>
-                  Inquiry
-                  <a className="text-skyblue">*</a>
-                </div>
-                <div>
-                  <textarea 
-                    name="inquiry"
-                    className="4xl:mt-4 mt-2 border-4 border-white p-4 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto resize-none" 
-                    rows={8} 
-                    value={formData.inquiry} 
-                    onChange={handleChange} 
-                    required 
-                  />
                 </div>
               </div>
             </div>
-          </div>
-          <div className="flex justify-center lg:mb-0 mb-8">
-            <motion.button 
-              className="bg-skyblue 4xl:text-4xl text-3xl text-white rounded-lg 5xl:my-12 4xl:my-8 my-4 p-4" 
-              type="submit"
-              whileTap={{ scale: 0.85 }}
-            >
-              Submit
-            </motion.button>
-          </div>
-        </form>
-        <div className="flex items-center justify-between w-full 5xl:mt-12 mt-0">
-          <div className="flex 5xl:text-6xl 4xl:text-6xl lg:text-5xl text-4xl font-bold text-left text-white">
+            <div className="flex justify-center lg:mb-0 mb-8">
+              <motion.button 
+                className="bg-skyblue 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl text-white rounded-lg 5xl:mt-12 4xl:mt-8 mt-4 5xl:p-6 p-4" 
+                type="submit"
+                whileTap={{ scale: 0.85 }}
+              >
+                Submit
+              </motion.button>
+            </div>
+          </form>
+
+        <div className="flex items-center justify-between w-full mt-0">
+          <div className="flex 5xl:text-6xl 4xl:text-6xl 2xl:text-5xl text-4xl font-bold text-left text-white">
             © 2024 VICTOR CHUNG
           </div>
           <div>
             <motion.button 
-              className="bg-skyblue text-white text-5xl rounded-full 4xl:w-32 4xl:h-32 w-24 h-24"
+              className="bg-skyblue text-white text-5xl rounded-full 4xl:w-32 4xl:h-32 lg:w-20 lg:h-20 w-24 h-24"
               whileTap={{ scale: 0.85 }}
               onClick={() => topRefView.current?.scrollIntoView({ behavior: 'smooth' })}
             >
