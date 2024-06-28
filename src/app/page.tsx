@@ -4,8 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { AnimatedText } from './components/AnimatedText';
-import Navbar from './components/Navbar';
+import { AnimatedText } from '../components/AnimatedText';
+import Navbar from '../components/Navbar';
 
 type FormData = {
   name: string;
