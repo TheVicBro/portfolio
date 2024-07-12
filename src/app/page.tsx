@@ -6,6 +6,7 @@ import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { AnimatedText } from '../components/AnimatedText';
 import Navbar from '../components/Navbar';
+import { useSearchParams } from 'next/navigation';
 
 type FormData = {
   name: string;
@@ -60,6 +61,22 @@ export default function Home() {
   const contactRef = useRef<HTMLDivElement|null>(null);
   const aboutPictureRef = useRef(null);
   const isInView = useInView(aboutPictureRef, { amount: 0.5 });
+
+  // When coming from a different page, scroll to the section specified in the URL
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const section = searchParams?.get('section');
+    if (section) {
+      if (section === 'Portfolio') {
+        portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
+      } else if (section === 'About') {
+        aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+      } else if (section === 'Contact') {
+        contactRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [searchParams]);
+
 
   const openResume = () => {
     window.open('/VictorChung_Resume.pdf', '_blank', 'noopener,noreferrer');

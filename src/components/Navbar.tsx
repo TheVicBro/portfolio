@@ -1,12 +1,31 @@
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 type NavbarProps = {
-    portfolioRef: React.RefObject<HTMLDivElement>;
-    aboutRef: React.RefObject<HTMLDivElement>;
-    contactRef: React.RefObject<HTMLDivElement>;
-  };
+  portfolioRef?: React.RefObject<HTMLDivElement>;
+  aboutRef?: React.RefObject<HTMLDivElement>;
+  contactRef?: React.RefObject<HTMLDivElement>;
+};
 
 export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarProps) {
+  const router = useRouter();
+
+  const handleNavigation = (section: string) => {
+    if (portfolioRef && aboutRef && contactRef) {
+      if (section === "Portfolio") {
+        portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (section === "About") {
+        aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (section === "Contact") {
+        contactRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      router.push(`/?section=${section}`);
+    }
+  };
+
   return (
     <motion.div
       className="flex items-center justify-between 5xl:p-16 2xl:p-12 lg:p-8 p-6 5xl:px-48 4xl:px-40 lg:px-36 px-8 text-lightblack"
@@ -27,17 +46,7 @@ export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarPro
           >
             <button 
               className="relative z-10"
-              onClick={() => {
-                if (item === "Portfolio") {
-                  portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
-                }
-                if (item === "About") {
-                  aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
-                }
-                if (item === "Contact") {
-                  contactRef.current?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={() => handleNavigation(item)}
             >
               {item}
             </button>
