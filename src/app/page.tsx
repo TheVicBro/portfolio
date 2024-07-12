@@ -6,7 +6,8 @@ import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { AnimatedText } from '../components/AnimatedText';
 import Navbar from '../components/Navbar';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';  
+import { Suspense } from 'react';
 
 type FormData = {
   name: string;
@@ -15,7 +16,7 @@ type FormData = {
   inquiry: string;
 };
 
-export default function Home() {
+function MainContent() {
   const { scrollY } = useScroll();
   const [scrollRange, setScrollRange] = useState({ start: 0, end: 1500 });
   const [isLg, setIsLg] = useState(false);
@@ -542,5 +543,13 @@ export default function Home() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MainContent />
+    </Suspense>
   );
 }
