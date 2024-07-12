@@ -152,6 +152,13 @@ export default function Home() {
     }
   };
 
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsClicked(true);
+    setTimeout(() => setIsClicked(false), 150);
+  };
+
   return (
     <main>
       <motion.div
@@ -159,7 +166,8 @@ export default function Home() {
         style={{
           left: cursorX! - 25,
           top: cursorY! - 25,
-          transform: `scale(${cursorScale})`
+          transform: `scale(${isClicked ? cursorScale * 0.8 : cursorScale})`,
+          transition: 'transform 0.15s ease-out',
         }}
       >
         Learn More
@@ -306,8 +314,11 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
           >
-            <img src="/rout3.png" alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/rout3" className="cursor-none">
+              <img src="/rout3.png" alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
+            </Link>
           </motion.div>
         </div>
         <div className="flex lg:mb-36 mb-24">
@@ -329,8 +340,11 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
           >
-            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/goeasy" className="cursor-none">
+              <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            </Link>
           </motion.div>
         </div>
         <div className="flex lg:mb-36 mb-8">
@@ -352,8 +366,11 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
           >
-            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/llmproxy" className="cursor-none">
+              <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            </Link>
           </motion.div>
         </div>
       </div>
