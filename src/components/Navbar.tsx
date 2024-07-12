@@ -26,6 +26,14 @@ export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarPro
     }
   };
 
+  const handleLogoClick = () => {
+    if (portfolioRef && aboutRef && contactRef) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      router.push('/');
+    }
+  };
+
   return (
     <motion.div
       className="flex items-center justify-between 5xl:p-16 2xl:p-12 lg:p-8 p-6 5xl:px-48 4xl:px-40 lg:px-36 px-8 text-lightblack"
@@ -33,7 +41,14 @@ export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarPro
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: 'easeOut' }}
     >
-      <div className="5xl:text-6xl text-5xl font-bold">VC</div>
+      <motion.div
+        className="5xl:text-6xl text-5xl font-bold cursor-pointer"
+        onClick={handleLogoClick}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        VC
+      </motion.div>
       <div className="flex lg:flex-row flex-col lg:items-row 5xl:text-4xl text-2xl font-semibold 5xl:space-x-28 4xl:space-x-24 lg:space-x-16 space-x-0 space-y-0">
         {["Portfolio", "About", "Contact"].map((item) => (
           <motion.div
