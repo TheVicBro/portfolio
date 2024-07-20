@@ -6,7 +6,7 @@ import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { AnimatedText } from '../components/AnimatedText';
 import Navbar from '../components/Navbar';
-import { useSearchParams } from 'next/navigation';  
+import { useSearchParams, useRouter } from 'next/navigation';  
 import { Suspense } from 'react';
 
 type FormData = {
@@ -44,6 +44,19 @@ function MainContent() {
     };
   }, []);
 
+  const router = useRouter();
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handlePortfolioItemClick = (e: React.MouseEvent, url: string) => {
+    e.preventDefault();
+    setIsAnimating(true);
+    setCursorScale(2.5);
+    setTimeout(() => {
+      setIsAnimating(false);
+      router.push(url);
+    }, 200);
+  };
+
   const opacity = useTransform(scrollY, [scrollRange.start, scrollRange.end], [1, 0]);
   const y = useTransform(scrollY, [scrollRange.start, scrollRange.end], [0, 200]);
 
@@ -77,7 +90,6 @@ function MainContent() {
       }
     }
   }, [searchParams]);
-
 
   const openResume = () => {
     window.open('/VictorChung_Resume.pdf', '_blank', 'noopener,noreferrer');
@@ -170,13 +182,6 @@ function MainContent() {
     }
   };
 
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked(true);
-    setTimeout(() => setIsClicked(false), 150);
-  };
-
   return (
     <main>
       <motion.div
@@ -184,7 +189,7 @@ function MainContent() {
         style={{
           left: cursorX! - 25,
           top: cursorY! - 25,
-          transform: `scale(${isClicked ? cursorScale * 0.8 : cursorScale})`,
+          transform: `scale(${isAnimating ? cursorScale * 0.8 : cursorScale})`,
           transition: 'transform 0.15s ease-out',
         }}
       >
@@ -332,9 +337,8 @@ function MainContent() {
             transition={{ duration: 0.8, delay: 0.6 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            onClick={handleClick}
           >
-            <Link href="/rout3" className="cursor-none">
+            <Link href="/rout3" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/rout3')}>
               <img src="/rout3.png" alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
@@ -358,9 +362,8 @@ function MainContent() {
             transition={{ duration: 0.8, delay: 0.6 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            onClick={handleClick}
           >
-            <Link href="/goeasy" className="cursor-none">
+            <Link href="/goeasy" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/goeasy')}>
               <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
@@ -384,9 +387,8 @@ function MainContent() {
             transition={{ duration: 0.8, delay: 0.6 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            onClick={handleClick}
           >
-            <Link href="/llmproxy" className="cursor-none">
+            <Link href="/llmproxy" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/llmproxy')}>
               <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
