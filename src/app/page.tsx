@@ -4,7 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { AnimatedText } from './components/AnimatedText';
+import { AnimatedText } from '../components/AnimatedText';
+import Navbar from '../components/Navbar';
+import { useSearchParams, useRouter } from 'next/navigation';  
+import { Suspense } from 'react';
 
 type FormData = {
   name: string;
@@ -13,7 +16,7 @@ type FormData = {
   inquiry: string;
 };
 
-export default function Home() {
+function MainContent() {
   const { scrollY } = useScroll();
   const [scrollRange, setScrollRange] = useState({ start: 0, end: 1500 });
   const [isLg, setIsLg] = useState(false);
@@ -41,6 +44,19 @@ export default function Home() {
     };
   }, []);
 
+  const router = useRouter();
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handlePortfolioItemClick = (e: React.MouseEvent, url: string) => {
+    e.preventDefault();
+    setIsAnimating(true);
+    setCursorScale(2.5);
+    setTimeout(() => {
+      setIsAnimating(false);
+      router.push(url);
+    }, 200);
+  };
+
   const opacity = useTransform(scrollY, [scrollRange.start, scrollRange.end], [1, 0]);
   const y = useTransform(scrollY, [scrollRange.start, scrollRange.end], [0, 200]);
 
@@ -59,6 +75,21 @@ export default function Home() {
   const contactRef = useRef<HTMLDivElement|null>(null);
   const aboutPictureRef = useRef(null);
   const isInView = useInView(aboutPictureRef, { amount: 0.5 });
+
+  // When coming from a different page, scroll to the section specified in the URL
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const section = searchParams?.get('section');
+    if (section) {
+      if (section === 'Portfolio') {
+        portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
+      } else if (section === 'About') {
+        aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+      } else if (section === 'Contact') {
+        contactRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [searchParams]);
 
   const openResume = () => {
     window.open('/VictorChung_Resume.pdf', '_blank', 'noopener,noreferrer');
@@ -158,62 +189,21 @@ export default function Home() {
         style={{
           left: cursorX! - 25,
           top: cursorY! - 25,
-          transform: `scale(${cursorScale})`
+          transform: `scale(${isAnimating ? cursorScale * 0.8 : cursorScale})`,
+          transition: 'transform 0.15s ease-out',
         }}
-      >Learn More</motion.div>
-      <motion.div
-        ref={topRefView}
-        className="flex items-center justify-between 5xl:p-16 2xl:p-12 lg:p-8 p-6 5xl:px-48 4xl:px-40 lg:px-36 px-8 text-lightblack"
-        initial={{ opacity: 0, y: -140 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
       >
-        <div className="5xl:text-6xl text-5xl font-bold">VC</div>
-        <div className="flex lg:flex-row flex-col lg:items-row 5xl:text-4xl text-2xl font-semibold 5xl:space-x-28 4xl:space-x-24 lg:space-x-16 space-x-0 space-y-0">
-          {["Portfolio", "About", "Contact"].map((item) => (
-            <motion.div
-              key={item}
-              className="relative"
-              whileHover="hover"
-              initial="initial"
-              animate="initial"
-              whileTap={{ scale: 0.85 }}
-            >
-              <button 
-                className="relative z-10"
-                onClick={() => {
-                  if (item === "Portfolio") {
-                    portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
-                  }
-                  if (item === "About") {
-                    aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
-                  }
-                  if (item === "Contact") {
-                    contactRef.current?.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                {item}
-              </button>
-              <motion.div
-                className="absolute bottom-[-1] left-1/2 transform -translate-x-1/2 h-2 bg-skyblue"
-                variants={{
-                  initial: { width: 0 },
-                  hover: { width: "100%" },
-                }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-              />
-            </motion.div>
-          ))}
-        </div>
+        Learn More
       </motion.div>
+      <div ref={topRefView}/>
       <motion.div 
-        className="h-screen sticky top-0"
+        className="h-screen sticky top-0 flex flex-col justify-between"
         style={{ opacity, y, pointerEvents: isMainClickable ? 'auto' : 'none' }}
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
-        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:pt-48 5xl:px-48 4xl:pt-36 4xl:px-40 2xl:pt-24 lg:pt-16 lg:px-36 px-8">
+        <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
+        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:px-48 4xl:px-40 lg:px-36 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center">
             <div>
               <div className="truncate">
@@ -298,7 +288,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 2xl:h-96 lg:h-76 h-88 rounded-lg">
+          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 2xl:h-96 lg:h-76 h-88 lg:mt-0 mt-4 rounded-lg">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
@@ -310,11 +300,9 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-        <div className="relative">
-          <div className="flex lg:text-md text-sm 5xl:mt-64 4xl:mt-48 2xl:mt-40 lg:mt-32 mt-8 lg:px-48 px-8 justify-between text-lightblack">
-            <div>ONTARIO, CANADA</div>
-            <div>(SCROLL FOR MORE)</div>
-          </div>
+        <div className="flex lg:mb-8 mb-4 lg:text-md text-sm lg:px-48 px-8 justify-between text-lightblack">
+          <div>ONTARIO, CANADA</div>
+          <div>(SCROLL FOR MORE)</div>
         </div>
       </motion.div>
       <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl 5xl:px-48 4xl:px-40 lg:px-36 px-8 lg:py-32 py-16">
@@ -347,7 +335,9 @@ export default function Home() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img src="/rout3.png" alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/rout3" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/rout3')}>
+              <img src="/rout3.png" alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
+            </Link>
           </motion.div>
         </div>
         <div className="flex lg:mb-36 mb-24">
@@ -370,7 +360,9 @@ export default function Home() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/goeasy" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/goeasy')}>
+              <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            </Link>
           </motion.div>
         </div>
         <div className="flex lg:mb-36 mb-8">
@@ -393,7 +385,9 @@ export default function Home() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/llmproxy" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/llmproxy')}>
+              <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            </Link>
           </motion.div>
         </div>
       </div>
@@ -548,5 +542,13 @@ export default function Home() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MainContent />
+    </Suspense>
   );
 }
