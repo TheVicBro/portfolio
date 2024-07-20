@@ -195,16 +195,15 @@ function MainContent() {
       >
         Learn More
       </motion.div>
-      <div ref={topRefView}>
-        <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
-      </div>
+      <div ref={topRefView}/>
       <motion.div 
-        className="h-screen sticky top-0"
+        className="h-screen sticky top-0 flex flex-col justify-between"
         style={{ opacity, y, pointerEvents: isMainClickable ? 'auto' : 'none' }}
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
-        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:pt-48 5xl:px-48 4xl:pt-36 4xl:px-40 2xl:pt-24 lg:pt-16 lg:px-36 px-8">
+        <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
+        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:px-48 4xl:px-40 lg:px-36 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center">
             <div>
               <div className="truncate">
@@ -301,11 +300,9 @@ function MainContent() {
             </motion.div>
           </div>
         </div>
-        <div className="relative">
-          <div className="flex lg:text-md text-sm 5xl:mt-64 4xl:mt-48 2xl:mt-40 lg:mt-32 mt-8 lg:px-48 px-8 justify-between text-lightblack">
-            <div>ONTARIO, CANADA</div>
-            <div>(SCROLL FOR MORE)</div>
-          </div>
+        <div className="flex lg:mb-8 mb-4 lg:text-md text-sm lg:px-48 px-8 justify-between text-lightblack">
+          <div>ONTARIO, CANADA</div>
+          <div>(SCROLL FOR MORE)</div>
         </div>
       </motion.div>
       <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl 5xl:px-48 4xl:px-40 lg:px-36 px-8 lg:py-32 py-16">
