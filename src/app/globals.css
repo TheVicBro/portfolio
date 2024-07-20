@@ -15,11 +15,11 @@ html {
 }
 
 .cursor {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   background-color: #0D99FF;
   color: white;
-  font-size: 4px;
+  font-size: 6px;
   font-weight: 700;
   position: fixed;
   border-radius: 50%;
@@ -33,7 +33,7 @@ html {
   text-align: center;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   :root {
     --padding-left: 1.5rem;
     --padding-right: 1.5rem;

@@ -36,7 +36,7 @@ export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarPro
 
   return (
     <motion.div
-      className="flex items-center justify-between 5xl:pt-16 2xl:pt-12 lg:pt-8 pt-6 5xl:px-48 4xl:px-40 lg:px-36 px-8 text-lightblack"
+      className="flex items-center justify-between 5xl:pt-16 2xl:pt-12 lg:pt-8 pt-6 5xl:px-48 4xl:px-40 lg:px-24 px-8 text-lightblack"
       initial={{ opacity: 0, y: -140 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: 'easeOut' }}

@@ -203,12 +203,12 @@ function MainContent() {
         transition={{ ease: 'easeOut' }}
       >
         <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
-        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:px-48 4xl:px-40 lg:px-36 px-8">
+        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:px-48 4xl:px-40 lg:px-24 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center">
             <div>
               <div className="truncate">
                 <motion.div
-                  className="mt-4 5xl:text-12xl 4xl:text-9xl 3xl:text-8.5xl lg:text-7xl text-4.5xl font-bold text-lightblack leading-none"
+                  className="mt-4 5xl:text-12xl 4xl:text-9xl 3xl:text-8.5xl xl:text-8xl lg:text-7xl md:text-6xl text-4.5xl font-bold text-lightblack leading-none"
                   initial={{ y: "100%" }}
                   animate={{ y: "0%" }}
                   transition={{ duration: 1, ease: "easeOut" }}
@@ -219,7 +219,7 @@ function MainContent() {
               <div className="mt-1 5xl:px-12 lg:px-10 px-4">
                 <div className="truncate pb-2">
                   <motion.div
-                    className="5xl:text-7xl 4xl:text-6xl lg:text-5xl text-2.5xl font-bold text-skyblue"
+                    className="5xl:text-7xl 4xl:text-6xl lg:text-5xl md:text-4xl text-2.5xl font-bold text-skyblue"
                     initial={{ y: "-110%" }}
                     animate={{ y: "0%" }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -288,7 +288,7 @@ function MainContent() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 2xl:h-96 lg:h-76 h-88 lg:mt-0 mt-4 rounded-lg">
+          <div className="bg-lightblack min-w-64 lg:w-1/4 lg:mx-0 sm:mx-44 5xl:h-160 4xl:h-112 2xl:h-96 lg:h-76 h-88 lg:mt-0 mt-4 rounded-lg">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
@@ -300,12 +300,12 @@ function MainContent() {
             </motion.div>
           </div>
         </div>
-        <div className="flex lg:mb-8 mb-4 lg:text-md text-sm lg:px-48 px-8 justify-between text-lightblack">
+        <div className="flex lg:mb-8 mb-4 lg:text-md text-sm 5xl:px-48 4xl:px-40 lg:px-28 px-8 justify-between text-lightblack">
           <div>ONTARIO, CANADA</div>
           <div>(SCROLL FOR MORE)</div>
         </div>
       </motion.div>
-      <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl 5xl:px-48 4xl:px-40 lg:px-36 px-8 lg:py-32 py-16">
+      <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16">
         <motion.div
           ref={portfolioRefView}
           className="5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-24 mb-8"
@@ -391,7 +391,7 @@ function MainContent() {
           </motion.div>
         </div>
       </div>
-      <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-36 px-8 5xl:py-32 4xl:py-24 py-8 lg:h-screen h-auto">
+      <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-24 px-8 5xl:py-32 4xl:py-24 py-8 lg:h-screen h-auto">
         <div className="lg:w-1/3 w-full 4xl:my-12 relative lg:mb-0 mb-8 flex items-center">
           <motion.div
             ref={aboutPictureRef}
