@@ -28,7 +28,7 @@ const Goeasy = () => {
             <div className="p-8">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Project Overview</h2>
               <p className="text-gray-600 mb-6">
-                Led a comprehensive UI overhaul for goeasy's web application, focusing on modernizing the user interface, improving user experience, and enhancing overall performance. This project showcases my ability to work with modern web technologies and implement large-scale improvements to existing applications.
+                Led a comprehensive UI overhaul for goeasy&apos;s web application, focusing on modernizing the user interface, improving user experience, and enhancing overall performance. This project showcases my ability to work with modern web technologies and implement large-scale improvements to existing applications.
               </p>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Key Achievements:</h3>
@@ -67,7 +67,7 @@ const Goeasy = () => {
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Challenges and Solutions:</h3>
               <p className="text-gray-600 mb-6">
-                A significant challenge in this project was navigating the complex codebase while implementing new features and addressing existing issues. I spent considerable time meticulously refining UI elements, often uncovering subtle bugs that required deep investigation and creative problem-solving. For instance, while adjusting a critical component's layout, I discovered and resolved an underlying state management issue, improving overall system stability. Additionally, ensuring consistency between the overhauled web interface and the existing mobile app demanded a delicate balance. I tackled this by developing a shared design language and component library, effectively bridging the gap between platforms. These experiences showcased my ability to dive deep into code, identify root causes, and implement robust solutions, demonstrating my technical prowess and commitment to delivering a high-quality, user-centric product across all platforms.
+                A significant challenge in this project was navigating the complex codebase while implementing new features and addressing existing issues. I spent considerable time meticulously refining UI elements, often uncovering subtle bugs that required deep investigation and creative problem-solving. For instance, while adjusting a critical component&apos;s layout, I discovered and resolved an underlying state management issue, improving overall system stability. Additionally, ensuring consistency between the overhauled web interface and the existing mobile app demanded a delicate balance. I tackled this by developing a shared design language and component library, effectively bridging the gap between platforms. These experiences showcased my ability to dive deep into code, identify root causes, and implement robust solutions, demonstrating my technical prowess and commitment to delivering a high-quality, user-centric product across all platforms.
               </p>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Key Learnings:</h3>
@@ -104,7 +104,7 @@ const Goeasy = () => {
               >
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Future Enhancements:</h3>
                 <p className="text-gray-600">
-                  Moving forward, I've proposed implementing a design system to ensure consistency across the application, exploring micro-frontend architecture for better scalability, and introducing advanced analytics to gain deeper insights into user behavior and further improve the user experience.
+                  Moving forward, I&apos;ve proposed implementing a design system to ensure consistency across the application, exploring micro-frontend architecture for better scalability, and introducing advanced analytics to gain deeper insights into user behavior and further improve the user experience.
                 </p>
               </motion.div>
             </div>

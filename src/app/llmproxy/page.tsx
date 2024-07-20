@@ -67,13 +67,13 @@ const LLMProxy = () => {
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Challenges and Solutions:</h3>
               <p className="text-gray-600 mb-6">
-                A significant challenge in this project was creating a seamless, performant experience across different devices while incorporating various interactive elements. I tackled this by leveraging Astro's partial hydration capabilities, using React for interactive components, and implementing responsive design patterns. For instance, I created a responsive navigation system that adapts to different screen sizes, ensuring a consistent user experience across devices.
+                A significant challenge in this project was creating a seamless, performant experience across different devices while incorporating various interactive elements. I tackled this by leveraging Astro&apos;s partial hydration capabilities, using React for interactive components, and implementing responsive design patterns. For instance, I created a responsive navigation system that adapts to different screen sizes, ensuring a consistent user experience across devices.
               </p>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Key Learnings:</h3>
               <ul className="list-disc pl-6 mb-6 text-gray-600">
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }}>
-                  Deepened understanding of Astro's hybrid rendering approach
+                  Deepened understanding of Astro&apos;s hybrid rendering approach
                 </motion.li>
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.9 }}>
                   Improved skills in creating performant, animated UI components with Framer Motion
@@ -93,7 +93,7 @@ const LLMProxy = () => {
               >
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Results and Impact:</h3>
                 <p className="text-gray-600 mb-6">
-                  The landing page effectively communicated LLM Proxy's value proposition, resulting in increased user engagement and sign-ups. The interactive elements, such as the code demonstration and feature animations, significantly improved user understanding of the product. The responsive design ensured a consistent experience across all devices, contributing to lower bounce rates and higher conversion rates.
+                  The landing page effectively communicated LLM Proxy&apos;s value proposition, resulting in increased user engagement and sign-ups. The interactive elements, such as the code demonstration and feature animations, significantly improved user understanding of the product. The responsive design ensured a consistent experience across all devices, contributing to lower bounce rates and higher conversion rates.
                 </p>
               </motion.div>
               
@@ -104,7 +104,7 @@ const LLMProxy = () => {
               >
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Future Enhancements:</h3>
                 <p className="text-gray-600">
-                  Moving forward, I've proposed implementing A/B testing to optimize conversion rates, integrating a blog section for content marketing, and adding more interactive demos to showcase LLM Proxy's capabilities. These enhancements aim to further improve user engagement and provide more comprehensive information about the product.
+                  Moving forward, I&apos;ve proposed implementing A/B testing to optimize conversion rates, integrating a blog section for content marketing, and adding more interactive demos to showcase LLM Proxy&apos;s capabilities. These enhancements aim to further improve user engagement and provide more comprehensive information about the product.
                 </p>
               </motion.div>
             </div>
