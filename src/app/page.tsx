@@ -288,7 +288,7 @@ function MainContent() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 2xl:h-96 lg:h-76 h-88 rounded-lg">
+          <div className="bg-lightblack lg:w-1/4 5xl:h-160 4xl:h-112 2xl:h-96 lg:h-76 h-88 lg:mt-0 mt-4 rounded-lg">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
