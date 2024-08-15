@@ -182,6 +182,8 @@ function MainContent() {
     }
   };
 
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <main>
       <motion.div
@@ -332,14 +334,20 @@ function MainContent() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={portfolioItemInView1 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            onMouseEnter={() => {
+              handleMouseEnter();
+              setIsHovered(true);
+            }}
+            onMouseLeave={() => {
+              handleMouseLeave();
+              setIsHovered(false);
+            }}
           >
             <Link href="/rout3" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/rout3')}>
-              <img src="/rout3.png" alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
+              <img src={isHovered ? "/rout3.gif" : "/rout3.png"}  alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
-        </div>
+        </div>  
         <div className="flex lg:mb-36 mb-24">
           <motion.div
             ref={portfolioItemRef2}

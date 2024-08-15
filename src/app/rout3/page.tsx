@@ -15,7 +15,7 @@ const Rout3 = () => {
           transition={{ duration: 0.5 }}
           className="max-w-7xl mx-auto"
         >
-          <h1 className="text-4xl font-bold text-center text-lightblack mb-8">
+          <h1 className="text-5xl font-bold text-center text-lightblack mb-16">
             ROUT3 - LLM Proxy Web App
           </h1>
           
@@ -95,6 +95,7 @@ const Rout3 = () => {
               </motion.div>
             </div>
           </motion.div>
+          <img src="/rout3.gif" alt="Rout3" className="mt-12 mx-auto rounded-lg" />
         </motion.div>
       </div>
     </div>

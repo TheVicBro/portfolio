@@ -15,7 +15,7 @@ const Goeasy = () => {
           transition={{ duration: 0.5 }}
           className="max-w-7xl mx-auto"
         >
-          <h1 className="text-4xl font-bold text-center text-lightblack mb-8">
+          <h1 className="text-5xl font-bold text-center text-lightblack mb-16">
             goeasy - Web App UI
           </h1>
           
