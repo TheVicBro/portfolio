@@ -205,8 +205,8 @@ function MainContent() {
         transition={{ ease: 'easeOut' }}
       >
         <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
-        <div className="flex lg:flex-row flex-col-reverse justify-between h-[40%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
-          <div className="flex flex-col justify-between lg:text-left text-center -mb-24 lg:mb-0">
+        <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[40%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
+          <div className="flex flex-col justify-between lg:text-left text-center -mb-28 lg:mb-0">
             <div>
               <div className="truncate">
                 <motion.div
@@ -221,7 +221,7 @@ function MainContent() {
               <div className="mt-1 5xl:px-12 lg:px-10 px-4">
                 <div className="truncate pb-2">
                   <motion.div
-                    className="5xl:text-7xl 4xl:text-6xl lg:text-5xl md:text-4xl text-2.5xl font-bold text-skyblue"
+                    className="5xl:text-7xl 4xl:text-6xl lg:text-5xl md:text-4xl text-2.5xl font-bold text-skyblue leading-none lg:leading-normal"
                     initial={{ y: "-110%" }}
                     animate={{ y: "0%" }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -290,7 +290,7 @@ function MainContent() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack min-w-64 lg:w-1/3 3xl:w-1/4 lg:mx-0 sm:mx-44 h-full lg:mt-0 mt-4 rounded-lg -mt-28 lg:mt-0">
+          <div className="bg-lightblack min-w-64 lg:w-1/3 3xl:w-1/4 lg:mx-0 sm:mx-44 h-full lg:mt-0 mt-4 rounded-lg -mt-32 lg:mt-0">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
