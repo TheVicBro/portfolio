@@ -199,14 +199,14 @@ function MainContent() {
       </motion.div>
       <div ref={topRefView}/>
       <motion.div 
-        className="h-screen sticky top-0 flex flex-col justify-between"
+        className="h-screen sticky top-0 flex flex-col justify-between pb-12 md:pb-0"
         style={{ opacity, y, pointerEvents: isMainClickable ? 'auto' : 'none' }}
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
         <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
         <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[40%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
-          <div className="flex flex-col justify-between lg:text-left text-center -mb-28 lg:mb-0">
+          <div className="flex flex-col justify-between lg:text-left text-center -mb-36 lg:mb-0">
             <div>
               <div className="truncate">
                 <motion.div
@@ -254,31 +254,31 @@ function MainContent() {
               </div>
             </div>
             <div className="flex lg:justify-between justify-center items-end">
-              <div className="flex space-x-4 5xl:px-12 lg:px-10 px-4 lg:mt-0 mt-4">
+              <div className="flex space-x-4 5xl:px-12 lg:px-10 px-4 lg:mt-0 mt-2">
                 <Link href="https://www.linkedin.com/in/victor-chung-ca/" target="_blank" rel="noopener noreferrer">
                   <motion.button
-                    className="flex justify-center items-center rounded-lg bg-skyblue lg:h-16 h-12"
+                    className="flex justify-center items-center rounded-lg bg-skyblue h-10 md:h-12 lg:h-16"
                     initial={{ width: 0 }}
                     animate={{ width: "var(--width-social)" }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     layout="preserve-aspect"
                     whileTap={{ scale: 0.85 }}
                   >
-                    <div className="lg:w-14 lg:h-14 w-10 h-10 relative">
+                    <div className="w-8 md:w-10 lg:w-14 h-8 md:h-10 lg:h-14 relative">
                       <Image src="/linkedin.png" alt="LinkedIn" fill />
                     </div>
                   </motion.button>
                 </Link>
                 <Link href="https://github.com/TheVicBro" target="_blank" rel="noopener noreferrer">
                   <motion.button
-                    className="flex justify-center items-center rounded-lg bg-skyblue lg:h-16 h-12"
+                    className="flex justify-center items-center rounded-lg bg-skyblue h-10 md:h-12 lg:h-16"
                     initial={{ width: 0 }}
                     animate={{ width: "var(--width-social)" }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     layout="preserve-aspect"
                     whileTap={{ scale: 0.85 }}
                   >
-                    <div className="lg:w-14 lg:h-14 w-12 h-12 relative">
+                    <div className="w-8 md:w-10 lg:w-14 h-8 md:h-10 lg:h-14 relative">
                       <Image src="/github.png" alt="GitHub" fill />
                     </div>
                   </motion.button>
@@ -290,11 +290,12 @@ function MainContent() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack min-w-64 lg:w-1/3 3xl:w-1/4 lg:mx-0 sm:mx-44 h-full lg:mt-0 mt-4 rounded-lg -mt-32 lg:mt-0">
+          <div className="bg-lightblack min-w-64 lg:w-1/3 3xl:w-1/4 lg:mx-0 sm:mx-44 h-full lg:mt-0 mt-4 rounded-lg -mt-[8.5rem] lg:mt-0">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
               transition={{ duration: 1, ease: "easeOut" }}
+              className="h-full"
             >
               <div className="w-full h-full 2xl:p-6 p-4">
                 <div className="relative w-full h-full">
