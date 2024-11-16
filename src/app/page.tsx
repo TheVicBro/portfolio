@@ -205,7 +205,7 @@ function MainContent() {
         transition={{ ease: 'easeOut' }}
       >
         <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
-        <div className="flex lg:flex-row flex-col-reverse justify-between h-[40%] 5xl:px-48 4xl:px-40 lg:px-24 px-8">
+        <div className="flex lg:flex-row flex-col-reverse justify-between h-[40%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center -mb-24 lg:mb-0">
             <div>
               <div className="truncate">
