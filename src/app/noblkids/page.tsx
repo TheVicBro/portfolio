@@ -30,7 +30,7 @@ const NoblKids = () => {
             <div className="p-8">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Project Overview</h2>
               <p className="text-gray-600 mb-6">
-                Developed a dynamic, user-centric landing page for Nobl Kids, a comprehensive platform connecting children with extracurricular activities in the GTA. The landing page showcases the platform's key features through engaging animations and interactive elements, making it appealing to both parents and activity providers.
+                Developed a dynamic, user-centric landing page for Nobl Kids, a comprehensive platform connecting children with extracurricular activities in the GTA. The landing page showcases the platform&apos;s key features through engaging animations and interactive elements, making it appealing to both parents and activity providers.
               </p>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Key Features:</h3>
@@ -95,7 +95,7 @@ const NoblKids = () => {
               >
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Results and Impact:</h3>
                 <p className="text-gray-600 mb-6">
-                  The landing page successfully communicates Nobl Kids' dual value proposition to both parents and activity providers. The engaging animations and clear feature presentation help users quickly understand the platform's benefits. The responsive design ensures a consistent experience across all devices, while the optimized performance maintains smooth interactions despite the rich animated content.
+                  The landing page successfully communicates Nobl Kids&apos; dual value proposition to both parents and activity providers. The engaging animations and clear feature presentation help users quickly understand the platform&apos;s benefits. The responsive design ensures a consistent experience across all devices, while the optimized performance maintains smooth interactions despite the rich animated content.
                 </p>
               </motion.div>
               
@@ -106,7 +106,7 @@ const NoblKids = () => {
               >
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Future Enhancements:</h3>
                 <p className="text-gray-600">
-                  Future plans include implementing interactive demos of the activity search functionality, adding testimonials from early users, and creating animated transitions between different sections of the landing page. We're also considering adding a dynamic pricing calculator for activity providers and a showcase of featured activities.
+                  Future plans include implementing interactive demos of the activity search functionality, adding testimonials from early users, and creating animated transitions between different sections of the landing page. We&apos;re also considering adding a dynamic pricing calculator for activity providers and a showcase of featured activities.
                 </p>
               </motion.div>
 

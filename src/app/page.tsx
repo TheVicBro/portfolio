@@ -205,8 +205,8 @@ function MainContent() {
         transition={{ ease: 'easeOut' }}
       >
         <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
-        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:px-48 4xl:px-40 lg:px-24 px-8">
-          <div className="flex flex-col justify-between lg:text-left text-center">
+        <div className="flex lg:flex-row flex-col-reverse justify-between h-[40%] 5xl:px-48 4xl:px-40 lg:px-24 px-8">
+          <div className="flex flex-col justify-between lg:text-left text-center -mb-24 lg:mb-0">
             <div>
               <div className="truncate">
                 <motion.div
@@ -290,14 +290,16 @@ function MainContent() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack min-w-64 lg:w-1/4 lg:mx-0 sm:mx-44 5xl:h-160 4xl:h-112 2xl:h-96 lg:h-76 h-88 lg:mt-0 mt-4 rounded-lg">
+          <div className="bg-lightblack min-w-64 lg:w-1/3 3xl:w-1/4 lg:mx-0 sm:mx-44 h-full lg:mt-0 mt-4 rounded-lg -mt-28 lg:mt-0">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
               <div className="w-full h-full 2xl:p-6 p-4">
-                <img src="/profilepic.jpg" alt="profile" className="rounded-lg w-full h-full object-cover" />
+                <div className="relative w-full h-full">
+                  <Image src="/profilepic.jpg" alt="profile" className="rounded-lg object-cover" fill />
+                </div>
               </div>
             </motion.div>
           </div>
@@ -344,7 +346,7 @@ function MainContent() {
             }}
           >
             <Link href="/rout3" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/rout3')}>
-              <img src={isHovered ? "/rout3.gif" : "/rout3.png"}  alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
+              <Image src={isHovered ? "/rout3.gif" : "/rout3.png"}  alt="rout3" width={1920} height={1080} className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
         </div>  
@@ -369,7 +371,7 @@ function MainContent() {
             onMouseLeave={handleMouseLeave}
           >
             <Link href="/goeasy" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/goeasy')}>
-              <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
+              <Image src="/goeasy.png" alt="goeasy" width={1920} height={1080} className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
         </div>
@@ -394,7 +396,7 @@ function MainContent() {
             onMouseLeave={handleMouseLeave}
           >
             <Link href="/noblkids" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/noblkids')}>
-              <img src="/noblkids.png" alt="noblkids" className="object-cover rounded-lg flex-grow" draggable="false" />
+              <Image src="/noblkids.png" alt="noblkids" width={1920} height={1080} className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
         </div>
