@@ -205,8 +205,8 @@ function MainContent() {
         transition={{ ease: 'easeOut' }}
       >
         <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
-        <div className="flex lg:flex-row flex-col-reverse justify-between 5xl:px-48 4xl:px-40 lg:px-24 px-8">
-          <div className="flex flex-col justify-between lg:text-left text-center">
+        <div className="flex lg:flex-row flex-col-reverse justify-between h-[40%] 5xl:px-48 4xl:px-40 lg:px-24 px-8">
+          <div className="flex flex-col justify-between lg:text-left text-center -mb-24 lg:mb-0">
             <div>
               <div className="truncate">
                 <motion.div
@@ -265,7 +265,7 @@ function MainContent() {
                     whileTap={{ scale: 0.85 }}
                   >
                     <div className="lg:w-14 lg:h-14 w-10 h-10 relative">
-                      <Image src="/linkedin.png" alt="LinkedIn" layout="fill" />
+                      <Image src="/linkedin.png" alt="LinkedIn" fill />
                     </div>
                   </motion.button>
                 </Link>
@@ -279,7 +279,7 @@ function MainContent() {
                     whileTap={{ scale: 0.85 }}
                   >
                     <div className="lg:w-14 lg:h-14 w-12 h-12 relative">
-                      <Image src="/github.png" alt="GitHub" layout="fill" />
+                      <Image src="/github.png" alt="GitHub" fill />
                     </div>
                   </motion.button>
                 </Link>
@@ -290,14 +290,16 @@ function MainContent() {
               </div>
             </div>
           </div>
-          <div className="bg-lightblack min-w-64 lg:w-1/4 lg:mx-0 sm:mx-44 5xl:h-160 4xl:h-112 2xl:h-96 lg:h-76 h-88 lg:mt-0 mt-4 rounded-lg">
+          <div className="bg-lightblack min-w-64 lg:w-1/3 3xl:w-1/4 lg:mx-0 sm:mx-44 h-full lg:mt-0 mt-4 rounded-lg -mt-28 lg:mt-0">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
               <div className="w-full h-full 2xl:p-6 p-4">
-                <img src="/profilepic.jpg" alt="profile" className="rounded-lg w-full h-full object-cover" />
+                <div className="relative w-full h-full">
+                  <Image src="/profilepic.jpg" alt="profile" className="rounded-lg object-cover" fill />
+                </div>
               </div>
             </motion.div>
           </div>
@@ -327,7 +329,7 @@ function MainContent() {
           >
             <div className="5xl:text-12xl 4xl:text-10xl lg:text-9xl text-6xl font-medium text-skyblue leading-none">01.</div>
             <div className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-sm text-gray-400 lg:mb-4 lg:mt-8 mt-2">ROUT3</div>
-            <div className="5xl:text-5xl 4xl:text-4xl lg:text-3xl text-lg text-white">LLM Proxy Web App</div>
+            <div className="5xl:text-5xl 4xl:text-4xl lg:text-3xl text-lg text-white">Dashboard</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -344,7 +346,7 @@ function MainContent() {
             }}
           >
             <Link href="/rout3" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/rout3')}>
-              <img src={isHovered ? "/rout3.gif" : "/rout3.png"}  alt="rout3" className="object-cover rounded-lg flex-grow" draggable="false" />
+              <Image src={isHovered ? "/rout3.gif" : "/rout3.png"}  alt="rout3" width={1920} height={1080} className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
         </div>  
@@ -369,7 +371,7 @@ function MainContent() {
             onMouseLeave={handleMouseLeave}
           >
             <Link href="/goeasy" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/goeasy')}>
-              <img src="/goeasy.png" alt="goeasy" className="object-cover rounded-lg flex-grow" draggable="false" />
+              <Image src="/goeasy.png" alt="goeasy" width={1920} height={1080} className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
         </div>
@@ -382,8 +384,8 @@ function MainContent() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div className="5xl:text-12xl 4xl:text-10xl lg:text-9xl text-6xl font-medium text-skyblue leading-none">03.</div>
-            <div className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-sm text-gray-400 lg:mb-4 lg:mt-8 mt-2">ROUT3</div>
-            <div className="5xl:text-5xl 4xl:text-4xl lg:text-3xl text-lg text-white">LLM Proxy Landing Page</div>
+            <div className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-sm text-gray-400 lg:mb-4 lg:mt-8 mt-2">NOBL KIDS</div>
+            <div className="5xl:text-5xl 4xl:text-4xl lg:text-3xl text-lg text-white">Landing Page</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -393,8 +395,8 @@ function MainContent() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <Link href="/llmproxy" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/llmproxy')}>
-              <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/noblkids" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/noblkids')}>
+              <Image src="/noblkids.png" alt="noblkids" width={1920} height={1080} className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
         </div>
@@ -431,7 +433,7 @@ function MainContent() {
           />
           <AnimatedText
             className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8"
-            text={["I'm a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software."]}
+            text={["I'm a 4th-year Computer Engineering student at York University with 2 years of experience as a full-stack engineer. Currently, I work as a Software Engineer Intern at Pelmorex and as a Software Engineer at Nobl Kids, building APIs and crafting user-friendly web experiences. Previously, I've led projects like an LLM Proxy Dashboard at Rout3 and enhanced interfaces for 50,000+ users at goeasy. With expertise in Python, Go, TypeScript, and React, I'm passionate about creating scalable, impactful software solutions."]}
             staggerChildren={0.01}
             animateMode="word"
             once={true}

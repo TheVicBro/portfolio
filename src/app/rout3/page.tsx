@@ -3,6 +3,8 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import { motion } from 'framer-motion';
+import { ArrowRight } from "lucide-react";
+import Link from 'next/link';
 
 const Rout3 = () => {
   return (
@@ -16,7 +18,7 @@ const Rout3 = () => {
           className="max-w-7xl mx-auto"
         >
           <h1 className="text-5xl font-bold text-center text-lightblack mb-16">
-            ROUT3 - LLM Proxy Web App
+            ROUT3 - Dashboard Web App
           </h1>
           
           <motion.div
@@ -92,6 +94,28 @@ const Rout3 = () => {
                 <p className="text-gray-600">
                   Looking ahead, I plan to implement advanced features such as automated cost optimization algorithms, integration with more LLM providers, and enhanced analytics capabilities to further improve the utility and efficiency of the LLM Proxy tool.
                 </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.4, duration: 0.5 }}
+                className="mt-12 border-t border-gray-200 pt-8 flex justify-center"
+              >
+                <Link 
+                  href="https://rout3.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-2 bg-tertiary-yellow-700 hover:bg-tertiary-yellow-600 text-black px-8 py-4 rounded-xl font-medium transition-colors duration-300"
+                  >
+                    View Website
+                    <ArrowRight className="w-4 h-4" />
+                  </motion.button>
+                </Link>
               </motion.div>
             </div>
           </motion.div>

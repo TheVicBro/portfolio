@@ -3,8 +3,10 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import { motion } from 'framer-motion';
+import { ArrowRight } from "lucide-react";
+import Link from 'next/link';
 
-const LLMProxy = () => {
+const NoblKids = () => {
   return (
     <div>
       <Navbar />
@@ -16,7 +18,7 @@ const LLMProxy = () => {
           className="max-w-7xl mx-auto"
         >
           <h1 className="text-5xl font-bold text-center text-lightblack mb-16">
-            Rout3 - LLM Proxy Landing Page
+            Nobl Kids - Landing Page
           </h1>
           
           <motion.div
@@ -28,31 +30,31 @@ const LLMProxy = () => {
             <div className="p-8">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Project Overview</h2>
               <p className="text-gray-600 mb-6">
-                Developed a modern, responsive landing page for LLM Proxy, a tool designed to simplify and optimize the use of multiple Language Model providers. This project showcases my ability to create engaging, informative web experiences using cutting-edge web technologies.
+                Developed a dynamic, user-centric landing page for Nobl Kids, a comprehensive platform connecting children with extracurricular activities in the GTA. The landing page showcases the platform&apos;s key features through engaging animations and interactive elements, making it appealing to both parents and activity providers.
               </p>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Key Features:</h3>
               <ul className="list-disc pl-6 mb-6 text-gray-600">
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
-                  Responsive design with mobile-first approach
+                  Animated hero section with floating activity icons
                 </motion.li>
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-                  Interactive code demonstration section
+                  Interactive feature showcases with scroll animations
                 </motion.li>
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
-                  Animated features showcase
+                  Responsive provider section with business tools highlight
                 </motion.li>
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
-                  Team member carousel with responsive layout
+                  Magic Search preview section
                 </motion.li>
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.7 }}>
-                  Smooth scrolling and navigation effects
+                  Mobile-first design with custom breakpoints
                 </motion.li>
               </ul>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Technologies Used:</h3>
               <div className="flex flex-wrap gap-2 mb-6">
-                {['Astro', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'react-slick'].map((tech, index) => (
+                {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'react-intersection-observer'].map((tech, index) => (
                   <motion.span
                     key={tech}
                     initial={{ opacity: 0, scale: 0.5 }}
@@ -67,22 +69,22 @@ const LLMProxy = () => {
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Challenges and Solutions:</h3>
               <p className="text-gray-600 mb-6">
-                A significant challenge in this project was creating a seamless, performant experience across different devices while incorporating various interactive elements. I tackled this by leveraging Astro&apos;s partial hydration capabilities, using React for interactive components, and implementing responsive design patterns. For instance, I created a responsive navigation system that adapts to different screen sizes, ensuring a consistent user experience across devices.
+                One of the main challenges was creating smooth, performance-optimized animations that work seamlessly across different devices. I implemented a custom media query hook for responsive animations and used Framer Motion with react-intersection-observer for efficient scroll-based animations. The floating elements in the hero section required careful positioning and timing to achieve a natural, engaging feel without impacting performance.
               </p>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Key Learnings:</h3>
               <ul className="list-disc pl-6 mb-6 text-gray-600">
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }}>
-                  Deepened understanding of Astro&apos;s hybrid rendering approach
+                  Advanced animation techniques with Framer Motion for complex UI interactions
                 </motion.li>
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.9 }}>
-                  Improved skills in creating performant, animated UI components with Framer Motion
+                  Responsive design patterns for dynamic content layouts
                 </motion.li>
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0 }}>
-                  Enhanced proficiency in TypeScript for type-safe component development
+                  Performance optimization for animation-heavy pages
                 </motion.li>
                 <motion.li initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.1 }}>
-                  Gained experience in optimizing landing pages for conversion and user engagement
+                  Custom hook implementation for responsive behavior
                 </motion.li>
               </ul>
               
@@ -93,7 +95,7 @@ const LLMProxy = () => {
               >
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Results and Impact:</h3>
                 <p className="text-gray-600 mb-6">
-                  The landing page effectively communicated LLM Proxy&apos;s value proposition, resulting in increased user engagement and sign-ups. The interactive elements, such as the code demonstration and feature animations, significantly improved user understanding of the product. The responsive design ensured a consistent experience across all devices, contributing to lower bounce rates and higher conversion rates.
+                  The landing page successfully communicates Nobl Kids&apos; dual value proposition to both parents and activity providers. The engaging animations and clear feature presentation help users quickly understand the platform&apos;s benefits. The responsive design ensures a consistent experience across all devices, while the optimized performance maintains smooth interactions despite the rich animated content.
                 </p>
               </motion.div>
               
@@ -104,8 +106,30 @@ const LLMProxy = () => {
               >
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Future Enhancements:</h3>
                 <p className="text-gray-600">
-                  Moving forward, I&apos;ve proposed implementing A/B testing to optimize conversion rates, integrating a blog section for content marketing, and adding more interactive demos to showcase LLM Proxy&apos;s capabilities. These enhancements aim to further improve user engagement and provide more comprehensive information about the product.
+                  Future plans include implementing interactive demos of the activity search functionality, adding testimonials from early users, and creating animated transitions between different sections of the landing page. We&apos;re also considering adding a dynamic pricing calculator for activity providers and a showcase of featured activities.
                 </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.4, duration: 0.5 }}
+                className="mt-12 border-t border-gray-200 pt-8 flex justify-center"
+              >
+                <Link 
+                  href="https://noblkids.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-2 bg-tertiary-yellow-700 hover:bg-tertiary-yellow-600 text-black px-8 py-4 rounded-xl font-medium transition-colors duration-300"
+                  >
+                    View Website
+                    <ArrowRight className="w-4 h-4" />
+                  </motion.button>
+                </Link>
               </motion.div>
             </div>
           </motion.div>
@@ -115,4 +139,4 @@ const LLMProxy = () => {
   );
 };
 
-export default LLMProxy;
+export default NoblKids;
