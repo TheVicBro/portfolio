@@ -265,7 +265,7 @@ function MainContent() {
                     whileTap={{ scale: 0.85 }}
                   >
                     <div className="lg:w-14 lg:h-14 w-10 h-10 relative">
-                      <Image src="/linkedin.png" alt="LinkedIn" layout="fill" />
+                      <Image src="/linkedin.png" alt="LinkedIn" fill />
                     </div>
                   </motion.button>
                 </Link>
@@ -279,7 +279,7 @@ function MainContent() {
                     whileTap={{ scale: 0.85 }}
                   >
                     <div className="lg:w-14 lg:h-14 w-12 h-12 relative">
-                      <Image src="/github.png" alt="GitHub" layout="fill" />
+                      <Image src="/github.png" alt="GitHub" fill />
                     </div>
                   </motion.button>
                 </Link>
@@ -327,7 +327,7 @@ function MainContent() {
           >
             <div className="5xl:text-12xl 4xl:text-10xl lg:text-9xl text-6xl font-medium text-skyblue leading-none">01.</div>
             <div className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-sm text-gray-400 lg:mb-4 lg:mt-8 mt-2">ROUT3</div>
-            <div className="5xl:text-5xl 4xl:text-4xl lg:text-3xl text-lg text-white">LLM Proxy Web App</div>
+            <div className="5xl:text-5xl 4xl:text-4xl lg:text-3xl text-lg text-white">Dashboard</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -382,8 +382,8 @@ function MainContent() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div className="5xl:text-12xl 4xl:text-10xl lg:text-9xl text-6xl font-medium text-skyblue leading-none">03.</div>
-            <div className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-sm text-gray-400 lg:mb-4 lg:mt-8 mt-2">ROUT3</div>
-            <div className="5xl:text-5xl 4xl:text-4xl lg:text-3xl text-lg text-white">LLM Proxy Landing Page</div>
+            <div className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-sm text-gray-400 lg:mb-4 lg:mt-8 mt-2">NOBL KIDS</div>
+            <div className="5xl:text-5xl 4xl:text-4xl lg:text-3xl text-lg text-white">Landing Page</div>
           </motion.div>
           <motion.div
             className="w-11/12 cursor-none"
@@ -393,8 +393,8 @@ function MainContent() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <Link href="/llmproxy" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/llmproxy')}>
-              <img src="/llmproxy.png" alt="llmproxy" className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/noblkids" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/noblkids')}>
+              <img src="/noblkids.png" alt="noblkids" className="object-cover rounded-lg flex-grow" draggable="false" />
             </Link>
           </motion.div>
         </div>
@@ -431,7 +431,7 @@ function MainContent() {
           />
           <AnimatedText
             className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8"
-            text={["I'm a Computer Engineering student at York University with a passion for full-stack development. As Lead Full Stack Developer at Rout3, I led projects like the LLM Proxy Dashboard. At goeasy, I worked as a Front End Developer, enhancing UI/UX for banking applications. My experience also includes optimizing workflows at the Ontario Ministry of Health. I excel in solving complex problems and creating impactful, user-friendly software."]}
+            text={["I'm a 4th-year Computer Engineering student at York University with 2 years of experience as a full-stack engineer. Currently, I work as a Software Engineer Intern at Pelmorex and as a Software Engineer at Nobl Kids, building APIs and crafting user-friendly web experiences. Previously, I've led projects like an LLM Proxy Dashboard at Rout3 and enhanced interfaces for 50,000+ users at goeasy. With expertise in Python, Go, TypeScript, and React, I'm passionate about creating scalable, impactful software solutions."]}
             staggerChildren={0.01}
             animateMode="word"
             once={true}

@@ -42,7 +42,7 @@ export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarPro
       transition={{ duration: 1, ease: 'easeOut' }}
     >
       <motion.div
-        className="5xl:text-6xl text-5xl font-bold cursor-pointer"
+        className="5xl:text-6xl text-5xl font-bold cursor-pointer select-none"
         onClick={handleLogoClick}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
