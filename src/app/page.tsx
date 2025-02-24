@@ -226,7 +226,7 @@ function MainContent() {
                     animate={{ y: "0%" }}
                     transition={{ duration: 1, ease: "easeOut" }}
                   >
-                    Full Stack Developer
+                    Full Stack Engineer
                   </motion.div>
                 </div>
                 <div className="flex 5xl:mt-6 mt-1 lg:space-x-8 space-x-2 lg:justify-start justify-center">
@@ -434,7 +434,7 @@ function MainContent() {
           />
           <AnimatedText
             className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8"
-            text={["I'm a 4th-year Computer Engineering student at York University with 2 years of experience as a full-stack engineer. Currently, I work as a Software Engineer Intern at Pelmorex and as a Software Engineer at Nobl Kids, building APIs and crafting user-friendly web experiences. Previously, I've led projects like an LLM Proxy Dashboard at Rout3 and enhanced interfaces for 50,000+ users at goeasy. With expertise in Python, Go, TypeScript, and React, I'm passionate about creating scalable, impactful software solutions."]}
+            text={["I'm a 4th-year Computer Engineering student at York University with over 2 years of experience as a full-stack engineer. Currently, I work as a Software Engineer Intern at Pelmorex. Previously, I've led projects like an LLM Proxy Dashboard at Rout3 and enhanced interfaces for 50,000+ users at goeasy. With expertise in Python, Go, TypeScript, and React, I'm passionate about creating scalable, impactful software solutions."]}
             staggerChildren={0.01}
             animateMode="word"
             once={true}
