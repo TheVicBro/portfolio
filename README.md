@@ -1,6 +1,6 @@
 # Victor Chung's Portfolio
 
-Welcome to my portfolio website! This project showcases my work and skills as a Full Stack Developer. It's built with Next.js and deployed on Vercel.
+Welcome to my portfolio website! This project showcases my work and skills as a Full Stack Engineer. It's built with Next.js and deployed on Vercel.
 
 ## Table of Contents
 
