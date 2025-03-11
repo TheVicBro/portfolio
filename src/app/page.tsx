@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
 import { AnimatedText } from '../components/AnimatedText';
 import Navbar from '../components/Navbar';
 import { useSearchParams, useRouter } from 'next/navigation';  
@@ -218,24 +218,31 @@ function MainContent() {
                   VICTOR CHUNG
                 </motion.div>
               </div>
-              <div className="mt-1 5xl:px-12 lg:px-10 px-4">
-                <div className="truncate pb-2">
+              <div className="mt-1 5xl:px-12 lg:px-10 px-4 pb-4">
+                <div className="truncate py-4">
                   <motion.div
                     className="5xl:text-7xl 4xl:text-6xl lg:text-5xl md:text-4xl text-2.5xl font-bold text-skyblue leading-none lg:leading-normal"
-                    initial={{ y: "-110%" }}
+                    initial={{ y: "-250%" }}
                     animate={{ y: "0%" }}
                     transition={{ duration: 1, ease: "easeOut" }}
                   >
-                    Full Stack Engineer
+                    <span className="gradient-bg bg-clip-text px-4 py-2 text-white rounded-xl">
+                      Full Stack Engineer
+                    </span>
                   </motion.div>
                 </div>
                 <div className="flex 5xl:mt-6 mt-1 lg:space-x-8 space-x-2 lg:justify-start justify-center">
                   <motion.button
                     className="rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap"
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
-                    animate={{ width: "var(--width)", paddingLeft: "var(--padding-left)", paddingRight: "var(--padding-right)" }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    whileTap={{ scale: 0.85 }}
+                    animate={{ 
+                      width: "var(--width)", 
+                      paddingLeft: "var(--padding-left)", 
+                      paddingRight: "var(--padding-right)",
+                      transition: { duration: 1, ease: "easeOut" }
+                    }}
+                    whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                    whileTap={{ scale: 0.85, transition: { duration: 0.2 } }}
                     onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     <p className="line-clamp-1">{isLg ? 'View Portfolio' : 'Portfolio'}</p>
@@ -243,9 +250,14 @@ function MainContent() {
                   <motion.button
                     className="rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap"
                     initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
-                    animate={{ width: "var(--width)", paddingLeft: "var(--padding-left)", paddingRight: "var(--padding-right)" }}
+                    animate={{ 
+                      width: "var(--width)", 
+                      paddingLeft: "var(--padding-left)", 
+                      paddingRight: "var(--padding-right)",
+                      transition: { duration: 1, ease: "easeOut" }
+                    }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.85 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
                     onClick={openResume}
                   >
                     <p className="line-clamp-1">{isLg ? 'View Resume' : 'Resume'}</p>
@@ -257,11 +269,11 @@ function MainContent() {
               <div className="flex space-x-4 5xl:px-12 lg:px-10 px-4 lg:mt-0 mt-2">
                 <Link href="https://www.linkedin.com/in/victor-chung-ca/" target="_blank" rel="noopener noreferrer">
                   <motion.button
-                    className="flex justify-center items-center rounded-lg bg-skyblue h-10 md:h-12 lg:h-16"
+                    className="flex justify-center items-center rounded-lg bg-skyblue h-10 md:h-12 lg:h-16 hover:bg-blue-500 transition-colors shadow-lg"
                     initial={{ width: 0 }}
-                    animate={{ width: "var(--width-social)" }}
-                    transition={{ duration: 1, ease: "easeOut" }}
+                    animate={{ width: "var(--width-social)", transition: { duration: 1, ease: "easeOut" } }}
                     layout="preserve-aspect"
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.85 }}
                   >
                     <div className="w-8 md:w-10 lg:w-14 h-8 md:h-10 lg:h-14 relative">
@@ -271,11 +283,11 @@ function MainContent() {
                 </Link>
                 <Link href="https://github.com/TheVicBro" target="_blank" rel="noopener noreferrer">
                   <motion.button
-                    className="flex justify-center items-center rounded-lg bg-skyblue h-10 md:h-12 lg:h-16"
+                    className="flex justify-center items-center rounded-lg bg-skyblue h-10 md:h-12 lg:h-16 hover:bg-blue-500 transition-colors shadow-lg"
                     initial={{ width: 0 }}
-                    animate={{ width: "var(--width-social)" }}
-                    transition={{ duration: 1, ease: "easeOut" }}
+                    animate={{ width: "var(--width-social)", transition: { duration: 1, ease: "easeOut" } }}
                     layout="preserve-aspect"
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.85 }}
                   >
                     <div className="w-8 md:w-10 lg:w-14 h-8 md:h-10 lg:h-14 relative">
@@ -285,12 +297,22 @@ function MainContent() {
                 </Link>
               </div>
               <div className="relative">
-                <div className="absolute z-10 5xl:bottom-40 bottom-28 5xl:right-20 right-16 5xl:w-64 5xl:h-60 4xl:w-48 4xl:h-40 bg-white rounded-lg"></div>
-                <div className="absolute z-10 bottom-0 5xl:right-48 right-36 5xl:w-64 5xl:h-56 4xl:w-48 4xl:h-40 bg-white rounded-lg"></div>
+                <motion.div 
+                  className="absolute z-10 5xl:bottom-40 bottom-28 5xl:right-20 right-16 5xl:w-64 5xl:h-60 4xl:w-48 4xl:h-40 bg-white rounded-lg shadow-lg floating-element"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                ></motion.div>
+                <motion.div 
+                  className="absolute z-10 bottom-0 5xl:right-48 right-36 5xl:w-64 5xl:h-56 4xl:w-48 4xl:h-40 bg-white rounded-lg shadow-lg floating-element"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                ></motion.div>
               </div>
             </div>
           </div>
-          <div className="bg-lightblack min-w-64 lg:w-1/3 3xl:w-1/4 lg:mx-0 sm:mx-44 h-full rounded-lg -mt-[8.5rem] lg:mt-0">
+          <div className="bg-lightblack min-w-64 lg:w-1/3 3xl:w-1/4 lg:mx-0 sm:mx-44 h-full rounded-lg -mt-[8.5rem] lg:mt-0 shadow-xl">
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
@@ -298,19 +320,37 @@ function MainContent() {
               className="h-full"
             >
               <div className="w-full h-full 2xl:p-6 p-4">
-                <div className="relative w-full h-full">
-                  <Image src="/profilepic.jpg" alt="profile" className="rounded-lg object-cover" fill />
+                <div className="relative w-full h-full overflow-hidden rounded-lg">
+                  <Image src="/profilepic.jpg" alt="profile" className="rounded-lg object-cover hover:scale-105 transition-transform duration-500" fill />
                 </div>
               </div>
             </motion.div>
           </div>
         </div>
-        <div className="flex lg:mb-8 mb-4 lg:text-md text-sm 5xl:px-48 4xl:px-40 lg:px-28 px-8 justify-between text-lightblack">
-          <div>ONTARIO, CANADA</div>
-          <div>(SCROLL FOR MORE)</div>
-        </div>
+
+            <motion.div 
+              className="flex lg:mb-8 mb-4 2xl:text-xl xl:text-lg lg:text-md text-sm 5xl:px-48 4xl:px-40 lg:px-28 px-8 justify-between text-lightblack"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div>ONTARIO, CANADA</div>
+              <div className="scrolldown-indicator flex items-center">
+                (SCROLL FOR MORE)
+                <motion.span
+                  animate={{ y: [0, 3, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="ml-1"
+                >
+                  ↓
+                </motion.span>
+              </div>
+            </motion.div>
+
       </motion.div>
-      <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16">
+      
+      <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16 shadow-2xl">
         <motion.div
           ref={portfolioRefView}
           className="5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-24 mb-8"
@@ -318,8 +358,9 @@ function MainContent() {
           animate={portfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          PORTFOLIO
+          <span className="gradient-bg bg-clip-text rounded-xl px-8">PORTFOLIO</span>
         </motion.div>
+        
         <div className="flex lg:mb-36 mb-24">
           <motion.div
             ref={portfolioItemRef1}
@@ -346,11 +387,21 @@ function MainContent() {
               setIsHovered(false);
             }}
           >
-            <Link href="/rout3" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/rout3')}>
-              <Image src={isHovered ? "/rout3.gif" : "/rout3.png"}  alt="rout3" width={1920} height={1080} className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/rout3" className="cursor-none group" onClick={(e) => handlePortfolioItemClick(e, '/rout3')}>
+              <div className="overflow-hidden rounded-lg shadow-xl">
+                <Image 
+                  src={isHovered ? "/rout3.gif" : "/rout3.png"}  
+                  alt="rout3" 
+                  width={1920} 
+                  height={1080} 
+                  className="object-cover rounded-lg flex-grow transform transition-transform duration-700 group-hover:scale-105" 
+                  draggable="false" 
+                />
+              </div>
             </Link>
           </motion.div>
         </div>  
+        
         <div className="flex lg:mb-36 mb-24">
           <motion.div
             ref={portfolioItemRef2}
@@ -371,11 +422,21 @@ function MainContent() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <Link href="/goeasy" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/goeasy')}>
-              <Image src="/goeasy.png" alt="goeasy" width={1920} height={1080} className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/goeasy" className="cursor-none group" onClick={(e) => handlePortfolioItemClick(e, '/goeasy')}>
+              <div className="overflow-hidden rounded-lg shadow-xl">
+                <Image 
+                  src="/goeasy.png" 
+                  alt="goeasy" 
+                  width={1920} 
+                  height={1080} 
+                  className="object-cover rounded-lg flex-grow transform transition-transform duration-700 group-hover:scale-105" 
+                  draggable="false" 
+                />
+              </div>
             </Link>
           </motion.div>
         </div>
+        
         <div className="flex lg:mb-36 mb-8">
           <motion.div
             ref={portfolioItemRef3}
@@ -396,13 +457,23 @@ function MainContent() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <Link href="/noblkids" className="cursor-none" onClick={(e) => handlePortfolioItemClick(e, '/noblkids')}>
-              <Image src="/noblkids.png" alt="noblkids" width={1920} height={1080} className="object-cover rounded-lg flex-grow" draggable="false" />
+            <Link href="/noblkids" className="cursor-none group" onClick={(e) => handlePortfolioItemClick(e, '/noblkids')}>
+              <div className="overflow-hidden rounded-lg shadow-xl">
+                <Image 
+                  src="/noblkids.png" 
+                  alt="noblkids" 
+                  width={1920} 
+                  height={1080} 
+                  className="object-cover rounded-lg flex-grow transform transition-transform duration-700 group-hover:scale-105" 
+                  draggable="false" 
+                />
+              </div>
             </Link>
           </motion.div>
         </div>
       </div>
-      <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-24 px-8 5xl:py-32 4xl:py-24 py-8 lg:h-screen h-auto">
+      
+      <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-24 px-8 5xl:py-32 4xl:py-24 py-8 lg:h-screen h-auto bg-gradient-to-b from-[#E6E6E6] to-[#f0f0f0]">
         <div className="lg:w-1/3 w-full 4xl:my-12 relative lg:mb-0 mb-8 flex items-center">
           <motion.div
             ref={aboutPictureRef}
@@ -411,14 +482,14 @@ function MainContent() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="w-full"
           >
-            <div className="relative w-full lg:h-full h-auto">
+            <div className="relative w-full lg:h-full h-auto shadow-xl rounded-lg overflow-hidden">
               <Image
                 src="/about.png"
                 alt="about"
                 layout="responsive"
                 width={835} 
                 height={1190}
-                className="rounded-lg"
+                className="rounded-lg hover:scale-105 transition-transform duration-700"
                 draggable="false"
               />
             </div>
@@ -441,7 +512,8 @@ function MainContent() {
           />
           <div>
             <motion.button 
-              className="rounded-lg bg-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 px-8 4xl:mt-16 lg:mt-10 m-8"
+              className="rounded-lg bg-lightblack text-white 5xl:text-3xl text-2xl font-medium 5xl:py-6 py-4 px-8 4xl:mt-16 lg:mt-10 m-8 shadow-lg"
+              whileHover={{ scale: 1.05, backgroundColor: "#333" }}
               whileTap={{ scale: 0.85 }} 
               onClick={openResume}
             >
@@ -450,100 +522,115 @@ function MainContent() {
           </div>
         </div>
       </div>
-      <div ref={contactRef} className="z-40 bg-lightblack flex flex-col justify-between items-center lg:px-48 px-8 5xl:pt-32 5xl:pb-16 4xl:pt-24 4xl:pb-8 pt-16 pb-4 lg:h-screen h-auto">
-
-          <div className="flex justify-center 5xl:text-10xl 4xl:text-8xl lg:text-7xl text-5xl font-bold text-center text-white">
+      
+      <div ref={contactRef} className="z-40 bg-lightblack flex flex-col justify-between items-center lg:px-48 px-8 5xl:pt-32 5xl:pb-16 4xl:pt-24 4xl:pb-8 pt-16 pb-4 lg:h-screen h-auto relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="gradient-bg w-full h-full"></div>
+        </div>
+        
+        <div className="relative z-10 flex justify-center 5xl:text-10xl 4xl:text-8xl lg:text-7xl text-5xl font-bold text-center text-white">
+          <motion.span
+            initial={{ opacity: 0, y: -50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="gradient-bg bg-clip-text px-8 py-4 rounded-xl"
+          >
             CONTACT
-          </div>
-          <form onSubmit={handleSubmit} className="w-full max-w-screen-lg mx-auto">
-            <div>
-              <div className="flex lg:flex-row flex-col text-white 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl lg:mt-0 mt-12 lg:space-x-8 space-y-4 lg:space-y-0 lg:h-full h-auto">
-                <div className="flex flex-col w-full lg:w-1/2">
+          </motion.span>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="w-full max-w-screen-lg mx-auto relative z-10">
+          <div>
+            <div className="flex lg:flex-row flex-col text-white 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl lg:mt-0 mt-12 lg:space-x-8 space-y-4 lg:space-y-0 lg:h-full h-auto">
+              <div className="flex flex-col w-full lg:w-1/2">
+                <div>
                   <div>
-                    <div>
-                      Name
-                      <a className="text-skyblue">*</a>
-                    </div>
-                    <div>
-                      <input 
-                        type="text" 
-                        name="name"
-                        className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto" 
-                        value={formData.name} 
-                        onChange={handleChange} 
-                        required 
-                      />
-                    </div>
-                  </div>
-                  <div className="lg:mt-6 mt-4">
-                    <div>
-                      Email
-                      <a className="text-skyblue">*</a>
-                    </div>
-                    <div>
-                      <input 
-                        type="email"
-                        name="email"
-                        className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto" 
-                        value={formData.email} 
-                        onChange={handleChange} 
-                        required 
-                      />
-                    </div>
-                  </div>
-                  <div className="lg:mt-6 mt-4">
-                    <div>
-                      Company
-                      <a className="text-skyblue">*</a>
-                    </div>
-                    <div>
-                      <input 
-                        type="text" 
-                        name="company" 
-                        className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto"
-                        value={formData.company} 
-                        onChange={handleChange} 
-                        required 
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col w-full lg:w-1/2 lg:mt-0 mt-4">
-                  <div>
-                    Inquiry
+                    Name
                     <a className="text-skyblue">*</a>
                   </div>
                   <div>
-                    <textarea 
-                      name="inquiry"
-                      className="4xl:mt-4 mt-2 border-4 border-white p-4 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto resize-none" 
-                      rows={8} 
-                      value={formData.inquiry} 
+                    <input 
+                      type="text" 
+                      name="name"
+                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto focus:border-skyblue transition-colors" 
+                      value={formData.name} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                  </div>
+                </div>
+                <div className="lg:mt-6 mt-4">
+                  <div>
+                    Email
+                    <a className="text-skyblue">*</a>
+                  </div>
+                  <div>
+                    <input 
+                      type="email"
+                      name="email"
+                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto focus:border-skyblue transition-colors" 
+                      value={formData.email} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                  </div>
+                </div>
+                <div className="lg:mt-6 mt-4">
+                  <div>
+                    Company
+                    <a className="text-skyblue">*</a>
+                  </div>
+                  <div>
+                    <input 
+                      type="text" 
+                      name="company" 
+                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto focus:border-skyblue transition-colors"
+                      value={formData.company} 
                       onChange={handleChange} 
                       required 
                     />
                   </div>
                 </div>
               </div>
+              <div className="flex flex-col w-full lg:w-1/2 lg:mt-0 mt-4">
+                <div>
+                  Inquiry
+                  <a className="text-skyblue">*</a>
+                </div>
+                <div>
+                  <textarea 
+                    name="inquiry"
+                    className="4xl:mt-4 mt-2 border-4 border-white p-4 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto resize-none focus:border-skyblue transition-colors" 
+                    rows={8} 
+                    value={formData.inquiry} 
+                    onChange={handleChange} 
+                    required 
+                  />
+                </div>
+              </div>
             </div>
-            <div className="flex justify-center lg:mb-0 mb-8">
-              <motion.button 
-                className="bg-skyblue 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl text-white rounded-lg 5xl:mt-12 4xl:mt-8 mt-4 5xl:p-6 p-4" 
-                type="submit"
-                whileTap={{ scale: 0.85 }}
-              >
-                Submit
-              </motion.button>
-            </div>
-          </form>
+          </div>
+          <div className="flex justify-center lg:mb-0 mb-8">
+            <motion.button 
+              className="gradient-bg 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl text-white rounded-lg 5xl:mt-12 4xl:mt-8 mt-4 5xl:p-6 p-4 shadow-lg" 
+              type="submit"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.85 }}
+            >
+              Submit
+            </motion.button>
+          </div>
+        </form>
 
-        <div className="flex items-center justify-between w-full mt-0">
+        <div className="flex items-center justify-between w-full mt-0 relative z-10">
           <div className="flex 5xl:text-6xl 4xl:text-6xl 2xl:text-5xl text-4xl font-bold text-left text-white">
             © 2024 VICTOR CHUNG
           </div>
           <div>
             <motion.button 
-              className="bg-skyblue text-white text-5xl rounded-full 4xl:w-32 4xl:h-32 lg:w-20 lg:h-20 w-24 h-24"
+              className="gradient-bg text-white text-5xl rounded-full 4xl:w-32 4xl:h-32 lg:w-20 lg:h-20 w-24 h-24 shadow-lg"
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.85 }}
               onClick={() => topRefView.current?.scrollIntoView({ behavior: 'smooth' })}
             >

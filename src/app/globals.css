@@ -11,8 +11,43 @@ html {
   --padding-left: 0.5rem;
   --padding-right: 0.5rem;
   --width: 8rem;
-  --width-social: 3rem;
   --width-social: 2.5rem;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(13, 153, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(13, 153, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(13, 153, 255, 0);
+  }
 }
 
 .cursor {
@@ -32,6 +67,21 @@ html {
   align-items: center;
   justify-content: center;
   text-align: center;
+  box-shadow: 0 0 15px rgba(13, 153, 255, 0.6);
+}
+
+.scrolldown-indicator {
+  animation: pulse 2s infinite;
+}
+
+.floating-element {
+  animation: float 5s ease-in-out infinite;
+}
+
+.gradient-bg {
+  background: linear-gradient(-45deg, #0D99FF, #0d65ff, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 
 @media (min-width: 768px) {
