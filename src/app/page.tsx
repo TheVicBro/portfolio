@@ -399,7 +399,7 @@ function MainContent() {
             >
               <div className="w-full h-full 2xl:p-6 p-4">
                 <div className="relative w-full h-full overflow-hidden rounded-lg">
-                  <Image src="/profilepic.jpg" alt="profile" className="rounded-lg object-cover hover:scale-105 transition-transform duration-500" fill />
+                  <Image src="/victor.jpg" alt="profile" className="rounded-lg object-cover hover:scale-105 transition-transform duration-500" fill />
                 </div>
               </div>
             </motion.div>
