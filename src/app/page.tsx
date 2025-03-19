@@ -8,6 +8,8 @@ import { AnimatedText } from '../components/AnimatedText';
 import Navbar from '../components/Navbar';
 import { useSearchParams, useRouter } from 'next/navigation';  
 import { Suspense } from 'react';
+import FloatingMenuButton from '../components/FloatingMenuButton';
+import MobileMenu from '../components/MobileMenu';
 
 type FormData = {
   name: string;
@@ -20,6 +22,8 @@ function MainContent() {
   const { scrollY } = useScroll();
   const [scrollRange, setScrollRange] = useState({ start: 0, end: 1500 });
   const [isLg, setIsLg] = useState(false);
+  const [showFloatingMenu, setShowFloatingMenu] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,6 +45,42 @@ function MainContent() {
     // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Monitor scroll position to show floating menu
+  useEffect(() => {
+    const isScrolling = {current: false};
+    let scrollTimeout: NodeJS.Timeout;
+    
+    const updateFloatingMenu = () => {
+      if (isScrolling.current) return;
+      
+      isScrolling.current = true;
+      
+      // Show floating menu when scrolled past hero section
+      const isPastHero = window.scrollY > window.innerHeight;
+      
+      // Hide floating menu when near bottom of page (300px from bottom)
+      const isNearBottom = window.innerHeight + window.scrollY + 300 >= document.body.offsetHeight;
+      
+      setShowFloatingMenu(isPastHero && !isNearBottom);
+      
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling.current = false;
+      }, 50);
+    };
+
+    // Initial check without scroll
+    setShowFloatingMenu(window.scrollY > window.innerHeight && 
+      !(window.innerHeight + window.scrollY + 300 >= document.body.offsetHeight));
+    
+    window.addEventListener('scroll', updateFloatingMenu, { passive: true });
+    
+    return () => {
+      clearTimeout(scrollTimeout);
+      window.removeEventListener('scroll', updateFloatingMenu);
     };
   }, []);
 
@@ -215,6 +255,20 @@ function MainContent() {
         Learn More
       </motion.div>
       <div ref={topRefView}/>
+      <FloatingMenuButton 
+        isVisible={showFloatingMenu && window.innerWidth < 1024} 
+        onClick={() => setIsMobileMenuOpen(true)}
+        menuOpen={isMobileMenuOpen}
+      />
+      <MobileMenu 
+        isOpen={isMobileMenuOpen} 
+        onClose={() => setIsMobileMenuOpen(false)} 
+        portfolioRef={portfolioRef}
+        careerRef={careerRef}
+        aboutRef={aboutRef}
+        contactRef={contactRef}
+        router={router}
+      />
       <motion.div 
         className="h-screen sticky top-0 flex flex-col justify-between pb-12 md:pb-0"
         style={{ opacity, y, pointerEvents: isMainClickable ? 'auto' : 'none' }}
@@ -222,7 +276,7 @@ function MainContent() {
         transition={{ ease: 'easeOut' }}
       >
         <Navbar portfolioRef={portfolioRef} careerRef={careerRef} aboutRef={aboutRef} contactRef={contactRef} />
-        <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[38%] md:h-[45%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
+        <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[50%] md:h-[45%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center -mb-36 lg:mb-0">
             <div>
               <div className="truncate">
@@ -343,7 +397,7 @@ function MainContent() {
                 </div>
               </div>
             </div>
-            <div className="flex lg:justify-between justify-center items-end">
+            <div className="hidden md:flex lg:justify-between justify-center items-end">
               <div className="flex space-x-4 5xl:px-12 lg:px-10 px-4">
                 <Link href="https://www.linkedin.com/in/victor-chung-ca/" target="_blank" rel="noopener noreferrer">
                   <motion.button
