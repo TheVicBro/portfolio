@@ -222,7 +222,7 @@ function MainContent() {
         transition={{ ease: 'easeOut' }}
       >
         <Navbar portfolioRef={portfolioRef} careerRef={careerRef} aboutRef={aboutRef} contactRef={contactRef} />
-        <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[45%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
+        <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[38%] md:h-[45%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center -mb-36 lg:mb-0">
             <div>
               <div className="truncate">
@@ -344,7 +344,7 @@ function MainContent() {
               </div>
             </div>
             <div className="flex lg:justify-between justify-center items-end">
-              <div className="flex space-x-4 5xl:px-12 lg:px-10 px-4 lg:mt-0 mt-2">
+              <div className="flex space-x-4 5xl:px-12 lg:px-10 px-4">
                 <Link href="https://www.linkedin.com/in/victor-chung-ca/" target="_blank" rel="noopener noreferrer">
                   <motion.button
                     className="flex justify-center items-center rounded-lg bg-skyblue h-10 md:h-12 lg:h-16 hover:bg-blue-500 transition-colors shadow-lg"
