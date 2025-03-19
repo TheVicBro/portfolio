@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { AnimatedText } from '../components/AnimatedText';
 import Navbar from '../components/Navbar';
 import { useSearchParams, useRouter } from 'next/navigation';  
@@ -222,7 +222,7 @@ function MainContent() {
         transition={{ ease: 'easeOut' }}
       >
         <Navbar portfolioRef={portfolioRef} careerRef={careerRef} aboutRef={aboutRef} contactRef={contactRef} />
-        <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[40%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
+        <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[38%] md:h-[45%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center -mb-36 lg:mb-0">
             <div>
               <div className="truncate">
@@ -248,42 +248,103 @@ function MainContent() {
                     </span>
                   </motion.div>
                 </div>
-                <div className="flex 5xl:mt-6 mt-1 lg:space-x-8 space-x-2 lg:justify-start justify-center">
-                  <motion.button
-                    className="rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap"
-                    initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
-                    animate={{ 
-                      width: "var(--width)", 
-                      paddingLeft: "var(--padding-left)", 
-                      paddingRight: "var(--padding-right)",
-                      transition: { duration: 1, ease: "easeOut" }
-                    }}
-                    whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-                    whileTap={{ scale: 0.85, transition: { duration: 0.2 } }}
-                    onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                <div className="flex mt-2 md:mt-6 lg:space-x-8 space-x-2 lg:justify-start justify-center">
+                  <motion.div
+                    className="relative rounded-lg overflow-visible lg:w-44 xl:w-48 2xl:w-52 4xl:w-64 5xl:w-72 w-32"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
                   >
-                    <p className="line-clamp-1">{isLg ? 'View Portfolio' : 'Portfolio'}</p>
-                  </motion.button>
-                  <motion.button
-                    className="rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap"
-                    initial={{ width: 0, paddingLeft: 0, paddingRight: 0 }}
-                    animate={{ 
-                      width: "var(--width)", 
-                      paddingLeft: "var(--padding-left)", 
-                      paddingRight: "var(--padding-right)",
-                      transition: { duration: 1, ease: "easeOut" }
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.85 }}
-                    onClick={openResume}
+                    <motion.div 
+                      className="absolute inset-0 -z-10 bg-gradient-to-r from-skyblue to-blue-400 rounded-lg blur-sm"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 0, scale: 0.95 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      variants={{
+                        hover: { opacity: 0.7, scale: 1.08 },
+                        initial: { opacity: 0, scale: 0.95 }
+                      }}
+                    />
+                    <motion.button
+                      className="relative z-10 rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap px-4 lg:px-6 w-full"
+                      onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                      whileHover="hover"
+                      initial="initial"
+                      whileTap={{ scale: 0.95 }}
+                      variants={{
+                        hover: { scale: 1.05 },
+                        initial: { scale: 1 }
+                      }}
+                    >
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-skyblue to-blue-400 rounded-lg"
+                        variants={{
+                          hover: { opacity: 0.15 },
+                          initial: { opacity: 0 }
+                        }}
+                      />
+                      <motion.p 
+                        className="relative z-10 line-clamp-1"
+                        variants={{
+                          hover: { color: "#1d4ed8" },
+                          initial: { color: "#000000" }
+                        }}
+                      >
+                        {isLg ? 'View Portfolio' : 'Portfolio'}
+                      </motion.p>
+                    </motion.button>
+                  </motion.div>
+
+                  <motion.div
+                    className="relative rounded-lg overflow-visible lg:w-44 xl:w-48 2xl:w-52 4xl:w-64 5xl:w-72 w-32"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
                   >
-                    <p className="line-clamp-1">{isLg ? 'View Resume' : 'Resume'}</p>
-                  </motion.button>
+                    <motion.div 
+                      className="absolute inset-0 -z-10 bg-gradient-to-r from-skyblue to-blue-400 rounded-lg blur-sm"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 0, scale: 0.95 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      variants={{
+                        hover: { opacity: 0.7, scale: 1.08 },
+                        initial: { opacity: 0, scale: 0.95 }
+                      }}
+                    />
+                    <motion.button
+                      className="relative z-10 rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap px-4 lg:px-6 w-full"
+                      onClick={openResume}
+                      whileHover="hover"
+                      initial="initial"
+                      whileTap={{ scale: 0.95 }}
+                      variants={{
+                        hover: { scale: 1.05 },
+                        initial: { scale: 1 }
+                      }}
+                    >
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-skyblue to-blue-400 rounded-lg"
+                        variants={{
+                          hover: { opacity: 0.15 },
+                          initial: { opacity: 0 }
+                        }}
+                      />
+                      <motion.p 
+                        className="relative z-10 line-clamp-1"
+                        variants={{
+                          hover: { color: "#1d4ed8" },
+                          initial: { color: "#000000" }
+                        }}
+                      >
+                        {isLg ? 'View Resume' : 'Resume'}
+                      </motion.p>
+                    </motion.button>
+                  </motion.div>
                 </div>
               </div>
             </div>
             <div className="flex lg:justify-between justify-center items-end">
-              <div className="flex space-x-4 5xl:px-12 lg:px-10 px-4 lg:mt-0 mt-2">
+              <div className="flex space-x-4 5xl:px-12 lg:px-10 px-4">
                 <Link href="https://www.linkedin.com/in/victor-chung-ca/" target="_blank" rel="noopener noreferrer">
                   <motion.button
                     className="flex justify-center items-center rounded-lg bg-skyblue h-10 md:h-12 lg:h-16 hover:bg-blue-500 transition-colors shadow-lg"
@@ -315,13 +376,13 @@ function MainContent() {
               </div>
               <div className="relative">
                 <motion.div 
-                  className="absolute z-10 5xl:bottom-40 bottom-28 5xl:right-20 right-16 5xl:w-64 5xl:h-60 4xl:w-48 4xl:h-40 bg-white rounded-lg shadow-lg floating-element"
+                  className="absolute z-10 5xl:bottom-40 bottom-16 5xl:right-20 right-16 5xl:w-64 5xl:h-60 4xl:w-48 4xl:h-40 bg-white rounded-lg shadow-lg floating-element"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
                 ></motion.div>
                 <motion.div 
-                  className="absolute z-10 bottom-0 5xl:right-48 right-36 5xl:w-64 5xl:h-56 4xl:w-48 4xl:h-40 bg-white rounded-lg shadow-lg floating-element"
+                  className="absolute z-10 bottom-[-12px] 5xl:right-48 right-36 5xl:w-64 5xl:h-56 4xl:w-48 4xl:h-40 bg-white rounded-lg shadow-lg floating-element"
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
@@ -338,7 +399,7 @@ function MainContent() {
             >
               <div className="w-full h-full 2xl:p-6 p-4">
                 <div className="relative w-full h-full overflow-hidden rounded-lg">
-                  <Image src="/profilepic.jpg" alt="profile" className="rounded-lg object-cover hover:scale-105 transition-transform duration-500" fill />
+                  <Image src="/victor.jpg" alt="profile" className="rounded-lg object-cover hover:scale-105 transition-transform duration-500" fill />
                 </div>
               </div>
             </motion.div>
@@ -368,12 +429,12 @@ function MainContent() {
       <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16 shadow-2xl">
         <motion.div
           ref={portfolioRefView}
-          className="5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-24 mb-8"
+          className="text-center md:text-left 5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-24 mb-16 md:mt-10 mt-4"
           initial={{ opacity: 0, y: -50 }}
           animate={portfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="gradient-bg bg-clip-text rounded-xl px-8">PORTFOLIO</span>
+          <span className="gradient-bg bg-clip-text rounded-xl px-4 md:px-8 py-2">PORTFOLIO</span>
         </motion.div>
         
         <div className="flex lg:mb-36 mb-24">
@@ -498,12 +559,12 @@ function MainContent() {
 
         <motion.div
           ref={careerRefView}
-          className="5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-24 mb-8 relative z-10 mt-10"
+          className="text-center md:text-left 5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-24 mb-16 relative z-10 md:mt-10 mt-4"
           initial={{ opacity: 0, y: -50 }}
           animate={careerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="gradient-bg bg-clip-text px-8 py-2 rounded-xl">EXPERIENCE</span>
+          <span className="gradient-bg bg-clip-text px-4 md:px-8 py-2 rounded-xl">CAREER</span>
         </motion.div>
         
         <div className="grid lg:grid-cols-3 grid-cols-1 gap-8 relative z-10">
@@ -517,7 +578,7 @@ function MainContent() {
             whileHover={{ scale: 1.04 }}
           >
             <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
                 <Image
                   src="/pelmorex.jpg"
                   alt="Pelmorex"
@@ -564,7 +625,7 @@ function MainContent() {
             whileHover={{ scale: 1.04 }}
           >
             <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
                 <Image
                   src="/nobllogo.jpg"
                   alt="Nobl Kids"
@@ -611,7 +672,7 @@ function MainContent() {
             whileHover={{ scale: 1.04 }}
           >
             <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
                 <Image
                   src="/rout3logo.jpg"
                   alt="Rout3"
@@ -658,7 +719,7 @@ function MainContent() {
             whileHover={{ scale: 1.04 }}
           >
             <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
                 <Image
                   src="/goeasylogo.jpg"
                   alt="goeasy"
@@ -705,7 +766,7 @@ function MainContent() {
             whileHover={{ scale: 1.04 }}
           >
             <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
                 <Image
                   src="/moh.jpg"
                   alt="Ontario Ministry of Health"
