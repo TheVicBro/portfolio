@@ -3,6 +3,8 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const Goeasy = () => {
   return (
@@ -106,6 +108,28 @@ const Goeasy = () => {
                 <p className="text-gray-600">
                   Moving forward, I&apos;ve proposed implementing a design system to ensure consistency across the application, exploring micro-frontend architecture for better scalability, and introducing advanced analytics to gain deeper insights into user behavior and further improve the user experience.
                 </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.4, duration: 0.5 }}
+                className="mt-12 border-t border-gray-200 pt-8 flex justify-center"
+              >
+                <Link 
+                  href="https://goeasyconnect.com/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-2 bg-tertiary-yellow-700 hover:bg-tertiary-yellow-600 text-black px-8 py-4 rounded-xl font-medium transition-colors duration-300"
+                  >
+                    View Website
+                    <ArrowRight className="w-4 h-4" />
+                  </motion.button>
+                </Link>
               </motion.div>
             </div>
           </motion.div>

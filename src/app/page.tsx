@@ -76,6 +76,21 @@ function MainContent() {
   const aboutPictureRef = useRef(null);
   const isInView = useInView(aboutPictureRef, { amount: 0.5 });
 
+  const careerRef = useRef<HTMLDivElement|null>(null);
+  const careerRefView = useRef(null);
+  const careerItemRef1 = useRef(null);
+  const careerItemRef2 = useRef(null);
+  const careerItemRef3 = useRef(null);
+  const careerItemRef4 = useRef(null);
+  const careerItemRef5 = useRef(null);
+
+  const careerInView = useInView(careerRefView, { once: true, amount: 0.2 });
+  const careerItemInView1 = useInView(careerItemRef1, { once: true, amount: 0.2 });
+  const careerItemInView2 = useInView(careerItemRef2, { once: true, amount: 0.2 });
+  const careerItemInView3 = useInView(careerItemRef3, { once: true, amount: 0.2 });
+  const careerItemInView4 = useInView(careerItemRef4, { once: true, amount: 0.2 });
+  const careerItemInView5 = useInView(careerItemRef5, { once: true, amount: 0.2 });
+
   // When coming from a different page, scroll to the section specified in the URL
   const searchParams = useSearchParams();
   useEffect(() => {
@@ -83,6 +98,8 @@ function MainContent() {
     if (section) {
       if (section === 'Portfolio') {
         portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
+      } else if (section === 'Career') {
+        careerRef.current?.scrollIntoView({ behavior: 'smooth' });
       } else if (section === 'About') {
         aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
       } else if (section === 'Contact') {
@@ -204,7 +221,7 @@ function MainContent() {
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
-        <Navbar portfolioRef={portfolioRef} aboutRef={aboutRef} contactRef={contactRef} />
+        <Navbar portfolioRef={portfolioRef} careerRef={careerRef} aboutRef={aboutRef} contactRef={contactRef} />
         <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[40%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center -mb-36 lg:mb-0">
             <div>
@@ -327,27 +344,25 @@ function MainContent() {
             </motion.div>
           </div>
         </div>
-
-            <motion.div 
-              className="flex lg:mb-8 mb-4 2xl:text-xl xl:text-lg lg:text-md text-sm 5xl:px-48 4xl:px-40 lg:px-28 px-8 justify-between text-lightblack"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+        <motion.div 
+          className="flex lg:mb-8 mb-4 2xl:text-xl xl:text-lg lg:text-md text-sm 5xl:px-48 4xl:px-40 lg:px-28 px-8 justify-between text-lightblack"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div>ONTARIO, CANADA</div>
+          <div className="scrolldown-indicator flex items-center">
+            (SCROLL FOR MORE)
+            <motion.span
+              animate={{ y: [0, 3, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="ml-1"
             >
-              <div>ONTARIO, CANADA</div>
-              <div className="scrolldown-indicator flex items-center">
-                (SCROLL FOR MORE)
-                <motion.span
-                  animate={{ y: [0, 3, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="ml-1"
-                >
-                  ↓
-                </motion.span>
-              </div>
-            </motion.div>
-
+              ↓
+            </motion.span>
+          </div>
+        </motion.div>
       </motion.div>
       
       <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16 shadow-2xl">
@@ -472,6 +487,262 @@ function MainContent() {
           </motion.div>
         </div>
       </div>
+
+      <div ref={careerRef} className="relative bg-gradient-to-b from-[#2A2A2A] to-[#383838] z-20 rounded-b-3xl rounded-t-none 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16 shadow-2xl overflow-hidden -mt-10">
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-skyblue/20 blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-blue-300/20 blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+          <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] rounded-full bg-white/5 blur-[80px] -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+
+        <motion.div
+          ref={careerRefView}
+          className="5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-24 mb-8 relative z-10 mt-10"
+          initial={{ opacity: 0, y: -50 }}
+          animate={careerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <span className="gradient-bg bg-clip-text px-8 py-2 rounded-xl">EXPERIENCE</span>
+        </motion.div>
+        
+        <div className="grid lg:grid-cols-3 grid-cols-1 gap-8 relative z-10">
+          {/* Pelmorex */}
+          <motion.div
+            ref={careerItemRef1}
+            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
+            initial={{ opacity: 0, y: 50 }}
+            animate={careerItemInView1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.4 }}
+            whileHover={{ scale: 1.04 }}
+          >
+            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
+              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+                <Image
+                  src="/pelmorex.jpg"
+                  alt="Pelmorex"
+                  fill
+                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0"></div>
+              </div>
+              
+              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
+                <div>
+                  <div className="text-3xl font-bold text-white mb-2">Pelmorex Corp</div>
+                  <div className="text-xl text-skyblue mb-2">Software Engineer Intern</div>
+                  <div className="text-white/80 mb-4">Sep 2024 - Apr 2025</div>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Go</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">TypeScript</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Protobuf</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-3 text-white/80">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Built real-time weather alert visualization system</div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Reduced alert processing time to seconds</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Nobl Kids */}
+          <motion.div
+            ref={careerItemRef2}
+            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
+            initial={{ opacity: 0, y: 50 }}
+            animate={careerItemInView2 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.4 }}
+            whileHover={{ scale: 1.04 }}
+          >
+            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
+              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+                <Image
+                  src="/nobllogo.jpg"
+                  alt="Nobl Kids"
+                  fill
+                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0"></div>
+              </div>
+              
+              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
+                <div>
+                  <div className="text-3xl font-bold text-white mb-2">Nobl Kids</div>
+                  <div className="text-xl text-skyblue mb-2">Software Engineer</div>
+                  <div className="text-white/80 mb-4">Sep 2024 - Dec 2024</div>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">React</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Framer Motion</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">UI/UX</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-3 text-white/80">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Improved user engagement by 40%</div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Built responsive B2B/B2C landing pages</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Rout3 */}
+          <motion.div
+            ref={careerItemRef3}
+            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
+            initial={{ opacity: 0, y: 50 }}
+            animate={careerItemInView3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.4 }}
+            whileHover={{ scale: 1.04 }}
+          >
+            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
+              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+                <Image
+                  src="/rout3logo.jpg"
+                  alt="Rout3"
+                  fill
+                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0"></div>
+              </div>
+              
+              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
+                <div>
+                  <div className="text-3xl font-bold text-white mb-2">Rout3</div>
+                  <div className="text-xl text-skyblue mb-2">Founding Engineer</div>
+                  <div className="text-white/80 mb-4">May 2024 - Aug 2024</div>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Svelte</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">TypeScript</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Python</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-3 text-white/80">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Secured $10K in startup funding</div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Built LLM proxy dashboard</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* goeasy */}
+          <motion.div
+            ref={careerItemRef4}
+            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
+            initial={{ opacity: 0, y: 50 }}
+            animate={careerItemInView4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.4 }}
+            whileHover={{ scale: 1.04 }}
+          >
+            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
+              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+                <Image
+                  src="/goeasylogo.jpg"
+                  alt="goeasy"
+                  fill
+                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0"></div>
+              </div>
+              
+              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
+                <div>
+                  <div className="text-3xl font-bold text-white mb-2">goeasy Ltd.</div>
+                  <div className="text-xl text-skyblue mb-2">Frontend Engineer Intern</div>
+                  <div className="text-white/80 mb-4">Feb 2023 - Sep 2023</div>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Next.js</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Contentful</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Apollo</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-3 text-white/80">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Reduced bounce rates by 25%</div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>96% test success rate</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Ontario Ministry of Health */}
+          <motion.div
+            ref={careerItemRef5}
+            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
+            initial={{ opacity: 0, y: 50 }}
+            animate={careerItemInView5 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.4 }}
+            whileHover={{ scale: 1.04 }}
+          >
+            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
+              <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+                <Image
+                  src="/moh.jpg"
+                  alt="Ontario Ministry of Health"
+                  fill
+                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0"></div>
+              </div>
+              
+              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
+                <div>
+                  <div className="text-3xl font-bold text-white mb-2">Ontario Ministry of Health</div>
+                  <div className="text-xl text-skyblue mb-2">Cloud Engineer Intern</div>
+                  <div className="text-white/80 mb-4">Sep 2021 - Sep 2022</div>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Power Apps</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Azure</span>
+                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">REST API</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-3 text-white/80">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Saved 40+ hours monthly work</div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Reduced system downtime by 90%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
       
       <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-24 px-8 5xl:py-32 4xl:py-24 py-8 lg:h-screen h-auto bg-gradient-to-b from-[#E6E6E6] to-[#f0f0f0]">
         <div className="lg:w-1/3 w-full 4xl:my-12 relative lg:mb-0 mb-8 flex items-center">
@@ -544,48 +815,48 @@ function MainContent() {
           <div>
             <div className="flex lg:flex-row flex-col text-white 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl lg:mt-0 mt-12 lg:space-x-8 space-y-4 lg:space-y-0 lg:h-full h-auto">
               <div className="flex flex-col w-full lg:w-1/2">
-                <div>
+                <div className="flex flex-col items-center lg:items-start">
                   <div>
                     Name
                     <a className="text-skyblue">*</a>
                   </div>
-                  <div>
+                  <div className="w-full max-w-sm lg:max-w-lg">
                     <input 
                       type="text" 
                       name="name"
-                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto focus:border-skyblue transition-colors" 
+                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full focus:border-skyblue transition-colors" 
                       value={formData.name} 
                       onChange={handleChange} 
                       required 
                     />
                   </div>
                 </div>
-                <div className="lg:mt-6 mt-4">
+                <div className="lg:mt-6 mt-4 flex flex-col items-center lg:items-start">
                   <div>
                     Email
                     <a className="text-skyblue">*</a>
                   </div>
-                  <div>
+                  <div className="w-full max-w-sm lg:max-w-lg">
                     <input 
                       type="email"
                       name="email"
-                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto focus:border-skyblue transition-colors" 
+                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full focus:border-skyblue transition-colors" 
                       value={formData.email} 
                       onChange={handleChange} 
                       required 
                     />
                   </div>
                 </div>
-                <div className="lg:mt-6 mt-4">
+                <div className="lg:mt-6 mt-4 flex flex-col items-center lg:items-start">
                   <div>
                     Company
                     <a className="text-skyblue">*</a>
                   </div>
-                  <div>
+                  <div className="w-full max-w-sm lg:max-w-lg">
                     <input 
                       type="text" 
                       name="company" 
-                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto focus:border-skyblue transition-colors"
+                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full focus:border-skyblue transition-colors"
                       value={formData.company} 
                       onChange={handleChange} 
                       required 
@@ -594,19 +865,21 @@ function MainContent() {
                 </div>
               </div>
               <div className="flex flex-col w-full lg:w-1/2 lg:mt-0 mt-4">
-                <div>
-                  Inquiry
-                  <a className="text-skyblue">*</a>
-                </div>
-                <div>
-                  <textarea 
-                    name="inquiry"
-                    className="4xl:mt-4 mt-2 border-4 border-white p-4 bg-lightblack rounded w-full lg:max-w-lg max-w-sm mx-auto resize-none focus:border-skyblue transition-colors" 
-                    rows={8} 
-                    value={formData.inquiry} 
-                    onChange={handleChange} 
-                    required 
-                  />
+                <div className="flex flex-col items-center lg:items-start">
+                  <div>
+                    Inquiry
+                    <a className="text-skyblue">*</a>
+                  </div>
+                  <div className="w-full max-w-sm lg:max-w-lg">
+                    <textarea 
+                      name="inquiry"
+                      className="4xl:mt-4 mt-2 border-4 border-white p-4 bg-lightblack rounded w-full resize-none focus:border-skyblue transition-colors" 
+                      rows={8} 
+                      value={formData.inquiry} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                  </div>
                 </div>
               </div>
             </div>

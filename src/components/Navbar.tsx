@@ -3,17 +3,21 @@ import { useRouter } from 'next/navigation';
 
 type NavbarProps = {
   portfolioRef?: React.RefObject<HTMLDivElement>;
+  careerRef?: React.RefObject<HTMLDivElement>;
   aboutRef?: React.RefObject<HTMLDivElement>;
   contactRef?: React.RefObject<HTMLDivElement>;
 };
 
-export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarProps) {
+export default function Navbar({ portfolioRef, careerRef, aboutRef, contactRef }: NavbarProps) {
   const router = useRouter();
 
   const handleNavigation = (section: string) => {
-    if (portfolioRef && aboutRef && contactRef) {
+    if (portfolioRef && careerRef && aboutRef && contactRef) {
       if (section === "Portfolio") {
         portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (section === "Career") {
+        careerRef.current?.scrollIntoView({ behavior: 'smooth' });
       }
       if (section === "About") {
         aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -27,7 +31,7 @@ export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarPro
   };
 
   const handleLogoClick = () => {
-    if (portfolioRef && aboutRef && contactRef) {
+    if (portfolioRef && careerRef && aboutRef && contactRef) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       router.push('/');
@@ -49,8 +53,8 @@ export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarPro
       >
         VC
       </motion.div>
-      <div className="flex lg:flex-row flex-col lg:items-row 5xl:text-4xl text-2xl font-semibold 5xl:space-x-28 4xl:space-x-24 lg:space-x-16 space-x-0 space-y-0">
-        {["Portfolio", "About", "Contact"].map((item) => (
+      <div className="flex lg:flex-row flex-col lg:items-row 5xl:text-4xl text-2xl font-semibold 5xl:space-x-20 4xl:space-x-16 lg:space-x-12 space-x-0 space-y-0">
+        {["Portfolio", "Career", "About", "Contact"].map((item) => (
           <motion.div
             key={item}
             className="relative"
@@ -59,8 +63,8 @@ export default function Navbar({ portfolioRef, aboutRef, contactRef }: NavbarPro
             animate="initial"
             whileTap={{ scale: 0.85 }}
           >
-            <button 
-              className="relative z-10"
+            <button
+               className="relative z-10"
               onClick={() => handleNavigation(item)}
             >
               {item}
