@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useRef, useState, useEffect, ChangeEvent, FormEvent, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { AnimatedText } from '../components/AnimatedText';
 import Navbar from '../components/Navbar';
@@ -24,7 +24,41 @@ function MainContent() {
   const [isLg, setIsLg] = useState(false);
   const [showFloatingMenu, setShowFloatingMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Define all refs first
+  const topRefView = useRef<HTMLDivElement|null>(null);
+  const aboutRef = useRef<HTMLDivElement|null>(null);
+  const portfolioRef = useRef<HTMLDivElement|null>(null);
+  const contactRef = useRef<HTMLDivElement|null>(null);
+  const aboutPictureRef = useRef(null);
+  const isInView = useInView(aboutPictureRef, { amount: 0.5 });
 
+  const careerRef = useRef<HTMLDivElement|null>(null);
+  const careerRefView = useRef(null);
+  const careerItemRef1 = useRef(null);
+  const careerItemRef2 = useRef(null);
+  const careerItemRef3 = useRef(null);
+  const careerItemRef4 = useRef(null);
+  const careerItemRef5 = useRef(null);
+  
+  const portfolioRefView = useRef(null);
+  const portfolioItemRef1 = useRef(null);
+  const portfolioItemRef2 = useRef(null);
+  const portfolioItemRef3 = useRef(null);
+
+  const careerInView = useInView(careerRefView, { once: true, amount: 0.2 });
+  const careerItemInView1 = useInView(careerItemRef1, { once: true, amount: 0.2 });
+  const careerItemInView2 = useInView(careerItemRef2, { once: true, amount: 0.2 });
+  const careerItemInView3 = useInView(careerItemRef3, { once: true, amount: 0.2 });
+  const careerItemInView4 = useInView(careerItemRef4, { once: true, amount: 0.2 });
+  const careerItemInView5 = useInView(careerItemRef5, { once: true, amount: 0.2 });
+  
+  const portfolioInView = useInView(portfolioRefView, { once: true, amount: 0.2 });
+  const portfolioItemInView1 = useInView(portfolioItemRef1, { once: true, amount: 0.2 });
+  const portfolioItemInView2 = useInView(portfolioItemRef2, { once: true, amount: 0.2 });
+  const portfolioItemInView3 = useInView(portfolioItemRef3, { once: true, amount: 0.2 });
+
+  // Add resize event listener
   useEffect(() => {
     const handleResize = () => {
       let check = window.innerWidth >= 1024;
@@ -48,41 +82,28 @@ function MainContent() {
     };
   }, []);
 
+  // Define memoized function at component level for floating menu visibility
+  const updateFloatingMenu = useCallback(() => {
+    // Simple check - only hide when at the very top of the page (hero section)
+    // This is more reliable than trying to calculate exact positions
+    const scrollPosition = window.scrollY;
+    const viewportHeight = window.innerHeight * 0.5; // Show halfway through hero section
+    
+    setShowFloatingMenu(scrollPosition > viewportHeight);
+  }, []);
+
   // Monitor scroll position to show floating menu
   useEffect(() => {
-    const isScrolling = {current: false};
-    let scrollTimeout: NodeJS.Timeout;
+    // Run initial check
+    updateFloatingMenu();
     
-    const updateFloatingMenu = () => {
-      if (isScrolling.current) return;
-      
-      isScrolling.current = true;
-      
-      // Show floating menu when scrolled past hero section
-      const isPastHero = window.scrollY > window.innerHeight;
-      
-      // Hide floating menu when near bottom of page (300px from bottom)
-      const isNearBottom = window.innerHeight + window.scrollY + 300 >= document.body.offsetHeight;
-      
-      setShowFloatingMenu(isPastHero && !isNearBottom);
-      
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isScrolling.current = false;
-      }, 50);
-    };
-
-    // Initial check without scroll
-    setShowFloatingMenu(window.scrollY > window.innerHeight && 
-      !(window.innerHeight + window.scrollY + 300 >= document.body.offsetHeight));
-    
+    // Add scroll listener
     window.addEventListener('scroll', updateFloatingMenu, { passive: true });
     
     return () => {
-      clearTimeout(scrollTimeout);
       window.removeEventListener('scroll', updateFloatingMenu);
     };
-  }, []);
+  }, [updateFloatingMenu]);
 
   const router = useRouter();
   const [isAnimating, setIsAnimating] = useState(false);
@@ -109,28 +130,6 @@ function MainContent() {
     return () => unsubscribe();
   }, [scrollY]);
 
-  const topRefView = useRef<HTMLDivElement|null>(null);
-  const aboutRef = useRef<HTMLDivElement|null>(null);
-  const portfolioRef = useRef<HTMLDivElement|null>(null);
-  const contactRef = useRef<HTMLDivElement|null>(null);
-  const aboutPictureRef = useRef(null);
-  const isInView = useInView(aboutPictureRef, { amount: 0.5 });
-
-  const careerRef = useRef<HTMLDivElement|null>(null);
-  const careerRefView = useRef(null);
-  const careerItemRef1 = useRef(null);
-  const careerItemRef2 = useRef(null);
-  const careerItemRef3 = useRef(null);
-  const careerItemRef4 = useRef(null);
-  const careerItemRef5 = useRef(null);
-
-  const careerInView = useInView(careerRefView, { once: true, amount: 0.2 });
-  const careerItemInView1 = useInView(careerItemRef1, { once: true, amount: 0.2 });
-  const careerItemInView2 = useInView(careerItemRef2, { once: true, amount: 0.2 });
-  const careerItemInView3 = useInView(careerItemRef3, { once: true, amount: 0.2 });
-  const careerItemInView4 = useInView(careerItemRef4, { once: true, amount: 0.2 });
-  const careerItemInView5 = useInView(careerItemRef5, { once: true, amount: 0.2 });
-
   // When coming from a different page, scroll to the section specified in the URL
   const searchParams = useSearchParams();
   useEffect(() => {
@@ -151,15 +150,6 @@ function MainContent() {
   const openResume = () => {
     window.open('/VictorChung_Resume.pdf', '_blank', 'noopener,noreferrer');
   };
-
-  const portfolioRefView = useRef(null);
-  const portfolioInView = useInView(portfolioRefView, { once: true, amount: 0.2 });
-  const portfolioItemRef1 = useRef(null);
-  const portfolioItemInView1 = useInView(portfolioItemRef1, { once: true, amount: 0.2 });
-  const portfolioItemRef2 = useRef(null);
-  const portfolioItemInView2 = useInView(portfolioItemRef2, { once: true, amount: 0.2 });
-  const portfolioItemRef3 = useRef(null);
-  const portfolioItemInView3 = useInView(portfolioItemRef3, { once: true, amount: 0.2 });
 
   const [cursorX, setCursorX] = useState<number | undefined>(0);
   const [cursorY, setCursorY] = useState<number | undefined>(0);
@@ -256,9 +246,10 @@ function MainContent() {
       </motion.div>
       <div ref={topRefView}/>
       <FloatingMenuButton 
-        isVisible={showFloatingMenu && window.innerWidth < 1024} 
+        isVisible={showFloatingMenu} 
         onClick={() => setIsMobileMenuOpen(true)}
         menuOpen={isMobileMenuOpen}
+        className="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 2xl:w-28 2xl:h-28 hover:scale-110 hover:bg-skyblue transition-all duration-200 ease-in-out shadow-xl"
       />
       <MobileMenu 
         isOpen={isMobileMenuOpen} 
@@ -268,6 +259,7 @@ function MainContent() {
         aboutRef={aboutRef}
         contactRef={contactRef}
         router={router}
+        closeButtonClassName="md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 hover:rotate-90 hover:scale-110 hover:text-white transition-all duration-500 ease-in-out shadow-xl"
       />
       <motion.div 
         className="h-screen sticky top-0 flex flex-col justify-between pb-12 md:pb-0"
@@ -453,7 +445,7 @@ function MainContent() {
             >
               <div className="w-full h-full 2xl:p-6 p-4">
                 <div className="relative w-full h-full overflow-hidden rounded-lg">
-                  <Image src="/victor.jpg" alt="profile" className="rounded-lg object-cover hover:scale-105 transition-transform duration-500" fill />
+                  <Image src="/victor.jpg" alt="profile" className="rounded-lg object-cover" fill />
                 </div>
               </div>
             </motion.div>
@@ -613,7 +605,7 @@ function MainContent() {
 
         <motion.div
           ref={careerRefView}
-          className="text-center md:text-left 5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-24 mb-16 relative z-10 md:mt-10 mt-4"
+          className="text-center md:text-left 5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-36 mb-24 relative z-10 md:mt-10 mt-4"
           initial={{ opacity: 0, y: -50 }}
           animate={careerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -621,241 +613,294 @@ function MainContent() {
           <span className="gradient-bg bg-clip-text px-4 md:px-8 py-2 rounded-xl">CAREER</span>
         </motion.div>
         
-        <div className="grid lg:grid-cols-3 grid-cols-1 gap-8 relative z-10">
-          {/* Pelmorex */}
-          <motion.div
-            ref={careerItemRef1}
-            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
-            initial={{ opacity: 0, y: 50 }}
-            animate={careerItemInView1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.4 }}
-            whileHover={{ scale: 1.04 }}
-          >
-            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
-                <Image
-                  src="/pelmorex.jpg"
-                  alt="Pelmorex"
-                  fill
-                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0"></div>
+        <div className="relative z-10 max-w-[1800px] mx-auto">
+          <div className="absolute top-0 bottom-0 left-1/2 w-1.5 bg-gradient-to-b from-skyblue/70 via-blue-400/70 to-blue-300/70 rounded-full transform -translate-x-1/2 hidden lg:block"></div>
+          <div className="space-y-24 md:space-y-48 lg:space-y-80 relative mb-8 md:mb-12 lg:mb-24">
+            {/* Pelmorex */}
+            <div className="flex flex-col lg:flex-row items-center lg:items-start">
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-right mb-12 lg:mb-0"
+                ref={careerItemRef1}
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2024 - 2025</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Pelmorex Corp</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Software Engineer Intern</div>
+                <div className="space-y-4 text-white/80 text-lg">
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Built real-time weather alert visualization system</div>
+                  </div>
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Reduced alert processing time to seconds</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-8 lg:justify-end">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Go</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">TypeScript</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Protobuf</span>
+                </div>
+              </motion.div>
+              
+              {/* Timeline dot - desktop */}
+              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[95%] items-center justify-center">
+                <motion.div 
+                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView1 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                ></motion.div>
               </div>
               
-              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
-                <div>
-                  <div className="text-3xl font-bold text-white mb-2">Pelmorex Corp</div>
-                  <div className="text-xl text-skyblue mb-2">Software Engineer Intern</div>
-                  <div className="text-white/80 mb-4">Sep 2024 - Apr 2025</div>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Go</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">TypeScript</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Protobuf</span>
-                  </div>
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-left pl-0 lg:pl-32 relative"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/pelmorex.jpg"
+                    alt="Pelmorex"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
                 </div>
-                
-                <div className="space-y-3 text-white/80">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>Built real-time weather alert visualization system</div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>Reduced alert processing time to seconds</div>
-                  </div>
-                </div>
-              </div>
+              </motion.div>
             </div>
-          </motion.div>
-
-          {/* Nobl Kids */}
-          <motion.div
-            ref={careerItemRef2}
-            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
-            initial={{ opacity: 0, y: 50 }}
-            animate={careerItemInView2 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.4 }}
-            whileHover={{ scale: 1.04 }}
-          >
-            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
-                <Image
-                  src="/nobllogo.jpg"
-                  alt="Nobl Kids"
-                  fill
-                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0"></div>
+            
+            {/* Nobl Kids */}
+            <div className="flex flex-col lg:flex-row items-center lg:items-start">
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] order-2 lg:order-1 lg:text-left pl-0 lg:pl-32"
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/nobllogo.jpg"
+                    alt="Nobl Kids"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
+                </div>
+              </motion.div>
+              
+              {/* Timeline dot */}
+              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[72%] items-center justify-center">
+                <motion.div 
+                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView2 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                ></motion.div>
               </div>
               
-              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
-                <div>
-                  <div className="text-3xl font-bold text-white mb-2">Nobl Kids</div>
-                  <div className="text-xl text-skyblue mb-2">Software Engineer</div>
-                  <div className="text-white/80 mb-4">Sep 2024 - Dec 2024</div>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">React</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Framer Motion</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">UI/UX</span>
-                  </div>
-                </div>
-                
-                <div className="space-y-3 text-white/80">
+              <motion.div 
+                ref={careerItemRef2}
+                className="w-full lg:w-[calc(50%-4rem)] order-1 lg:order-2 pl-0 lg:pl-32 lg:mb-0 mb-12"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2024</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Nobl Kids</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Software Engineer</div>
+                <div className="space-y-4 text-white/80 text-lg">
                   <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
                     <div>Improved user engagement by 40%</div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
                     <div>Built responsive B2B/B2C landing pages</div>
                   </div>
                 </div>
-              </div>
+                <div className="flex flex-wrap gap-3 mt-8">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">React</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Framer Motion</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">UI/UX</span>
+                </div>
+              </motion.div>
             </div>
-          </motion.div>
-
-          {/* Rout3 */}
-          <motion.div
-            ref={careerItemRef3}
-            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
-            initial={{ opacity: 0, y: 50 }}
-            animate={careerItemInView3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.4 }}
-            whileHover={{ scale: 1.04 }}
-          >
-            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
-                <Image
-                  src="/rout3logo.jpg"
-                  alt="Rout3"
-                  fill
-                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0"></div>
+            
+            {/* Rout3 */}
+            <div className="flex flex-col lg:flex-row items-center lg:items-start">
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-right mb-12 lg:mb-0"
+                ref={careerItemRef3}
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2024</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Rout3</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Founding Engineer</div>
+                <div className="space-y-4 text-white/80 text-lg">
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Secured $10K in startup funding</div>
+                  </div>
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Built LLM proxy dashboard</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-8 lg:justify-end">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Svelte</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">TypeScript</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Python</span>
+                </div>
+              </motion.div>
+              
+              {/* Timeline dot */}
+              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[50%] items-center justify-center">
+                <motion.div 
+                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView3 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                ></motion.div>
               </div>
               
-              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
-                <div>
-                  <div className="text-3xl font-bold text-white mb-2">Rout3</div>
-                  <div className="text-xl text-skyblue mb-2">Founding Engineer</div>
-                  <div className="text-white/80 mb-4">May 2024 - Aug 2024</div>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Svelte</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">TypeScript</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Python</span>
-                  </div>
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-left pl-0 lg:pl-32 relative"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/rout3logo.jpg"
+                    alt="Rout3"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
                 </div>
-                
-                <div className="space-y-3 text-white/80">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>Secured $10K in startup funding</div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>Built LLM proxy dashboard</div>
-                  </div>
-                </div>
-              </div>
+              </motion.div>
             </div>
-          </motion.div>
-
-          {/* goeasy */}
-          <motion.div
-            ref={careerItemRef4}
-            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
-            initial={{ opacity: 0, y: 50 }}
-            animate={careerItemInView4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.4 }}
-            whileHover={{ scale: 1.04 }}
-          >
-            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
-                <Image
-                  src="/goeasylogo.jpg"
-                  alt="goeasy"
-                  fill
-                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0"></div>
+            
+            {/* goeasy */}
+            <div className="flex flex-col lg:flex-row items-center lg:items-start">
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] order-2 lg:order-1 lg:text-left pl-0 lg:pl-32"
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView4 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/goeasylogo.jpg"
+                    alt="goeasy"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
+                </div>
+              </motion.div>
+              
+              {/* Timeline dot */}
+              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[28%] items-center justify-center">
+                <motion.div 
+                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView4 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                ></motion.div>
               </div>
               
-              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
-                <div>
-                  <div className="text-3xl font-bold text-white mb-2">goeasy Ltd.</div>
-                  <div className="text-xl text-skyblue mb-2">Frontend Engineer Intern</div>
-                  <div className="text-white/80 mb-4">Feb 2023 - Sep 2023</div>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Next.js</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Contentful</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Apollo</span>
-                  </div>
-                </div>
-                
-                <div className="space-y-3 text-white/80">
+              <motion.div 
+                ref={careerItemRef4}
+                className="w-full lg:w-[calc(50%-4rem)] order-1 lg:order-2 lg:text-left pl-0 lg:pl-32 mb-12 lg:mb-0"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView4 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2023</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">goeasy Ltd.</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Frontend Engineer Intern</div>
+                <div className="space-y-4 text-white/80 text-lg">
                   <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
                     <div>Reduced bounce rates by 25%</div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
                     <div>96% test success rate</div>
                   </div>
                 </div>
-              </div>
+                <div className="flex flex-wrap gap-3 mt-8">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Next.js</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Contentful</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Apollo</span>
+                </div>
+              </motion.div>
             </div>
-          </motion.div>
-
-          {/* Ontario Ministry of Health */}
-          <motion.div
-            ref={careerItemRef5}
-            className="group relative p-[2px] rounded-xl bg-gradient-to-br from-skyblue via-blue-400 to-blue-300"
-            initial={{ opacity: 0, y: 50 }}
-            animate={careerItemInView5 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.4 }}
-            whileHover={{ scale: 1.04 }}
-          >
-            <div className="bg-[#2A2A2A] rounded-xl p-8 h-full">
-              <div className="relative w-full h-24 md:h-48 mb-6 rounded-lg overflow-hidden">
-                <Image
-                  src="/moh.jpg"
-                  alt="Ontario Ministry of Health"
-                  fill
-                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0"></div>
+            
+            {/* Ontario Ministry of Health */}
+            <div className="flex flex-col lg:flex-row items-center lg:items-start">
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-right mb-12 lg:mb-0"
+                ref={careerItemRef5}
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView5 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2021 - 2022</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Ontario Ministry of Health</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Cloud Engineer Intern</div>
+                <div className="space-y-4 text-white/80 text-lg">
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Saved 40+ hours monthly work</div>
+                  </div>
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Reduced system downtime by 90%</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-8 lg:justify-end">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Power Apps</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Azure</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">REST API</span>
+                </div>
+              </motion.div>
+              
+              {/* Timeline dot */}
+              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[5%] items-center justify-center">
+                <motion.div 
+                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView5 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                ></motion.div>
               </div>
               
-              <div className="flex flex-col justify-between h-[calc(100%-14rem)]">
-                <div>
-                  <div className="text-3xl font-bold text-white mb-2">Ontario Ministry of Health</div>
-                  <div className="text-xl text-skyblue mb-2">Cloud Engineer Intern</div>
-                  <div className="text-white/80 mb-4">Sep 2021 - Sep 2022</div>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Power Apps</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">Azure</span>
-                    <span className="px-3 py-1 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-skyblue/20 transition-colors">REST API</span>
-                  </div>
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-left pl-0 lg:pl-32 relative"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView5 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/moh.jpg"
+                    alt="Ontario Ministry of Health"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
                 </div>
-                
-                <div className="space-y-3 text-white/80">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>Saved 40+ hours monthly work</div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-1.5 h-1.5 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>Reduced system downtime by 90%</div>
-                  </div>
-                </div>
-              </div>
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
       
@@ -875,7 +920,7 @@ function MainContent() {
                 layout="responsive"
                 width={835} 
                 height={1190}
-                className="rounded-lg hover:scale-105 transition-transform duration-700"
+                className="rounded-lg"
                 draggable="false"
               />
             </div>
