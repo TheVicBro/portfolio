@@ -24,7 +24,11 @@ type AnimatedTextProps = {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.1,
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+        duration: 0.5,
+        ease: [0.2, 0.65, 0.3, 0.9],
       },
     },
   };
@@ -36,7 +40,7 @@ export const AnimatedText = ({
     className,
     once,
     repeatDelay,
-    staggerChildren = 0.1,
+    staggerChildren = 0.03,
     animation = defaultAnimations,
     animateMode = "char",
   }: AnimatedTextProps) => {
@@ -74,7 +78,14 @@ export const AnimatedText = ({
           initial="hidden"
           animate={controls}
           variants={{
-            visible: { transition: { staggerChildren } },
+            visible: { 
+              transition: { 
+                staggerChildren,
+                delayChildren: 0.1,
+                staggerDirection: 1,
+                ease: "easeOut"
+              } 
+            },
             hidden: {},
           }}
           aria-hidden
