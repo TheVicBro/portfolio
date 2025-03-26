@@ -273,7 +273,7 @@ function MainContent() {
             <div>
               <div className="truncate">
                 <motion.div
-                  className="mt-4 5xl:text-12xl 4xl:text-9xl 3xl:text-8.5xl xl:text-8xl lg:text-7xl md:text-6xl text-4.5xl font-bold text-lightblack leading-none"
+                  className="mt-4 5xl:text-12xl 4xl:text-9xl 3xl:text-8.5xl xl:text-8xl lg:text-7xl md:text-6xl sm:text-4.5xl text-4xl font-bold text-lightblack leading-none sm:leading-none"
                   initial={{ y: "100%" }}
                   animate={{ y: "0%" }}
                   transition={{ duration: 1, ease: "easeOut" }}
@@ -284,7 +284,7 @@ function MainContent() {
               <div className="mt-1 5xl:px-12 lg:px-10 px-4 pb-4">
                 <div className="truncate py-4">
                   <motion.div
-                    className="5xl:text-7xl 4xl:text-6xl lg:text-5xl md:text-4xl text-2.5xl font-bold text-skyblue leading-none lg:leading-normal"
+                    className="5xl:text-7xl 4xl:text-6xl lg:text-5xl md:text-4xl sm:text-2.5xl text-2xl font-bold text-skyblue leading-none lg:leading-normal"
                     initial={{ y: "-250%" }}
                     animate={{ y: "0%" }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -625,7 +625,7 @@ function MainContent() {
                 animate={careerItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2024 - 2025</div>
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2024 - Apr 2025</div>
                 <div className="text-white text-3xl md:text-4xl font-bold mb-4">Pelmorex Corp</div>
                 <div className="text-white/80 text-xl md:text-2xl mb-6">Software Engineer Intern</div>
                 <div className="space-y-4 text-white/80 text-lg">
@@ -709,7 +709,7 @@ function MainContent() {
                 animate={careerItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2024</div>
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2024 - Dec 2024</div>
                 <div className="text-white text-3xl md:text-4xl font-bold mb-4">Nobl Kids</div>
                 <div className="text-white/80 text-xl md:text-2xl mb-6">Software Engineer</div>
                 <div className="space-y-4 text-white/80 text-lg">
@@ -739,7 +739,7 @@ function MainContent() {
                 animate={careerItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2024</div>
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">May 2024 - Aug 2024</div>
                 <div className="text-white text-3xl md:text-4xl font-bold mb-4">Rout3</div>
                 <div className="text-white/80 text-xl md:text-2xl mb-6">Founding Engineer</div>
                 <div className="space-y-4 text-white/80 text-lg">
@@ -823,7 +823,7 @@ function MainContent() {
                 animate={careerItemInView4 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2023</div>
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Jan 2023 - Sep 2023</div>
                 <div className="text-white text-3xl md:text-4xl font-bold mb-4">goeasy Ltd.</div>
                 <div className="text-white/80 text-xl md:text-2xl mb-6">Frontend Engineer Intern</div>
                 <div className="space-y-4 text-white/80 text-lg">
@@ -853,7 +853,7 @@ function MainContent() {
                 animate={careerItemInView5 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">2021 - 2022</div>
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2021 - Sep 2022</div>
                 <div className="text-white text-3xl md:text-4xl font-bold mb-4">Ontario Ministry of Health</div>
                 <div className="text-white/80 text-xl md:text-2xl mb-6">Cloud Engineer Intern</div>
                 <div className="space-y-4 text-white/80 text-lg">
@@ -1058,7 +1058,7 @@ function MainContent() {
 
         <div className="flex items-center justify-between w-full mt-0 relative z-10">
           <div className="flex 5xl:text-6xl 4xl:text-6xl 2xl:text-5xl text-4xl font-bold text-left text-white">
-            © 2024 VICTOR CHUNG
+            © 2025 VICTOR CHUNG
           </div>
           <div>
             <motion.button 
@@ -1078,7 +1078,7 @@ function MainContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense>
       <MainContent />
     </Suspense>
   );
