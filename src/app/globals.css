@@ -111,3 +111,24 @@ html {
     font-size: 8px;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .cursor {
+    display: none !important;
+  }
+
+  .floating-element,
+  .scrolldown-indicator {
+    animation: none !important;
+  }
+}
+
+@media (pointer: coarse) {
+  .cursor {
+    display: none !important;
+  }
+}

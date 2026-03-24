@@ -124,11 +124,12 @@ function MainContent() {
   const [isMainClickable, setIsMainClickable] = useState(true);
 
   useEffect(() => {
+    const threshold = scrollRange.end;
     const unsubscribe = scrollY.onChange((current) => {
-      setIsMainClickable(current < 1500);
+      setIsMainClickable(current < threshold);
     });
     return () => unsubscribe();
-  }, [scrollY]);
+  }, [scrollY, scrollRange.end]);
 
   // When coming from a different page, scroll to the section specified in the URL
   const searchParams = useSearchParams();
@@ -204,10 +205,14 @@ function MainContent() {
         body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
+      let result: { message?: string } = {};
+      try {
+        result = await response.json();
+      } catch {
+        /* non-JSON error body */
+      }
       if (response.ok) {
-        setStatus('Form submitted successfully!');
-        alert('Thank you! Your message has been received. I will contact you soon.');
+        setStatus('Thank you! Your message has been received. I will contact you soon.');
         setFormData({
           name: '',
           email: '',
@@ -215,16 +220,15 @@ function MainContent() {
           inquiry: '',
         });
       } else {
-        setStatus(`Error: ${result.message}`);
-        alert(`Error: ${result.message}`);
+        setStatus(
+          result.message ? `Error: ${result.message}` : 'Something went wrong. Please try again.'
+        );
       }
     } catch (error) {
       if (error instanceof Error) {
         setStatus(`Error: ${error.message}`);
-        alert(`Error: ${error.message}`);
       } else {
         setStatus('An unexpected error occurred');
-        alert('An unexpected error occurred');
       }
     }
   };
@@ -235,6 +239,7 @@ function MainContent() {
     <main>
       <motion.div
         className="cursor"
+        aria-hidden
         style={{
           left: cursorX! - 25,
           top: cursorY! - 25,
@@ -267,7 +272,17 @@ function MainContent() {
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
       >
-        <Navbar portfolioRef={portfolioRef} careerRef={careerRef} aboutRef={aboutRef} contactRef={contactRef} />
+        <Navbar
+          portfolioRef={portfolioRef}
+          careerRef={careerRef}
+          aboutRef={aboutRef}
+          contactRef={contactRef}
+          syncedMobileMenu={{
+            isOpen: isMobileMenuOpen,
+            onOpen: () => setIsMobileMenuOpen(true),
+            onClose: () => setIsMobileMenuOpen(false),
+          }}
+        />
         <div className="flex lg:flex-row flex-col-reverse justify-center lg:justify-between h-[50%] md:h-[45%] 5xl:h-1/2 5xl:px-48 4xl:px-40 lg:px-24 px-8">
           <div className="flex flex-col justify-between lg:text-left text-center -mb-36 lg:mb-0">
             <div>
@@ -445,7 +460,7 @@ function MainContent() {
             >
               <div className="w-full h-full 2xl:p-6 p-4">
                 <div className="relative w-full h-full overflow-hidden rounded-lg">
-                  <Image src="/victor.jpg" alt="profile" className="rounded-lg object-cover" fill />
+                  <Image src="/victor.jpg" alt="Victor Chung" className="rounded-lg object-cover" fill />
                 </div>
               </div>
             </motion.div>
@@ -916,12 +931,12 @@ function MainContent() {
             <div className="relative w-full lg:h-full h-auto shadow-xl rounded-lg overflow-hidden">
               <Image
                 src="/about.png"
-                alt="about"
-                layout="responsive"
-                width={835} 
+                alt="Victor Chung"
+                width={835}
                 height={1190}
-                className="rounded-lg"
-                draggable="false"
+                className="rounded-lg h-auto w-full"
+                draggable={false}
+                sizes="(max-width: 1024px) 100vw, 33vw"
               />
             </div>
           </motion.div>
@@ -936,7 +951,7 @@ function MainContent() {
           />
           <AnimatedText
             className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8"
-            text={["I'm a 4th-year Computer Engineering student at York University with over 2 years of experience as a full-stack engineer. Currently, I work as a Software Engineer Intern at Pelmorex. Previously, I've led projects like an LLM Proxy Dashboard at Rout3 and enhanced interfaces for 50,000+ users at goeasy. With expertise in Python, Go, TypeScript, and React, I'm passionate about creating scalable, impactful software solutions."]}
+            text={["I'm a Computer Engineering student at York University with over two years of experience as a full-stack engineer. I completed a Software Engineer internship at Pelmorex, led projects like an LLM Proxy Dashboard at Rout3, and enhanced interfaces for 50,000+ users at goeasy. With expertise in Python, Go, TypeScript, and React, I'm passionate about creating scalable, impactful software solutions."]}
             staggerChildren={0.01}
             animateMode="word"
             once={true}
@@ -976,77 +991,100 @@ function MainContent() {
             <div className="flex lg:flex-row flex-col text-white 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl lg:mt-0 mt-12 lg:space-x-8 space-y-4 lg:space-y-0 lg:h-full h-auto">
               <div className="flex flex-col w-full lg:w-1/2">
                 <div className="flex flex-col items-center lg:items-start">
-                  <div>
+                  <label htmlFor="contact-name" className="flex flex-wrap items-center gap-0.5">
                     Name
-                    <a className="text-skyblue">*</a>
-                  </div>
+                    <span className="text-skyblue" aria-hidden="true">
+                      *
+                    </span>
+                  </label>
                   <div className="w-full max-w-sm lg:max-w-lg">
-                    <input 
-                      type="text" 
+                    <input
+                      id="contact-name"
+                      type="text"
                       name="name"
-                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full focus:border-skyblue transition-colors" 
-                      value={formData.name} 
-                      onChange={handleChange} 
-                      required 
+                      autoComplete="name"
+                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full focus:border-skyblue transition-colors"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
                 <div className="lg:mt-6 mt-4 flex flex-col items-center lg:items-start">
-                  <div>
+                  <label htmlFor="contact-email" className="flex flex-wrap items-center gap-0.5">
                     Email
-                    <a className="text-skyblue">*</a>
-                  </div>
+                    <span className="text-skyblue" aria-hidden="true">
+                      *
+                    </span>
+                  </label>
                   <div className="w-full max-w-sm lg:max-w-lg">
-                    <input 
+                    <input
+                      id="contact-email"
                       type="email"
                       name="email"
-                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full focus:border-skyblue transition-colors" 
-                      value={formData.email} 
-                      onChange={handleChange} 
-                      required 
+                      autoComplete="email"
+                      className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full focus:border-skyblue transition-colors"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
                 <div className="lg:mt-6 mt-4 flex flex-col items-center lg:items-start">
-                  <div>
+                  <label htmlFor="contact-company" className="flex flex-wrap items-center gap-0.5">
                     Company
-                    <a className="text-skyblue">*</a>
-                  </div>
+                    <span className="text-skyblue" aria-hidden="true">
+                      *
+                    </span>
+                  </label>
                   <div className="w-full max-w-sm lg:max-w-lg">
-                    <input 
-                      type="text" 
-                      name="company" 
+                    <input
+                      id="contact-company"
+                      type="text"
+                      name="company"
+                      autoComplete="organization"
                       className="4xl:mt-4 mt-2 border-4 border-white px-4 py-2 bg-lightblack rounded w-full focus:border-skyblue transition-colors"
-                      value={formData.company} 
-                      onChange={handleChange} 
-                      required 
+                      value={formData.company}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col w-full lg:w-1/2 lg:mt-0 mt-4">
                 <div className="flex flex-col items-center lg:items-start">
-                  <div>
+                  <label htmlFor="contact-inquiry" className="flex flex-wrap items-center gap-0.5">
                     Inquiry
-                    <a className="text-skyblue">*</a>
-                  </div>
+                    <span className="text-skyblue" aria-hidden="true">
+                      *
+                    </span>
+                  </label>
                   <div className="w-full max-w-sm lg:max-w-lg">
-                    <textarea 
+                    <textarea
+                      id="contact-inquiry"
                       name="inquiry"
-                      className="4xl:mt-4 mt-2 border-4 border-white p-4 bg-lightblack rounded w-full resize-none focus:border-skyblue transition-colors" 
-                      rows={8} 
-                      value={formData.inquiry} 
-                      onChange={handleChange} 
-                      required 
+                      className="4xl:mt-4 mt-2 border-4 border-white p-4 bg-lightblack rounded w-full resize-none focus:border-skyblue transition-colors"
+                      rows={8}
+                      value={formData.inquiry}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          {status && (
+            <p
+              role="status"
+              className="mt-6 text-center text-lg text-white/90 max-w-screen-lg mx-auto px-2"
+            >
+              {status}
+            </p>
+          )}
           <div className="flex justify-center lg:mb-0 mb-8">
-            <motion.button 
-              className="gradient-bg 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl text-white rounded-lg 5xl:mt-12 4xl:mt-8 mt-4 5xl:p-6 p-4 shadow-lg" 
+            <motion.button
+              className="gradient-bg 5xl:text-5xl 4xl:text-4xl lg:text-2xl text-3xl text-white rounded-lg 5xl:mt-12 4xl:mt-8 mt-4 5xl:p-6 p-4 shadow-lg"
               type="submit"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.85 }}
@@ -1058,14 +1096,16 @@ function MainContent() {
 
         <div className="flex items-center justify-between w-full mt-0 relative z-10">
           <div className="flex 5xl:text-6xl 4xl:text-6xl 2xl:text-5xl text-4xl font-bold text-left text-white">
-            © 2025 VICTOR CHUNG
+            © {new Date().getFullYear()} VICTOR CHUNG
           </div>
           <div>
-            <motion.button 
+            <motion.button
+              type="button"
               className="gradient-bg text-white text-5xl rounded-full 4xl:w-32 4xl:h-32 lg:w-20 lg:h-20 w-24 h-24 shadow-lg"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.85 }}
               onClick={() => topRefView.current?.scrollIntoView({ behavior: 'smooth' })}
+              aria-label="Back to top"
             >
               ↑
             </motion.button>
@@ -1078,7 +1118,7 @@ function MainContent() {
 
 export default function Home() {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <MainContent />
     </Suspense>
   );

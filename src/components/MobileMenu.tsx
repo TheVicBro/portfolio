@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, memo } from 'react';
-import Link from 'next/link';
+import type { useRouter } from 'next/navigation';
 
 type MobileMenuProps = {
   isOpen: boolean;
@@ -9,7 +9,7 @@ type MobileMenuProps = {
   careerRef?: React.RefObject<HTMLDivElement>;
   aboutRef?: React.RefObject<HTMLDivElement>;
   contactRef?: React.RefObject<HTMLDivElement>;
-  router?: any;
+  router?: ReturnType<typeof useRouter>;
   closeButtonClassName?: string;
 };
 
@@ -42,7 +42,7 @@ const MobileMenu = memo(function MobileMenu({ isOpen, onClose, portfolioRef, car
         contactRef.current?.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      router.push(`/?section=${section}`);
+      router?.push(`/?section=${section}`);
     }
     onClose();
   };
@@ -103,8 +103,10 @@ const MobileMenu = memo(function MobileMenu({ isOpen, onClose, portfolioRef, car
 
           {/* Close button */}
           <motion.button
+            type="button"
             className={`absolute top-4 md:top-8 right-4 md:right-8 text-white text-4xl z-10 p-2 w-14 h-14 flex items-center justify-center rounded-full bg-skyblue/20 backdrop-blur-sm ${closeButtonClassName || ''}`}
             onClick={onClose}
+            aria-label="Close menu"
             whileTap={{ scale: 0.9 }}
             whileHover={{ 
               rotate: 180,
@@ -142,6 +144,7 @@ const MobileMenu = memo(function MobileMenu({ isOpen, onClose, portfolioRef, car
                 className="relative overflow-hidden group"
               >
                 <motion.button
+                  type="button"
                   className="text-white text-5xl md:text-6xl lg:text-7xl font-bold relative z-10 py-3 px-6"
                   onClick={() => handleNavigation(item)}
                   whileHover={{ 

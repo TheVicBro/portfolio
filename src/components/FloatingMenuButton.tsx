@@ -21,8 +21,10 @@ const FloatingMenuButton = memo(function FloatingMenuButton({
       <AnimatePresence>
         {shouldShow && (
           <motion.button
+            type="button"
             className={`rounded-full bg-gradient-to-r from-skyblue to-blue-400 text-white w-16 h-16 shadow-lg flex items-center justify-center ${className || ''}`}
             onClick={onClick}
+            aria-label="Open navigation menu"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}

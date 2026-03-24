@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import { motion } from 'framer-motion';
 import { ArrowRight } from "lucide-react";
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Rout3 = () => {
   return (
@@ -119,7 +120,14 @@ const Rout3 = () => {
               </motion.div>
             </div>
           </motion.div>
-          <img src="/rout3.gif" alt="Rout3" className="mt-12 mx-auto rounded-lg" />
+          <Image
+            src="/rout3.gif"
+            alt="Rout3 dashboard demonstration"
+            width={1920}
+            height={1080}
+            className="mt-12 mx-auto rounded-lg w-full max-w-5xl h-auto"
+            unoptimized
+          />
         </motion.div>
       </div>
     </div>
