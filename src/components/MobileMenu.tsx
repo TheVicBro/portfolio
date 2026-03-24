@@ -29,11 +29,11 @@ const MobileMenu = memo(function MobileMenu({ isOpen, onClose, portfolioRef, car
 
   const handleNavigation = (section: string) => {
     if (portfolioRef && careerRef && aboutRef && contactRef) {
-      if (section === "Portfolio") {
-        portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }
       if (section === "Career") {
         careerRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (section === "Portfolio") {
+        portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
       }
       if (section === "About") {
         aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -47,7 +47,7 @@ const MobileMenu = memo(function MobileMenu({ isOpen, onClose, portfolioRef, car
     onClose();
   };
 
-  const menuItems = ["Portfolio", "Career", "About", "Contact"];
+  const menuItems = ["Career", "Portfolio", "About", "Contact"];
 
   return (
     <AnimatePresence mode="wait">

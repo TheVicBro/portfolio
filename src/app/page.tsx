@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRef, useState, useEffect, ChangeEvent, FormEvent, useCallback } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView, useReducedMotion } from 'framer-motion';
 import { AnimatedText } from '../components/AnimatedText';
 import Navbar from '../components/Navbar';
 import { useSearchParams, useRouter } from 'next/navigation';  
@@ -40,7 +40,8 @@ function MainContent() {
   const careerItemRef3 = useRef(null);
   const careerItemRef4 = useRef(null);
   const careerItemRef5 = useRef(null);
-  
+  const careerItemRef6 = useRef(null);
+
   const portfolioRefView = useRef(null);
   const portfolioItemRef1 = useRef(null);
   const portfolioItemRef2 = useRef(null);
@@ -52,7 +53,8 @@ function MainContent() {
   const careerItemInView3 = useInView(careerItemRef3, { once: true, amount: 0.2 });
   const careerItemInView4 = useInView(careerItemRef4, { once: true, amount: 0.2 });
   const careerItemInView5 = useInView(careerItemRef5, { once: true, amount: 0.2 });
-  
+  const careerItemInView6 = useInView(careerItemRef6, { once: true, amount: 0.2 });
+
   const portfolioInView = useInView(portfolioRefView, { once: true, amount: 0.2 });
   const portfolioItemInView1 = useInView(portfolioItemRef1, { once: true, amount: 0.2 });
   const portfolioItemInView2 = useInView(portfolioItemRef2, { once: true, amount: 0.2 });
@@ -234,6 +236,7 @@ function MainContent() {
   };
 
   const [isHovered, setIsHovered] = useState(false);
+  const reducedMotionPreference = useReducedMotion();
 
   return (
     <main>
@@ -267,7 +270,7 @@ function MainContent() {
         closeButtonClassName="md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 hover:rotate-90 hover:scale-110 hover:text-white transition-all duration-500 ease-in-out shadow-xl"
       />
       <motion.div 
-        className="h-screen sticky top-0 flex flex-col justify-between pb-12 md:pb-0"
+        className="relative h-screen sticky top-0 flex flex-col justify-between pb-12 md:pb-0 bg-[#E6E6E6]"
         style={{ opacity, y, pointerEvents: isMainClickable ? 'auto' : 'none' }}
         initial={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeOut' }}
@@ -328,7 +331,7 @@ function MainContent() {
                     />
                     <motion.button
                       className="relative z-10 rounded-lg bg-white 5xl:text-3xl lg:text-2xl text-xl font-medium 5xl:py-6 lg:py-4 py-3 overflow-hidden whitespace-nowrap px-4 lg:px-6 w-full"
-                      onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                      onClick={() => careerRef.current?.scrollIntoView({ behavior: 'smooth' })}
                       whileHover="hover"
                       initial="initial"
                       whileTap={{ scale: 0.95 }}
@@ -351,7 +354,7 @@ function MainContent() {
                           initial: { color: "#000000" }
                         }}
                       >
-                        {isLg ? 'View Portfolio' : 'Portfolio'}
+                        {isLg ? 'View Career' : 'Career'}
                       </motion.p>
                     </motion.button>
                   </motion.div>
@@ -487,7 +490,390 @@ function MainContent() {
         </motion.div>
       </motion.div>
       
-      <div ref={portfolioRef} className="relative bg-lightblack z-20 rounded-3xl 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16 shadow-2xl">
+      <div ref={careerRef} className="relative z-20 mt-8 rounded-3xl bg-[#2F2F2F] 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16 shadow-2xl overflow-hidden">
+        <motion.div
+          ref={careerRefView}
+          className="text-center md:text-left 5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-36 mb-24 relative z-10 md:mt-10 mt-4"
+          initial={{ opacity: 0, y: -50 }}
+          animate={careerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <span className="gradient-bg bg-clip-text px-4 md:px-8 py-2 rounded-xl">CAREER</span>
+        </motion.div>
+        
+        <div className="relative z-10 max-w-[1800px] mx-auto">
+          <div className="absolute top-0 bottom-0 left-1/2 z-[1] w-1.5 bg-gradient-to-b from-skyblue/70 via-blue-400/70 to-blue-300/70 rounded-full -translate-x-1/2 hidden lg:block"></div>
+          <div className="space-y-24 md:space-y-48 lg:space-y-80 relative mb-8 md:mb-12 lg:mb-24">
+            {/* League — intern & part-time (combined) */}
+            <div className="relative z-[2] flex flex-col lg:flex-row items-center lg:items-center">
+              <div
+                className="pointer-events-none hidden lg:flex absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+                aria-hidden
+              >
+                <motion.div
+                  className="w-10 h-10 bg-skyblue rounded-full border-4 border-[#2F2F2F]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView6 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                />
+              </div>
+              <motion.div
+                className="w-full lg:w-[calc(50%-4rem)] order-2 lg:order-1 lg:text-left pl-0 lg:pl-32"
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView6 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl bg-white/5">
+                  <Image
+                    src="/league.webp"
+                    alt="League"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
+                </div>
+              </motion.div>
+              <motion.div
+                ref={careerItemRef6}
+                className="w-full lg:w-[calc(50%-4rem)] order-1 lg:order-2 pl-0 lg:pl-32 lg:mb-0 mb-12"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView6 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2025 – Apr 2026</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-2">League</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-1">Software Engineer Intern & Software Engineer (Part-time)</div>
+                <div className="text-white/60 text-base md:text-lg mb-6">Toronto, ON</div>
+                <div className="space-y-4 text-white/80 text-lg">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>
+                      Bootstrapped tenant app architecture by adapting core modules and refactoring an internal SDK for public upload workflows, implemented in Swift, Kotlin, and Go.
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>
+                      Shipped full-stack configurable settings with Contentful-driven routing on iOS and Android, plus group-gated UI with WebView and Go on GCP.
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-8">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Swift</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Kotlin</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Go</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Contentful</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">GCP</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">YAML</span>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Pelmorex */}
+            <div className="relative z-[2] flex flex-col lg:flex-row items-center lg:items-center">
+              <div
+                className="pointer-events-none hidden lg:flex absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+                aria-hidden
+              >
+                <motion.div
+                  className="w-10 h-10 bg-skyblue rounded-full border-4 border-[#2F2F2F]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView1 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                />
+              </div>
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-right mb-12 lg:mb-0"
+                ref={careerItemRef1}
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2024 - Apr 2025</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Pelmorex Corp</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Software Engineer Intern</div>
+                <div className="space-y-4 text-white/80 text-lg">
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Built real-time weather alert visualization system</div>
+                  </div>
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Reduced alert processing time to seconds</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-8 lg:justify-end">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Go</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">TypeScript</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Protobuf</span>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-left pl-0 lg:pl-32 relative"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/pelmorex.jpg"
+                    alt="Pelmorex"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
+                </div>
+              </motion.div>
+            </div>
+            
+            {/* Nobl Kids */}
+            <div className="relative z-[2] flex flex-col lg:flex-row items-center lg:items-center">
+              <div
+                className="pointer-events-none hidden lg:flex absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+                aria-hidden
+              >
+                <motion.div
+                  className="w-10 h-10 bg-skyblue rounded-full border-4 border-[#2F2F2F]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView2 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                />
+              </div>
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] order-2 lg:order-1 lg:text-left pl-0 lg:pl-32"
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/nobllogo.jpg"
+                    alt="Nobl Kids"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                ref={careerItemRef2}
+                className="w-full lg:w-[calc(50%-4rem)] order-1 lg:order-2 pl-0 lg:pl-32 lg:mb-0 mb-12"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2024 - Dec 2024</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Nobl Kids</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Software Engineer</div>
+                <div className="space-y-4 text-white/80 text-lg">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Improved user engagement by 40%</div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Built responsive B2B/B2C landing pages</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-8">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">React</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Framer Motion</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">UI/UX</span>
+                </div>
+              </motion.div>
+            </div>
+            
+            {/* Rout3 */}
+            <div className="relative z-[2] flex flex-col lg:flex-row items-center lg:items-center">
+              <div
+                className="pointer-events-none hidden lg:flex absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+                aria-hidden
+              >
+                <motion.div
+                  className="w-10 h-10 bg-skyblue rounded-full border-4 border-[#2F2F2F]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView3 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                />
+              </div>
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-right mb-12 lg:mb-0"
+                ref={careerItemRef3}
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">May 2024 - Aug 2024</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Rout3</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Founding Engineer</div>
+                <div className="space-y-4 text-white/80 text-lg">
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Secured $10K in startup funding</div>
+                  </div>
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Built LLM proxy dashboard</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-8 lg:justify-end">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Svelte</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">TypeScript</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Python</span>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-left pl-0 lg:pl-32 relative"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/rout3logo.jpg"
+                    alt="Rout3"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
+                </div>
+              </motion.div>
+            </div>
+            
+            {/* goeasy */}
+            <div className="relative z-[2] flex flex-col lg:flex-row items-center lg:items-center">
+              <div
+                className="pointer-events-none hidden lg:flex absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+                aria-hidden
+              >
+                <motion.div
+                  className="w-10 h-10 bg-skyblue rounded-full border-4 border-[#2F2F2F]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView4 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                />
+              </div>
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] order-2 lg:order-1 lg:text-left pl-0 lg:pl-32"
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView4 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/goeasylogo.jpg"
+                    alt="goeasy"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                ref={careerItemRef4}
+                className="w-full lg:w-[calc(50%-4rem)] order-1 lg:order-2 lg:text-left pl-0 lg:pl-32 mb-12 lg:mb-0"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView4 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Jan 2023 - Sep 2023</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">goeasy Ltd.</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Frontend Engineer Intern</div>
+                <div className="space-y-4 text-white/80 text-lg">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>Reduced bounce rates by 25%</div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
+                    <div>96% test success rate</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-8">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Next.js</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Contentful</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Apollo</span>
+                </div>
+              </motion.div>
+            </div>
+            
+            {/* Ontario Ministry of Health */}
+            <div className="relative z-[2] flex flex-col lg:flex-row items-center lg:items-center">
+              <div
+                className="pointer-events-none hidden lg:flex absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+                aria-hidden
+              >
+                <motion.div
+                  className="w-10 h-10 bg-skyblue rounded-full border-4 border-[#2F2F2F]"
+                  initial={{ scale: 0 }}
+                  animate={careerItemInView5 ? { scale: 1 } : { scale: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                />
+              </div>
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-right mb-12 lg:mb-0"
+                ref={careerItemRef5}
+                initial={{ opacity: 0, x: -50 }}
+                animate={careerItemInView5 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2021 - Sep 2022</div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Ontario Ministry of Health</div>
+                <div className="text-white/80 text-xl md:text-2xl mb-6">Cloud Engineer Intern</div>
+                <div className="space-y-4 text-white/80 text-lg">
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Saved 40+ hours monthly work</div>
+                  </div>
+                  <div className="flex lg:justify-end items-start space-x-3">
+                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
+                    <div className="lg:order-2">Reduced system downtime by 90%</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-8 lg:justify-end">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Power Apps</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Azure</span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">REST API</span>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                className="w-full lg:w-[calc(50%-4rem)] lg:text-left pl-0 lg:pl-32 relative"
+                initial={{ opacity: 0, x: 50 }}
+                animate={careerItemInView5 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/moh.jpg"
+                    alt="Ontario Ministry of Health"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0"></div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <motion.div
+        ref={portfolioRef}
+        className="relative z-20 -mt-10 rounded-b-3xl rounded-t-none bg-lightblack shadow-2xl 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16"
+        initial={
+          reducedMotionPreference ? { opacity: 1, y: 0 } : { opacity: 0.96, y: 20 }
+        }
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={
+          reducedMotionPreference ? { duration: 0 } : { duration: 0.5, ease: 'easeOut' }
+        }
+      >
         <motion.div
           ref={portfolioRefView}
           className="text-center md:text-left 5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-24 mb-16 md:mt-10 mt-4"
@@ -608,317 +994,8 @@ function MainContent() {
             </Link>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
-      <div ref={careerRef} className="relative bg-gradient-to-b from-[#2A2A2A] to-[#383838] z-20 rounded-b-3xl rounded-t-none 5xl:px-48 4xl:px-40 lg:px-24 px-8 lg:py-32 py-16 shadow-2xl overflow-hidden -mt-10">
-        {/* Animated background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-skyblue/20 blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-blue-300/20 blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
-          <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] rounded-full bg-white/5 blur-[80px] -translate-x-1/2 -translate-y-1/2"></div>
-        </div>
-
-        <motion.div
-          ref={careerRefView}
-          className="text-center md:text-left 5xl:text-10xl 4xl:text-9xl lg:text-8xl text-5xl font-bold text-white lg:mb-36 mb-24 relative z-10 md:mt-10 mt-4"
-          initial={{ opacity: 0, y: -50 }}
-          animate={careerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <span className="gradient-bg bg-clip-text px-4 md:px-8 py-2 rounded-xl">CAREER</span>
-        </motion.div>
-        
-        <div className="relative z-10 max-w-[1800px] mx-auto">
-          <div className="absolute top-0 bottom-0 left-1/2 w-1.5 bg-gradient-to-b from-skyblue/70 via-blue-400/70 to-blue-300/70 rounded-full transform -translate-x-1/2 hidden lg:block"></div>
-          <div className="space-y-24 md:space-y-48 lg:space-y-80 relative mb-8 md:mb-12 lg:mb-24">
-            {/* Pelmorex */}
-            <div className="flex flex-col lg:flex-row items-center lg:items-start">
-              <motion.div 
-                className="w-full lg:w-[calc(50%-4rem)] lg:text-right mb-12 lg:mb-0"
-                ref={careerItemRef1}
-                initial={{ opacity: 0, x: -50 }}
-                animate={careerItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2024 - Apr 2025</div>
-                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Pelmorex Corp</div>
-                <div className="text-white/80 text-xl md:text-2xl mb-6">Software Engineer Intern</div>
-                <div className="space-y-4 text-white/80 text-lg">
-                  <div className="flex lg:justify-end items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
-                    <div className="lg:order-2">Built real-time weather alert visualization system</div>
-                  </div>
-                  <div className="flex lg:justify-end items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
-                    <div className="lg:order-2">Reduced alert processing time to seconds</div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-3 mt-8 lg:justify-end">
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Go</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">TypeScript</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Protobuf</span>
-                </div>
-              </motion.div>
-              
-              {/* Timeline dot - desktop */}
-              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[95%] items-center justify-center">
-                <motion.div 
-                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
-                  initial={{ scale: 0 }}
-                  animate={careerItemInView1 ? { scale: 1 } : { scale: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 }}
-                ></motion.div>
-              </div>
-              
-              <motion.div 
-                className="w-full lg:w-[calc(50%-4rem)] lg:text-left pl-0 lg:pl-32 relative"
-                initial={{ opacity: 0, x: 50 }}
-                animate={careerItemInView1 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
-                  <Image
-                    src="/pelmorex.jpg"
-                    alt="Pelmorex"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0"></div>
-                </div>
-              </motion.div>
-            </div>
-            
-            {/* Nobl Kids */}
-            <div className="flex flex-col lg:flex-row items-center lg:items-start">
-              <motion.div 
-                className="w-full lg:w-[calc(50%-4rem)] order-2 lg:order-1 lg:text-left pl-0 lg:pl-32"
-                initial={{ opacity: 0, x: -50 }}
-                animate={careerItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
-                  <Image
-                    src="/nobllogo.jpg"
-                    alt="Nobl Kids"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0"></div>
-                </div>
-              </motion.div>
-              
-              {/* Timeline dot */}
-              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[72%] items-center justify-center">
-                <motion.div 
-                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
-                  initial={{ scale: 0 }}
-                  animate={careerItemInView2 ? { scale: 1 } : { scale: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 }}
-                ></motion.div>
-              </div>
-              
-              <motion.div 
-                ref={careerItemRef2}
-                className="w-full lg:w-[calc(50%-4rem)] order-1 lg:order-2 pl-0 lg:pl-32 lg:mb-0 mb-12"
-                initial={{ opacity: 0, x: 50 }}
-                animate={careerItemInView2 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2024 - Dec 2024</div>
-                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Nobl Kids</div>
-                <div className="text-white/80 text-xl md:text-2xl mb-6">Software Engineer</div>
-                <div className="space-y-4 text-white/80 text-lg">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>Improved user engagement by 40%</div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>Built responsive B2B/B2C landing pages</div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-3 mt-8">
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">React</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Framer Motion</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">UI/UX</span>
-                </div>
-              </motion.div>
-            </div>
-            
-            {/* Rout3 */}
-            <div className="flex flex-col lg:flex-row items-center lg:items-start">
-              <motion.div 
-                className="w-full lg:w-[calc(50%-4rem)] lg:text-right mb-12 lg:mb-0"
-                ref={careerItemRef3}
-                initial={{ opacity: 0, x: -50 }}
-                animate={careerItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">May 2024 - Aug 2024</div>
-                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Rout3</div>
-                <div className="text-white/80 text-xl md:text-2xl mb-6">Founding Engineer</div>
-                <div className="space-y-4 text-white/80 text-lg">
-                  <div className="flex lg:justify-end items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
-                    <div className="lg:order-2">Secured $10K in startup funding</div>
-                  </div>
-                  <div className="flex lg:justify-end items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
-                    <div className="lg:order-2">Built LLM proxy dashboard</div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-3 mt-8 lg:justify-end">
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Svelte</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">TypeScript</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Python</span>
-                </div>
-              </motion.div>
-              
-              {/* Timeline dot */}
-              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[50%] items-center justify-center">
-                <motion.div 
-                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
-                  initial={{ scale: 0 }}
-                  animate={careerItemInView3 ? { scale: 1 } : { scale: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 }}
-                ></motion.div>
-              </div>
-              
-              <motion.div 
-                className="w-full lg:w-[calc(50%-4rem)] lg:text-left pl-0 lg:pl-32 relative"
-                initial={{ opacity: 0, x: 50 }}
-                animate={careerItemInView3 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
-                  <Image
-                    src="/rout3logo.jpg"
-                    alt="Rout3"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0"></div>
-                </div>
-              </motion.div>
-            </div>
-            
-            {/* goeasy */}
-            <div className="flex flex-col lg:flex-row items-center lg:items-start">
-              <motion.div 
-                className="w-full lg:w-[calc(50%-4rem)] order-2 lg:order-1 lg:text-left pl-0 lg:pl-32"
-                initial={{ opacity: 0, x: -50 }}
-                animate={careerItemInView4 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
-                  <Image
-                    src="/goeasylogo.jpg"
-                    alt="goeasy"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0"></div>
-                </div>
-              </motion.div>
-              
-              {/* Timeline dot */}
-              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[28%] items-center justify-center">
-                <motion.div 
-                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
-                  initial={{ scale: 0 }}
-                  animate={careerItemInView4 ? { scale: 1 } : { scale: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 }}
-                ></motion.div>
-              </div>
-              
-              <motion.div 
-                ref={careerItemRef4}
-                className="w-full lg:w-[calc(50%-4rem)] order-1 lg:order-2 lg:text-left pl-0 lg:pl-32 mb-12 lg:mb-0"
-                initial={{ opacity: 0, x: 50 }}
-                animate={careerItemInView4 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Jan 2023 - Sep 2023</div>
-                <div className="text-white text-3xl md:text-4xl font-bold mb-4">goeasy Ltd.</div>
-                <div className="text-white/80 text-xl md:text-2xl mb-6">Frontend Engineer Intern</div>
-                <div className="space-y-4 text-white/80 text-lg">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>Reduced bounce rates by 25%</div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2"></div>
-                    <div>96% test success rate</div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-3 mt-8">
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Next.js</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Contentful</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Apollo</span>
-                </div>
-              </motion.div>
-            </div>
-            
-            {/* Ontario Ministry of Health */}
-            <div className="flex flex-col lg:flex-row items-center lg:items-start">
-              <motion.div 
-                className="w-full lg:w-[calc(50%-4rem)] lg:text-right mb-12 lg:mb-0"
-                ref={careerItemRef5}
-                initial={{ opacity: 0, x: -50 }}
-                animate={careerItemInView5 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="text-skyblue text-2xl md:text-3xl font-medium mb-4">Sep 2021 - Sep 2022</div>
-                <div className="text-white text-3xl md:text-4xl font-bold mb-4">Ontario Ministry of Health</div>
-                <div className="text-white/80 text-xl md:text-2xl mb-6">Cloud Engineer Intern</div>
-                <div className="space-y-4 text-white/80 text-lg">
-                  <div className="flex lg:justify-end items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
-                    <div className="lg:order-2">Saved 40+ hours monthly work</div>
-                  </div>
-                  <div className="flex lg:justify-end items-start space-x-3">
-                    <div className="w-2 h-2 bg-skyblue rounded-full flex-shrink-0 mt-2 lg:order-1"></div>
-                    <div className="lg:order-2">Reduced system downtime by 90%</div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-3 mt-8 lg:justify-end">
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Power Apps</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">Azure</span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-md font-medium">REST API</span>
-                </div>
-              </motion.div>
-              
-              {/* Timeline dot */}
-              <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 bottom-[5%] items-center justify-center">
-                <motion.div 
-                  className="w-10 h-10 bg-skyblue rounded-full z-10 border-4 border-[#2A2A2A]"
-                  initial={{ scale: 0 }}
-                  animate={careerItemInView5 ? { scale: 1 } : { scale: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 }}
-                ></motion.div>
-              </div>
-              
-              <motion.div 
-                className="w-full lg:w-[calc(50%-4rem)] lg:text-left pl-0 lg:pl-32 relative"
-                initial={{ opacity: 0, x: 50 }}
-                animate={careerItemInView5 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <div className="relative w-full h-40 sm:h-60 md:h-72 rounded-xl overflow-hidden shadow-xl">
-                  <Image
-                    src="/moh.jpg"
-                    alt="Ontario Ministry of Health"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0"></div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
       <div ref={aboutRef} className="flex lg:flex-row flex-col relative 5xl:px-48 4xl:px-40 lg:px-24 px-8 5xl:py-32 4xl:py-24 py-8 lg:h-screen h-auto bg-gradient-to-b from-[#E6E6E6] to-[#f0f0f0]">
         <div className="lg:w-1/3 w-full 4xl:my-12 relative lg:mb-0 mb-8 flex items-center">
           <motion.div
@@ -951,7 +1028,7 @@ function MainContent() {
           />
           <AnimatedText
             className="5xl:text-4xl 4xl:text-3xl lg:text-2xl text-xl text-center font-medium 5xl:leading-relaxed leading-normal mt-8"
-            text={["I'm a Computer Engineering student at York University with over two years of experience as a full-stack engineer. I completed a Software Engineer internship at Pelmorex, led projects like an LLM Proxy Dashboard at Rout3, and enhanced interfaces for 50,000+ users at goeasy. With expertise in Python, Go, TypeScript, and React, I'm passionate about creating scalable, impactful software solutions."]}
+            text={["I'm a Computer Engineering student at York University with experience across mobile and full-stack engineering. At League I've worked as a Software Engineer Intern and part-time Software Engineer on Swift, Kotlin, and Go tenant apps. I also completed a Software Engineer internship at Pelmorex, led projects like an LLM Proxy Dashboard at Rout3, and enhanced interfaces for 50,000+ users at goeasy. With expertise in Python, Go, TypeScript, and React, I'm passionate about creating scalable, impactful software solutions."]}
             staggerChildren={0.01}
             animateMode="word"
             once={true}

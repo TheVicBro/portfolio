@@ -48,11 +48,11 @@ export default function Navbar({
 
   const handleNavigation = (section: string) => {
     if (portfolioRef && careerRef && aboutRef && contactRef) {
-      if (section === "Portfolio") {
-        portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }
       if (section === "Career") {
         careerRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (section === "Portfolio") {
+        portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
       }
       if (section === "About") {
         aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -127,7 +127,7 @@ export default function Navbar({
           </motion.button>
         ) : (
           <div className="hidden lg:flex lg:flex-row flex-col lg:items-center 5xl:text-4xl text-2xl font-semibold 5xl:space-x-20 4xl:space-x-16 lg:space-x-12 space-x-0 space-y-0">
-            {["Portfolio", "Career", "About", "Contact"].map((item) => (
+            {["Career", "Portfolio", "About", "Contact"].map((item) => (
               <motion.div
                 key={item}
                 className="relative"
