@@ -8,12 +8,26 @@ type NavbarProps = {
   careerRef?: React.RefObject<HTMLDivElement>;
   aboutRef?: React.RefObject<HTMLDivElement>;
   contactRef?: React.RefObject<HTMLDivElement>;
+  /** When set, hamburger uses this state and Navbar does not mount its own MobileMenu (parent owns one instance). */
+  syncedMobileMenu?: {
+    isOpen: boolean;
+    onOpen: () => void;
+    onClose: () => void;
+  };
 };
 
-export default function Navbar({ portfolioRef, careerRef, aboutRef, contactRef }: NavbarProps) {
+export default function Navbar({
+  portfolioRef,
+  careerRef,
+  aboutRef,
+  contactRef,
+  syncedMobileMenu,
+}: NavbarProps) {
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  const menuOpen = syncedMobileMenu?.isOpen ?? isMobileMenuOpen;
 
   useEffect(() => {
     const checkMobile = () => {
@@ -34,11 +48,11 @@ export default function Navbar({ portfolioRef, careerRef, aboutRef, contactRef }
 
   const handleNavigation = (section: string) => {
     if (portfolioRef && careerRef && aboutRef && contactRef) {
-      if (section === "Portfolio") {
-        portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }
       if (section === "Career") {
         careerRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (section === "Portfolio") {
+        portfolioRef.current?.scrollIntoView({ behavior: 'smooth' });
       }
       if (section === "About") {
         aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -60,7 +74,12 @@ export default function Navbar({ portfolioRef, careerRef, aboutRef, contactRef }
   };
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (syncedMobileMenu) {
+      if (syncedMobileMenu.isOpen) syncedMobileMenu.onClose();
+      else syncedMobileMenu.onOpen();
+    } else {
+      setIsMobileMenuOpen((open) => !open);
+    }
   };
 
   return (
@@ -82,10 +101,13 @@ export default function Navbar({ portfolioRef, careerRef, aboutRef, contactRef }
         
         {isMobile ? (
           <motion.button
+            type="button"
             className="lg:hidden flex items-center justify-center"
             onClick={toggleMobileMenu}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -104,8 +126,8 @@ export default function Navbar({ portfolioRef, careerRef, aboutRef, contactRef }
             </svg>
           </motion.button>
         ) : (
-          <div className="hidden lg:flex lg:flex-row flex-col lg:items-row 5xl:text-4xl text-2xl font-semibold 5xl:space-x-20 4xl:space-x-16 lg:space-x-12 space-x-0 space-y-0">
-            {["Portfolio", "Career", "About", "Contact"].map((item) => (
+          <div className="hidden lg:flex lg:flex-row flex-col lg:items-center 5xl:text-4xl text-2xl font-semibold 5xl:space-x-20 4xl:space-x-16 lg:space-x-12 space-x-0 space-y-0">
+            {["Career", "Portfolio", "About", "Contact"].map((item) => (
               <motion.div
                 key={item}
                 className="relative"
@@ -115,6 +137,7 @@ export default function Navbar({ portfolioRef, careerRef, aboutRef, contactRef }
                 whileTap={{ scale: 0.85 }}
               >
                 <button
+                  type="button"
                   className="relative z-10"
                   onClick={() => handleNavigation(item)}
                 >
@@ -134,15 +157,17 @@ export default function Navbar({ portfolioRef, careerRef, aboutRef, contactRef }
         )}
       </motion.div>
 
-      <MobileMenu 
-        isOpen={isMobileMenuOpen} 
-        onClose={() => setIsMobileMenuOpen(false)} 
-        portfolioRef={portfolioRef}
-        careerRef={careerRef}
-        aboutRef={aboutRef}
-        contactRef={contactRef}
-        router={router}
-      />
+      {!syncedMobileMenu && (
+        <MobileMenu
+          isOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+          portfolioRef={portfolioRef}
+          careerRef={careerRef}
+          aboutRef={aboutRef}
+          contactRef={contactRef}
+          router={router}
+        />
+      )}
     </>
   );
 }
